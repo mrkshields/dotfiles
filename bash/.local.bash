@@ -173,24 +173,6 @@ function all_zones() {
   printf -- ' -D %s' $(cat zones)
 }
 
-function svn_branch_diff() {
-  if [[ -n "{$1}" ]]; then
-    local file="${1}"
-    shift
-    local head="$PWD/${file}"
-    local testing="${PWD/twitter-ops/twitter-ops/branches/puppet-testing}/${file}"
-    local production="${PWD/twitter-ops/twitter-ops/branches/puppet-production}/${file}"
-    diff -u "${head}" "${testing}" $@
-    if [[ $? -ne 0 ]]; then
-      svn info "${testing}"  | ggrep -oP 'Author: \S+|Date: \S+'
-    fi
-    diff -u "${head}" "${production}" $@
-    if [[ $? -ne 0 ]]; then
-      svn info "${production}"  | ggrep -oP 'Author: \S+|Date: \S+'
-    fi
-  fi
-}
-
 function = () {
   /opt/twitter/bin/most "$*"
 }
@@ -212,3 +194,5 @@ function vim-plugin() {
     git clone "${1}" ~/.vim/bundle/"${1##*/}"
   fi
 }
+
+source .workrc
