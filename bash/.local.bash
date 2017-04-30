@@ -31,10 +31,8 @@ alias s='ssh'
 alias dotc="git --git-dir=${HOME}/.myconf --work-tree=${HOME}"
 
 # Environment variables
-export HOMEBREW_GITHUB_API_TOKEN='028fe2e8131cdcf57b69f242e00937927e0c9cba'
+source .homebrewrc
 export EDITOR='vim'
-export SRC='monitoring-configs/ciss'
-export TESTS='monitoring-configs/ciss/test'
 
 
 ssh-add -l > /dev/null 2>&1 || ssh-add -K
@@ -83,12 +81,6 @@ function set_tests() {
   fi
 
   source "${branch_file}"
-}
-
-function clooney() {
-  host="${1}"
-  shift
-  /opt/twitter_mde/bin/clooney -H "${host}" $@
 }
 
 function get_coverage() {

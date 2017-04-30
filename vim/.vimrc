@@ -20,6 +20,7 @@ set visualbell                  "No sounds
 set autoread                    "Reload files changed outside vim
 set ruler
 set laststatus=2
+set nobackup
 
 " This makes vim act like all other editors, buffers can
 " exist in the background without being in a window.
