@@ -190,4 +190,4 @@ function vim-plugin() {
   fi
 }
 
-source .workrc
+test -f "${HOME}"/.workrc && source "${HOME}"/.workrc
