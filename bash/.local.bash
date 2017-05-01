@@ -4,7 +4,7 @@ export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_72.jdk/Contents/Home
 export PATH=${PATH}:${JAVA_HOME}
 export FIGNORE='*.pyc'
 export PYTHONDONTWRITEBYTECODE=very_yes
-export PYTHONPATH=${PATH}:/Users/mshields/workspace/source/science/src/python/twitter/
+export PYTHONPATH=${PATH}:/Users/mshields/workspace/source/src/python/twitter/
 
 if [ -f $(brew --prefix)/etc/bash_completion ]; then
   . $(brew --prefix)/etc/bash_completion
