@@ -20,7 +20,6 @@ set visualbell                  "No sounds
 set autoread                    "Reload files changed outside vim
 set ruler
 set laststatus=2
-set nobackup
 
 " This makes vim act like all other editors, buffers can
 " exist in the background without being in a window.
@@ -39,9 +38,10 @@ let mapleader=","
 " =============== Vundle Initialization ===============
 " This loads all the plugins specified in ~/.vim/vundle.vim
 " Use Vundle plugin to manage all other plugins
-if filereadable(expand("~/.vim/vundles.vim"))
-  source ~/.vim/vundles.vim
-endif
+set nocompatible
+filetype off
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
 
 " ================ Turn Off Swap Files ==============
 
@@ -125,13 +125,11 @@ map <leader>d :w<cr>:!git diff %<cr>
 map <leader>m :w<cr>:!git diff master... %<cr>
 
 "autocmd BufRead,BufNewFile BUILD set filetype=python
-autocmd BufWritePost *.py call Flake8()
+"autocmd BufWritePost *.py call Flake8()
 
 ":au BufWinEnter * let w:m1=matchadd('Search', '\%<81v.\%>77v', -1)
 ":au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
 
-
-execute pathogen#infect()
 
 """ NERDTree and Explorer potential source of slowness - 09/30/16, 1:30 pm
 "" NERDTree
@@ -198,3 +196,17 @@ let vim_markdown_preview_toggle=2
 autocmd VimEnter * @b:last_tmux_window_name = system("tmux list-windows -a | ggrep -oP '(\S+)(?=\*)'")
 autocmd BufReadPost,FileReadPost,BufNewFile * call system("tmux rename-window " . expand("%"))
 autocmd VimLeave * call system("tmux rename-window " . expand("%last_tmux_window_name"))
+
+autocmd FileType python map <buffer> <F3> :call Autoflake()<CR>
+
+Plugin 'w0rp/ale'
+Plugin 'davidhalter/jedi-vim'
+Plugin 'grahamking/lintswitch'
+Plugin 'tell-k/vim-autoflake'
+Plugin 'tell-k/vim-autopep8'
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'FooSoft/vim-argwrap'
+Plugin 'kevints/vim-aurora-syntax'
+Plugin 'airblade/vim-gitgutter'
+Plugin 'pantsbuild/vim-pants'
+Plugin 'Vimjas/vim-python-pep8-indent'
