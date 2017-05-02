@@ -14,12 +14,12 @@ test -f ~/.git-completion.bash && . $_
 test -f ~/.pants-completion.bash && . $_
 
 #test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
-. /Users/mshields/Library/Python/2.7/lib/python/site-packages/powerline/bindings/bash/powerline.sh
-source "`brew --prefix`/etc/grc.bashrc"
+. "${HOME}"/Library/Python/2.7/lib/python/site-packages/powerline/bindings/bash/powerline.sh
+test -f "$(brew --prefix)/etc/grc.bashrc" && source "`brew --prefix`/etc/grc.bashrc"
 
 
 # Fix tmux/powerline
-/Users/mshields/Library/Python/2.7/bin/powerline-config tmux setup
+"${HOME}"/Library/Python/2.7/bin/powerline-config tmux setup
 
 # Aliases
 
