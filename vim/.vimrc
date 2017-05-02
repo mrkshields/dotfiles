@@ -1,6 +1,25 @@
-" Use Vim settings, rather then Vi settings (much better!).
-" This must be first, because it changes other options as a side effect.
+" =============== Vundle Initialization ===============
+" This loads all the plugins specified in ~/.vim/vundle.vim
+" Use Vundle plugin to manage all other plugins
 set nocompatible
+filetype off
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+
+Plugin 'w0rp/ale'
+Plugin 'davidhalter/jedi-vim'
+Plugin 'grahamking/lintswitch'
+Plugin 'tell-k/vim-autoflake'
+Plugin 'tell-k/vim-autopep8'
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'FooSoft/vim-argwrap'
+Plugin 'kevints/vim-aurora-syntax'
+Plugin 'airblade/vim-gitgutter'
+Plugin 'pantsbuild/vim-pants'
+Plugin 'Vimjas/vim-python-pep8-indent'
+
+call vundle#end()
+filetype plugin indent on
 
 " TODO: this may not be in the correct place. It is intended to allow overriding <Leader>.
 " source ~/.vimrc.before if it exists.
@@ -34,14 +53,6 @@ syntax on
 " The mapleader has to be set before vundle starts loading all 
 " the plugins.
 let mapleader=","
-
-" =============== Vundle Initialization ===============
-" This loads all the plugins specified in ~/.vim/vundle.vim
-" Use Vundle plugin to manage all other plugins
-set nocompatible
-filetype off
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
 
 " ================ Turn Off Swap Files ==============
 
@@ -198,15 +209,3 @@ autocmd BufReadPost,FileReadPost,BufNewFile * call system("tmux rename-window " 
 autocmd VimLeave * call system("tmux rename-window " . expand("%last_tmux_window_name"))
 
 autocmd FileType python map <buffer> <F3> :call Autoflake()<CR>
-
-Plugin 'w0rp/ale'
-Plugin 'davidhalter/jedi-vim'
-Plugin 'grahamking/lintswitch'
-Plugin 'tell-k/vim-autoflake'
-Plugin 'tell-k/vim-autopep8'
-Plugin 'altercation/vim-colors-solarized'
-Plugin 'FooSoft/vim-argwrap'
-Plugin 'kevints/vim-aurora-syntax'
-Plugin 'airblade/vim-gitgutter'
-Plugin 'pantsbuild/vim-pants'
-Plugin 'Vimjas/vim-python-pep8-indent'
