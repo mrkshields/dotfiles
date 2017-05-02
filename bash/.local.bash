@@ -4,7 +4,7 @@ export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_72.jdk/Contents/Home
 export PATH=${PATH}:${JAVA_HOME}
 export FIGNORE='*.pyc'
 export PYTHONDONTWRITEBYTECODE=very_yes
-export PYTHONPATH=${PATH}:/Users/mshields/workspace/source/science/src/python/twitter/
+export PYTHONPATH=${PATH}:/Users/mshields/workspace/source/src/python/twitter/
 
 if [ -f $(brew --prefix)/etc/bash_completion ]; then
   . $(brew --prefix)/etc/bash_completion
@@ -31,57 +31,52 @@ alias s='ssh'
 alias dotc="git --git-dir=${HOME}/.myconf --work-tree=${HOME}"
 
 # Environment variables
-source .homebrewrc
+test -f "${HOME}"/.homebrewrc && source "${HOME}"/.homebrewrc
 export EDITOR='vim'
 
 
 ssh-add -l > /dev/null 2>&1 || ssh-add -K
 
 function get_src() {
-  local branch="$(git rev-parse --abbrev-ref HEAD | tr '/-' '_')"
-  env | grep "^SRC_${branch}=)"
+  env | grep "^SRC="
 }
 
 function get_tests() {
-  local branch="$(git rev-parse --abbrev-ref HEAD | tr '/-' '_')"
-  env | grep "^TESTS_${branch}=)"
+  env | grep "^TESTS="
 }
 
-find ~/.config/src -type f | while read -r file; do source "${file}"; done
-find ~/.config/tests -type f | while read -r file; do source "${file}"; done
-
-# functions
-
 function set_src() {
-  local branch="$(git rev-parse --abbrev-ref HEAD | tr '/-' '_')"
-  local branch_file="$(echo ${HOME}/.config/src/${branch} | tr '/-' '_')"
-  mkdir -p "${branch_file%/*}"
+  src_file="${HOME}/.config/source/src"
+  mkdir -p "${src_file%/*}"
 
   if [[ -n "${1}" ]]; then
-    printf "SRC_${branch}=${1}" > "${branch_file}"
+    printf "export SRC=${1}" > "${src_file}"
   else
-    printf "SRC_${branch}=${PWD##*/source/}" > "${branch_file}"
+    printf "export SRC=${PWD##*/source/}" > "${src_file}"
   fi
 
-  source "${branch_file}"
+  source "${src_file}"
+  get_src
 }
 
 function set_tests() {
-  local branch="$(git rev-parse --abbrev-ref HEAD | tr '/-' '_')"
-  local branch_file="$(echo ${branch} | tr '/-' '_')"
-  base_tests_dir="${HOME}/.config/tests"
-  mkdir -p "${branch_file%/*}"
+  local tests_file="${HOME}/.config/source/tests"
+  mkdir -p "${tests_file%/*}"
 
   if [[ -n "${1}" ]]; then
-    printf "TESTS_${branch}=${1}" > "${branch_file}"
+    printf "export TESTS=${1}" > "${file}"
   else
     local tests_dir="${PWD##*/source/}"
     tests_dir="${tests_dir/src/tests}"
-    printf "TESTS_${branch}=${tests_dir}" > "${branch_file}"
+    printf "export TESTS=${tests_dir}" > "${file}"
   fi
 
-  source "${branch_file}"
+  source "${tests_file}"
+  get_tests
 }
+
+get_src
+get_tests
 
 function get_coverage() {
   [[ -n "${COVERAGE}" && "${COVERAGE}" -eq 1 ]] && printf -- '--coverage=1'
@@ -146,7 +141,7 @@ function jeans() {
 
 function work() {
   if [[ -n "${1}" && "${1}" == 'source' ]]; then
-    cd "${HOME}/workspace/${1}"
+    cd "${HOME}"/workspace/source/"${SRC}"
   else
     cd "${HOME}"/workspace/"${1}"
   fi
@@ -195,4 +190,4 @@ function vim-plugin() {
   fi
 }
 
-source .workrc
+test -f "${HOME}"/.workrc && source "${HOME}"/.workrc
