@@ -37,6 +37,10 @@ export EDITOR='vim'
 
 ssh-add -l > /dev/null 2>&1 || ssh-add -K
 
+for file in "${HOME}"/.config/source/{src,tests}; do
+  test -f "${file}" && source "${file}"
+done
+
 function get_src() {
   env | grep "^SRC="
 }
