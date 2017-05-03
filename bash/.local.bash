@@ -50,9 +50,9 @@ function set_src() {
   mkdir -p "${src_file%/*}"
 
   if [[ -n "${1}" ]]; then
-    printf "export SRC=${1}" > "${src_file}"
+    printf "export SRC=${1}\n" > "${src_file}"
   else
-    printf "export SRC=${PWD##*/source/}" > "${src_file}"
+    printf "export SRC=${PWD##*/source/}\n" > "${src_file}"
   fi
 
   source "${src_file}"
@@ -64,11 +64,11 @@ function set_tests() {
   mkdir -p "${tests_file%/*}"
 
   if [[ -n "${1}" ]]; then
-    printf "export TESTS=${1}" > "${file}"
+    printf "export TESTS=${1}\n" > "${file}"
   else
     local tests_dir="${PWD##*/source/}"
     tests_dir="${tests_dir/src/tests}"
-    printf "export TESTS=${tests_dir}" > "${file}"
+    printf "export TESTS=${tests_dir}\n" > "${file}"
   fi
 
   source "${tests_file}"
