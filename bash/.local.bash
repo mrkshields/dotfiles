@@ -1,10 +1,10 @@
-export PATH=${PATH}:/Users/mshields/Library/Python/2.7/bin:/Users/mshields/bin
+export PATH=${PATH}:/Users/mshields/Library/Python/2.7/bin:/Users/mshields/bin:${HOME}/.local/bin
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_72.jdk/Contents/Home
 export PATH=${PATH}:${JAVA_HOME}
 export FIGNORE='*.pyc'
 export PYTHONDONTWRITEBYTECODE=very_yes
-export PYTHONPATH=${PATH}:/Users/mshields/workspace/source/src/python/twitter/
+export PYTHONPATH=${PATH}:/Users/mshields/workspace/source/src/python/twitter/:${HOME}/.local/bin
 
 if [[ -n "$(which brew)" ]]; then
   if [ -f $(brew --prefix)/etc/bash_completion ]; then
@@ -19,7 +19,7 @@ test -f ~/.pants-completion.bash && . $_
 #test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
 powerline_files=(
   "${HOME}/Library/Python/2.7/lib/python/site-packages/powerline/bindings/bash/powerline.sh"
-  "${HOME}.local/lib/python2.7/lib/python/site-packages/powerline/bindings/bash/powerline.sh"
+  "${HOME}/.local/lib/python2.7/site-packages/powerline/bindings/bash/powerline.sh"
 )
 for file in "${powerline_files[@]}"; do
   test -f "${file}" && source "${file}" && break
