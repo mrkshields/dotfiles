@@ -6,20 +6,30 @@ export FIGNORE='*.pyc'
 export PYTHONDONTWRITEBYTECODE=very_yes
 export PYTHONPATH=${PATH}:/Users/mshields/workspace/source/src/python/twitter/
 
-if [ -f $(brew --prefix)/etc/bash_completion ]; then
-  . $(brew --prefix)/etc/bash_completion
+if [[ -n "$(which brew)" ]]; then
+  if [ -f $(brew --prefix)/etc/bash_completion ]; then
+    . $(brew --prefix)/etc/bash_completion
+  fi
+  source "`brew --prefix`/etc/grc.bashrc"
 fi
 
 test -f ~/.git-completion.bash && . $_
 test -f ~/.pants-completion.bash && . $_
 
 #test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
-. "${HOME}"/Library/Python/2.7/lib/python/site-packages/powerline/bindings/bash/powerline.sh
-test -f "$(brew --prefix)/etc/grc.bashrc" && source "`brew --prefix`/etc/grc.bashrc"
-
+powerline_files=(
+  "${HOME}/Library/Python/2.7/lib/python/site-packages/powerline/bindings/bash/powerline.sh"
+  "${HOME}.local/lib/python2.7/lib/python/site-packages/powerline/bindings/bash/powerline.sh"
+)
+for file in "${powerline_files[@]}"; do
+  test -f "${file}" && source "${file}" && break
+done
 
 # Fix tmux/powerline
-"${HOME}"/Library/Python/2.7/bin/powerline-config tmux setup
+powerline_config_bins=( "${HOME}/.local/bin/powerline-config" "${HOME}//Library/Python/2.7/bin/powerline-config")
+for powerline_config in "${powerline_config_bins[@]}"; do
+  test -x "$(which tmux)" && test -x "${powerline_config}" && "${powerline_config}" tmux setup && break
+done
 
 # Aliases
 
@@ -35,7 +45,9 @@ test -f "${HOME}"/.homebrewrc && source "${HOME}"/.homebrewrc
 export EDITOR='vim'
 
 
-ssh-add -l > /dev/null 2>&1 || ssh-add -K
+if pgrep ssh-agent > /dev/null 2>&1; then
+  ssh-add -l > /dev/null 2>&1 || ssh-add -K
+fi
 
 function get_src() {
   env | grep "^SRC="
