@@ -68,11 +68,11 @@ function set_tests() {
   mkdir -p "${tests_file%/*}"
 
   if [[ -n "${1}" ]]; then
-    printf "export TESTS=${1}\n" > "${file}"
+    printf "export TESTS=${1}\n" > "${tests_file}"
   else
     local tests_dir="${PWD##*/source/}"
     tests_dir="${tests_dir/src/tests}"
-    printf "export TESTS=${tests_dir}\n" > "${file}"
+    printf "export TESTS=${tests_dir}\n" > "${tests_file}"
   fi
 
   source "${tests_file}"
