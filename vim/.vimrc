@@ -4,19 +4,46 @@
 set nocompatible
 filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
+
+" Change leader to a comma because the backslash is too far away
+" That means all \x commands turn into ,x
+" The mapleader has to be set before vundle starts loading all
+" the plugins.
+let mapleader=","
+
 call vundle#begin()
 
-Plugin 'w0rp/ale'
+Plugin 'FooSoft/vim-argwrap'
+Plugin 'Vimjas/vim-python-pep8-indent'
+Plugin 'airblade/vim-gitgutter'
+Plugin 'altercation/vim-colors-solarized'
+Plugin 'benmills/vimux'
+Plugin 'breard-r/vim-dnsserial'
+Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'davidhalter/jedi-vim'
+Plugin 'godlygeek/tabular'
 Plugin 'grahamking/lintswitch'
+Plugin 'kevints/vim-aurora-syntax'
+Plugin 'mbbill/undotree'
+Plugin 'nathanaelkane/vim-indent-guides'
+Plugin 'ntpeters/vim-better-whitespace'
+Plugin 'pantsbuild/vim-pants'
+Plugin 'plasticboy/vim-markdown'
+Plugin 'python-mode/python-mode'
+Plugin 'rodjek/vim-puppet'
 Plugin 'tell-k/vim-autoflake'
 Plugin 'tell-k/vim-autopep8'
-Plugin 'altercation/vim-colors-solarized'
-Plugin 'FooSoft/vim-argwrap'
-Plugin 'kevints/vim-aurora-syntax'
-Plugin 'airblade/vim-gitgutter'
-Plugin 'pantsbuild/vim-pants'
-Plugin 'Vimjas/vim-python-pep8-indent'
+Plugin 'thaerkh/vim-workspace'
+Plugin 'tpope/vim-abolish'
+Plugin 'tpope/vim-capslock'
+Plugin 'tpope/vim-commentary'
+Plugin 'tpope/vim-dispatch'
+Plugin 'tpope/vim-eunuch'
+Plugin 'tpope/vim-rhubarb'
+Plugin 'tpope/vim-speeddating'
+Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-tbone'
+Plugin 'w0rp/ale'
 
 call vundle#end()
 filetype plugin indent on
@@ -48,11 +75,6 @@ set hidden
 "turn on syntax highlighting
 syntax on
 
-" Change leader to a comma because the backslash is too far away
-" That means all \x commands turn into ,x
-" The mapleader has to be set before vundle starts loading all 
-" the plugins.
-let mapleader=","
 
 " ================ Turn Off Swap Files ==============
 
@@ -163,18 +185,10 @@ autocmd BufNewFile,BufRead *.workflow set filetype=json
 
 autocmd BufNewFile,BufRead **/squid**/*.conf* set filetype=squid
 
-set statusline+=%#warningmsg#
+"set statusline+=%#warningmsg#
 "set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+"set statusline+=%*
 
-"let g:syntastic_always_populate_loc_list = 1
-"let g:syntastic_auto_loc_list = 0
-"let g:syntastic_check_on_open = 1
-"let g:syntastic_check_on_wq = 1
-"let g:syntastic_loc_list_height = 5
-"let g:syntastic_perl_lib_path = [ '/Users/mshields/perl5/lib/perl5' ]
-"let g:syntastic_yaml_checkers = [ 'yamlxs' ]
-"let g:syntastic_ignore_files = ['AURORA', 'BUILD', '*.aurora']
 let g:gitgutter_realtime = 0
 let g:gitgutter_eager = 0
 
@@ -182,6 +196,8 @@ let g:gitgutter_eager = 0
 """ Slows VIM to a crawl :( - 09/30/16, 1:37 pm ET
 """ Confirms still slow after VIM 8.x upgrade, when editin Python - 12/27/16, 3:51 PM
 set rtp+=/Users/mshields/Library/Python/2.7/lib/python/site-packages/powerline/bindings/vim
+set rtp+=/Users/mark/Library/Python/2.7/lib/python/site-packages/powerline/bindings/vim
+
 python from powerline.vim import setup as powerline_setup
 python powerline_setup
 python del powerline_setup
@@ -209,3 +225,5 @@ autocmd BufReadPost,FileReadPost,BufNewFile * call system("tmux rename-window " 
 autocmd VimLeave * call system("tmux rename-window " . expand("%last_tmux_window_name"))
 
 autocmd FileType python map <buffer> <F3> :call Autoflake()<CR>
+
+let g:pymode_lint_config = '$HOME/.pylintrc'
