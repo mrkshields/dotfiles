@@ -1,12 +1,13 @@
 set nocompatible
 filetype off
+scriptencoding utf-8
 set rtp+=~/.vim/bundle/Vundle.vim
 
 " Change leader to a comma because the backslash is too far away
 " That means all \x commands turn into ,x
 " The mapleader has to be set before vundle starts loading all
 " the plugins.
-let mapleader=","
+let g:mapleader=","
 
 call vundle#begin()
 
@@ -156,7 +157,7 @@ set t_Co=256
 
 let g:pymode_lint_checkers = ['mccabe', 'pyflakes', 'pylint', 'pep8', 'pep257']
 
-let vim_markdown_preview_toggle=2
+let g:vim_markdown_preview_toggle=2
 
 autocmd VimEnter * @b:last_tmux_window_name = system("tmux list-windows -a | ggrep -oP '(\S+)(?=\*)'")
 autocmd BufReadPost,FileReadPost,BufNewFile * call system("tmux rename-window " . expand("%"))
