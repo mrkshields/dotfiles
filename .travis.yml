@@ -1,0 +1,3 @@
+---
+install: npm install vimlint --save
+script: vimlint vim/.vimrc
