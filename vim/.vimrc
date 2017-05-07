@@ -182,6 +182,7 @@ let g:gitgutter_eager = 0
 """ Slows VIM to a crawl :( - 09/30/16, 1:37 pm ET
 """ Confirms still slow after VIM 8.x upgrade, when editin Python - 12/27/16, 3:51 PM
 set rtp+=/Users/mshields/Library/Python/2.7/lib/python/site-packages/powerline/bindings/vim
+set rtp+=/home/mark/.local/lib/python2.7/site-packages/powerline/bindings/vim
 python from powerline.vim import setup as powerline_setup
 python powerline_setup
 python del powerline_setup
