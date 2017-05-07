@@ -162,5 +162,7 @@ autocmd BufReadPost,FileReadPost,BufNewFile * call system("tmux rename-window " 
 autocmd VimLeave * call system("tmux rename-window " . expand("%last_tmux_window_name"))
 
 autocmd FileType python map <buffer> <F3> :call Autoflake()<CR>
+autocmd FileType python set colorcolumn=100
+hi ColorColumn ctermbg=8
 
 let g:pymode_lint_config = '$HOME/.pylintrc'
