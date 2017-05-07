@@ -12,6 +12,7 @@ call vundle#begin()
 
 Plugin 'FooSoft/vim-argwrap'
 Plugin 'Vimjas/vim-python-pep8-indent'
+Plugin 'Yggdroot/indentLine'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'benmills/vimux'
@@ -22,7 +23,6 @@ Plugin 'godlygeek/tabular'
 Plugin 'grahamking/lintswitch'
 Plugin 'kevints/vim-aurora-syntax'
 Plugin 'mbbill/undotree'
-Plugin 'nathanaelkane/vim-indent-guides'
 Plugin 'ntpeters/vim-better-whitespace'
 Plugin 'pantsbuild/vim-pants'
 Plugin 'plasticboy/vim-markdown'
@@ -31,6 +31,7 @@ Plugin 'rodjek/vim-puppet'
 Plugin 'tell-k/vim-autoflake'
 Plugin 'tell-k/vim-autopep8'
 Plugin 'thaerkh/vim-workspace'
+Plugin 'tmhedberg/simpylfold'
 Plugin 'tpope/vim-abolish'
 Plugin 'tpope/vim-capslock'
 Plugin 'tpope/vim-commentary'
@@ -146,7 +147,7 @@ autocmd BufNewFile,BufRead **/squid**/*.conf* set filetype=squid
 let g:gitgutter_realtime = 0
 let g:gitgutter_eager = 0
 
-set rtp+='$HOME/Library/Python/2.7/lib/python/site-packages/powerline/bindings/vim'
+set rtp+=$HOME/Library/Python/2.7/lib/python/site-packages/powerline/bindings/vim
 
 python from powerline.vim import setup as powerline_setup
 python powerline_setup
@@ -165,4 +166,6 @@ autocmd FileType python map <buffer> <F3> :call Autoflake()<CR>
 autocmd FileType python set colorcolumn=100
 hi ColorColumn ctermbg=8
 
-let g:pymode_lint_config = '$HOME/.pylintrc'
+let g:pymode_lint_config = "$HOME/.pylintrc"
+
+set background=dark
