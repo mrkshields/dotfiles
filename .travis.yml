@@ -1,3 +1,3 @@
 ---
 install: npm install vimlint --save
-script: vimlint vim/.vimrc
+script: node_modules/vimlint/bin/vimlint vim/.vimrc
