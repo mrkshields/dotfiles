@@ -7,4 +7,8 @@ let g:netrw_dirhist_4='/Users/mshields/workspace/source/ntp_metrics/per_role_met
 let g:netrw_dirhist_5='/Users/mshields/workspace/source/monitoring-configs/ciss/shared'
 let g:netrw_dirhist_6='/Users/mshields/.local.bash.d'
 let g:netrw_dirhist_7='/Users/mark/workspace/source/3rdparty/python'
+<<<<<<< HEAD
 let g:netrw_dirhist_8='/Users/mshields/workspace/source/3rdparty/python'
+=======
+let g:netrw_dirhist_8='/Users/mark/.dotfiles/vim/.vim'
+>>>>>>> 5cebf4201c487b103807629c636b8645bec28374
