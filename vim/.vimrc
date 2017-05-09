@@ -42,6 +42,7 @@ Plugin 'tpope/vim-rhubarb'
 Plugin 'tpope/vim-speeddating'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-tbone'
+Plugin 'vim-scripts/let-modeline.vim'
 Plugin 'w0rp/ale'
 
 call vundle#end()
