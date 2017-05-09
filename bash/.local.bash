@@ -1,10 +1,17 @@
-export PATH=${PATH}:/Users/mshields/Library/Python/2.7/bin:/Users/mshields/bin:${HOME}/.local/bin
+#!/usr/bin/env bash
+set -euo pipefail
+
+# Environment variables
+export EDITOR='vim'
+export PATH=${PATH}:${HOME}/Library/Python/2.7/bin:{HOME}/bin:${HOME}/.local/bin
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_72.jdk/Contents/Home
 export PATH=${PATH}:${JAVA_HOME}
 export FIGNORE='*.pyc'
 export PYTHONDONTWRITEBYTECODE=very_yes
-export PYTHONPATH=${PATH}:/Users/mshields/workspace/source/src/python/twitter/:${HOME}/.local/bin
+export PYTHONPATH=${PATH:${HOME}/workspace/source/src/python/twitter/:${HOME}/.local/bin
+
+set +u
 
 if [[ -n "$(which brew)" ]]; then
   if [ -f $(brew --prefix)/etc/bash_completion ]; then
@@ -16,7 +23,6 @@ fi
 test -f ~/.git-completion.bash && . $_
 test -f ~/.pants-completion.bash && . $_
 
-#test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
 powerline_files=(
   "${HOME}/Library/Python/2.7/lib/python/site-packages/powerline/bindings/bash/powerline.sh"
   "${HOME}/.local/lib/python2.7/site-packages/powerline/bindings/bash/powerline.sh"
@@ -25,11 +31,20 @@ for file in "${powerline_files[@]}"; do
   test -f "${file}" && source "${file}" && break
 done
 
-# Fix tmux/powerline
+
+for file in "${HOME}"/.config/source/src "${HOME}"/.config/source/tests; do
+  test -f "${file}" && source "${file}"
+done
+
 powerline_config_bins=( "${HOME}/.local/bin/powerline-config" "${HOME}//Library/Python/2.7/bin/powerline-config")
 for powerline_config in "${powerline_config_bins[@]}"; do
   test -x "$(which tmux)" && test -x "${powerline_config}" && "${powerline_config}" tmux setup && break
 done
+
+test -f "${HOME}"/.workrc && source "${HOME}"/.workrc
+test -f "${HOME}"/.homebrewrc && source "${HOME}"/.homebrewrc
+
+set -u
 
 # Aliases
 
@@ -40,19 +55,7 @@ alias pipi='/usr/local/bin/pip install --user'
 alias s='ssh'
 alias dotc="git --git-dir=${HOME}/.myconf --work-tree=${HOME}"
 
-# Environment variables
-test -f "${HOME}"/.homebrewrc && source "${HOME}"/.homebrewrc
-export EDITOR='vim'
-
-
-if pgrep ssh-agent > /dev/null 2>&1; then
-  ssh-add -l > /dev/null 2>&1 || ssh-add -K
-fi
-
-for file in "${HOME}"/.config/source/{src,tests}; do
-  test -f "${file}" && source "${file}"
-done
-
+# Functions
 function get_src() {
   env | grep "^SRC="
 }
@@ -205,5 +208,3 @@ function vim-plugin() {
     git clone "${1}" ~/.vim/bundle/"${1##*/}"
   fi
 }
-
-test -f "${HOME}"/.workrc && source "${HOME}"/.workrc

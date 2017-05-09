@@ -2,4 +2,4 @@
 install: npm install vimlint --save
 script:
   - vimlint vim/.vimrc
-  - bash -nex bash/.local.bash
+  - bash -n bash/.local.bash
