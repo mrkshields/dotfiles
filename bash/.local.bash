@@ -1,19 +1,15 @@
 #!/usr/bin/env bash
-# vim:let g:is_bash=1:set filetype=sh:
-
-set -euo pipefail
 
 # Environment variables
 export EDITOR="vim"
 export PATH=${PATH}:${HOME}/Library/Python/2.7/bin:{HOME}/bin:${HOME}/.local/bin
-export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+export PATH="${PATH}:${HOME}/.rvm/bin" # Add RVM to PATH for scripting
 export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_72.jdk/Contents/Home
 export PATH=${PATH}:${JAVA_HOME}
-export FIGNORE="*.pyc"
+export FIGNORE='*.pyc'
 export PYTHONDONTWRITEBYTECODE=very_yes
-export PYTHONPATH=${PATH:${HOME}/workspace/source/src/python/twitter/:${HOME}/.local/bin
+export PYTHONPATH=${PATH}:${HOME}/workspace/source/src/python/twitter/:${HOME}/.local/bin
 
-set +u
 
 if [[ -n "$(which brew)" ]]; then
   if [ -f $(brew --prefix)/etc/bash_completion ]; then
@@ -45,8 +41,6 @@ done
 
 test -f "${HOME}"/.workrc && source "${HOME}"/.workrc
 test -f "${HOME}"/.homebrewrc && source "${HOME}"/.homebrewrc
-
-set -u
 
 # Aliases
 

@@ -1,7 +1,7 @@
 set nocompatible
 filetype off
 scriptencoding utf-8
-set rtp+=~/.vim/bundle/Vundle.vim
+set rtp+=$HOME/.vim/bundle/Vundle.vim
 
 " Change leader to a comma because the backslash is too far away
 " That means all \x commands turn into ,x
@@ -11,6 +11,7 @@ let g:mapleader=","
 
 call vundle#begin()
 
+Plugin 'VundleVim/Vundle.vim'
 Plugin 'FooSoft/vim-argwrap'
 Plugin 'Vimjas/vim-python-pep8-indent'
 Plugin 'Yggdroot/indentLine'
@@ -42,7 +43,6 @@ Plugin 'tpope/vim-rhubarb'
 Plugin 'tpope/vim-speeddating'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-tbone'
-Plugin 'vim-scripts/let-modeline.vim'
 Plugin 'w0rp/ale'
 
 call vundle#end()
