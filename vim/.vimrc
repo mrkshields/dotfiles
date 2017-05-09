@@ -13,7 +13,6 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim' " needs to be first!
 
 
-Plugin 'VundleVim/Vundle.vim'
 Plugin 'FooSoft/vim-argwrap'
 Plugin 'Vimjas/vim-python-pep8-indent'
 Plugin 'Yggdroot/indentLine'
