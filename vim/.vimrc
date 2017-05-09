@@ -10,6 +10,8 @@ set rtp+=~/.vim/bundle/Vundle.vim
 let g:mapleader=","
 
 call vundle#begin()
+Plugin 'VundleVim/Vundle.vim' " needs to be first!
+
 
 Plugin 'FooSoft/vim-argwrap'
 Plugin 'Vimjas/vim-python-pep8-indent'
