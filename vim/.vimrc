@@ -1,7 +1,7 @@
 set nocompatible
 filetype off
 scriptencoding utf-8
-set rtp+=~/.vim/bundle/Vundle.vim
+set rtp+=$HOME/.vim/bundle/Vundle.vim
 
 " Change leader to a comma because the backslash is too far away
 " That means all \x commands turn into ,x
@@ -13,6 +13,7 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim' " needs to be first!
 
 
+Plugin 'VundleVim/Vundle.vim'
 Plugin 'FooSoft/vim-argwrap'
 Plugin 'Vimjas/vim-python-pep8-indent'
 Plugin 'Yggdroot/indentLine'

@@ -1,10 +1,15 @@
-export PATH=${PATH}:/Users/mshields/Library/Python/2.7/bin:/Users/mshields/bin:${HOME}/.local/bin
-export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+#!/usr/bin/env bash
+
+# Environment variables
+export EDITOR="vim"
+export PATH=${PATH}:${HOME}/Library/Python/2.7/bin:{HOME}/bin:${HOME}/.local/bin
+export PATH="${PATH}:${HOME}/.rvm/bin" # Add RVM to PATH for scripting
 export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_72.jdk/Contents/Home
 export PATH=${PATH}:${JAVA_HOME}
 export FIGNORE='*.pyc'
 export PYTHONDONTWRITEBYTECODE=very_yes
-export PYTHONPATH=${PATH}:/Users/mshields/workspace/source/src/python/twitter/:${HOME}/.local/bin
+export PYTHONPATH=${PATH}:${HOME}/workspace/source/src/python/twitter/:${HOME}/.local/bin
+
 
 if [[ -n "$(which brew)" ]]; then
   if [ -f $(brew --prefix)/etc/bash_completion ]; then
@@ -16,7 +21,6 @@ fi
 test -f ~/.git-completion.bash && . $_
 test -f ~/.pants-completion.bash && . $_
 
-#test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
 powerline_files=(
   "${HOME}/Library/Python/2.7/lib/python/site-packages/powerline/bindings/bash/powerline.sh"
   "${HOME}/.local/lib/python2.7/site-packages/powerline/bindings/bash/powerline.sh"
@@ -25,34 +29,29 @@ for file in "${powerline_files[@]}"; do
   test -f "${file}" && source "${file}" && break
 done
 
-# Fix tmux/powerline
+
+for file in "${HOME}"/.config/source/src "${HOME}"/.config/source/tests; do
+  test -f "${file}" && source "${file}"
+done
+
 powerline_config_bins=( "${HOME}/.local/bin/powerline-config" "${HOME}//Library/Python/2.7/bin/powerline-config")
 for powerline_config in "${powerline_config_bins[@]}"; do
   test -x "$(which tmux)" && test -x "${powerline_config}" && "${powerline_config}" tmux setup && break
 done
 
+test -f "${HOME}"/.workrc && source "${HOME}"/.workrc
+test -f "${HOME}"/.homebrewrc && source "${HOME}"/.homebrewrc
+
 # Aliases
 
-alias dns-tool='dns-tool -s ~/.dns_credentials.yaml'
-alias fastboot='/Users/mshields/Library/Android/sdk/platform-tools/fastboot'
-alias less='less -R'
-alias pipi='/usr/local/bin/pip install --user'
-alias s='ssh'
+alias dns-tool="dns-tool -s ~/.dns_credentials.yaml"
+alias fastboot="/Users/mshields/Library/Android/sdk/platform-tools/fastboot"
+alias less="less -R"
+alias pipi="/usr/local/bin/pip install --user"
+alias s="ssh"
 alias dotc="git --git-dir=${HOME}/.myconf --work-tree=${HOME}"
 
-# Environment variables
-test -f "${HOME}"/.homebrewrc && source "${HOME}"/.homebrewrc
-export EDITOR='vim'
-
-
-if pgrep ssh-agent > /dev/null 2>&1; then
-  ssh-add -l > /dev/null 2>&1 || ssh-add -K
-fi
-
-for file in "${HOME}"/.config/source/{src,tests}; do
-  test -f "${file}" && source "${file}"
-done
-
+# Functions
 function get_src() {
   env | grep "^SRC="
 }
@@ -95,21 +94,21 @@ get_src
 get_tests
 
 function get_coverage() {
-  [[ -n "${COVERAGE}" && "${COVERAGE}" -eq 1 ]] && printf -- '--coverage=1'
+  [[ -n "${COVERAGE}" && "${COVERAGE}" -eq 1 ]] && printf -- "--coverage=1"
 }
 
 function get_failfast() {
-  [[ -n "${FAILFAST}" && "${FAILFAST}" -eq 1 ]] && printf -- '--options="-xvv"'
+  [[ -n "${FAILFAST}" && "${FAILFAST}" -eq 1 ]] && printf -- "--options="-xvv""
 }
 
 function get_verbose() {
   if [[ -n "${VERBOSE}" && "${VERBOSE}" -ne 0 ]]; then
-    printf -- '-'
+    printf -- "-"
     if [[ "${VERBOSE}" -lt 0 ]]; then
-        printf -- 'q'
+        printf -- "q"
     else
       for i in $(seq 1 "${VERBOSE}"); do
-        printf -- 'v'
+        printf -- "v"
       done
     fi
   fi
@@ -117,7 +116,7 @@ function get_verbose() {
 
 function verbose_option() {
   if [[ -n "$(get_verbose)" ]]; then
-    printf -- '--options="%s"' $(get_verbose)
+    printf -- "--options="%s"" $(get_verbose)
   fi
 }
 
@@ -127,28 +126,28 @@ function jeans() {
   SOURCE_DIR=$(git rev-parse --show-toplevel)
 
   case "${1}" in
-    'binary')
+    "binary")
       ( shift ; cd "${SOURCE_DIR}" && ./pants binary "${OLDPWD}"$@ )
       ;;
-    'qbinary')
+    "qbinary")
       ( shift ; cd "${SOURCE_DIR}" && ./pants -q binary "${OLDPWD}"$@ )
       ;;
-    'list')
-      ( cd "${SOURCE_DIR}" && ./pants list "${OLDPWD}:" | ggrep -oP '(?=:).+' )
+    "list")
+      ( cd "${SOURCE_DIR}" && ./pants list "${OLDPWD}:" | ggrep -oP "(?=:).+" )
       ;;
-    'test')
+    "test")
       ( shift ; cd "${SOURCE_DIR}" && ./pants test.pytest $(verbose_option) $(get_failfast) $(get_coverage)  "${OLDPWD}"$@ )
       ;;
-    'testall')
+    "testall")
       ( cd "${SOURCE_DIR}" && ./pants test.pytest $(verbose_option) $(get_failfast) $(get_coverage) "${TESTS}::" )
       ;;
-    'repl')
+    "repl")
       ( shift; cd "${SOURCE_DIR}" && ./pants repl --repl-py-ipython "${OLDPWD}"$@ )
       ;;
-    'run')
+    "run")
       ( shift; cd "${SOURCE_DIR}" && ./pants run "${OLDPWD}"$@ )
       ;;
-    'qrun')
+    "qrun")
       ( shift; cd "${SOURCE_DIR}" && ./pants -q run "${OLDPWD}"$@ )
       ;;
   esac
@@ -156,7 +155,7 @@ function jeans() {
 }
 
 function work() {
-  if [[ -n "${1}" && "${1}" == 'source' ]]; then
+  if [[ -n "${1}" && "${1}" == "source" ]]; then
     cd "${HOME}"/workspace/source/"${SRC}"
   else
     cd "${HOME}"/workspace/"${1}"
@@ -169,19 +168,19 @@ function work() {
 }
 
 function src() {
-  local branch="$(git rev-parse --abbrev-ref HEAD | tr '-' '_')"
-  local src_dir="$(get_src | awk -F= '{printf $NF}')"
+  local branch="$(git rev-parse --abbrev-ref HEAD | tr "-" "_")"
+  local src_dir="$(get_src | awk -F= "{printf $NF}")"
   work source/"${src_dir}"
 }
 
 function tests() {
-  local branch="$(git rev-parse --abbrev-ref HEAD | tr '-' '_')"
-  local tests_dir="$(get_tests | awk -F= '{printf $NF}')"
+  local branch="$(git rev-parse --abbrev-ref HEAD | tr "-" "_")"
+  local tests_dir="$(get_tests | awk -F= "{printf $NF}")"
   work source/"${tests_dir}"
 }
 
 function all_zones() {
-  printf -- ' -D %s' $(cat zones)
+  printf -- " -D %s" $(cat zones)
 }
 
 function = () {
@@ -205,5 +204,3 @@ function vim-plugin() {
     git clone "${1}" ~/.vim/bundle/"${1##*/}"
   fi
 }
-
-test -f "${HOME}"/.workrc && source "${HOME}"/.workrc
