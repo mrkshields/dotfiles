@@ -1,5 +1,5 @@
 # Environment variables
-set -x PATH $PATH $HOME/Library/Python/2.7/bin /opt/twitter/bin /opt/twitter_mde/bin
+set -x PATH $PATH $HOME/Library/Python/2.7/bin $HOME/.local/bin /opt/twitter/bin /opt/twitter_mde/bin
 set -x EDITOR 'vim'
 set -x FIGNORE '*.pyc'
 set -x PYTHONDONTWRITEBYTECODE 'very_yes'
@@ -8,11 +8,11 @@ set -x PYTHONDONTWRITEBYTECODE 'very_yes'
 alias s 'ssh'
 
 # Powerline config
-set fish_function_path $fish_function_path "$HOME/Library/Python/2.7/lib/python/site-packages/powerline/bindings/fish"
+set fish_function_path $fish_function_path "$HOME/Library/Python/2.7/lib/python/site-packages/powerline/bindings/fish" "$HOME/.local/lib/python2.7/site-packages/powerline/bindings/fish"
 powerline-setup
 
 # Tmux/Powerline setup
-if command -v tmux >/dev/null
+if type tmux > /dev/null 2>&1
   if [ $TERM != 'screen' ]
     if [ -z $TMUX ]
       if pgrep tmux >/dev/null
@@ -22,9 +22,9 @@ if command -v tmux >/dev/null
       end
     end
   end
+  powerline-config tmux setup
 end
 
-powerline-config tmux setup
 
 # Functions
 function work --argument-names 'target_workdir'
