@@ -14,10 +14,12 @@ powerline-setup
 # Tmux/Powerline setup
 if command -v tmux >/dev/null
   if [ $TERM != 'screen' ]
-    if pgrep tmux
-      exec tmux attach
-    else
-      exec tmux
+    if [ -z $TMUX ]
+      if pgrep tmux >/dev/null
+        exec tmux attach
+      else
+        exec tmux
+      end
     end
   end
 end
