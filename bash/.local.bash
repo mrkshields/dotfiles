@@ -34,7 +34,7 @@ for file in "${HOME}"/.config/source/src "${HOME}"/.config/source/tests; do
   test -f "${file}" && source "${file}"
 done
 
-powerline_config_bins=( "${HOME}/.local/bin/powerline-config" "${HOME}//Library/Python/2.7/bin/powerline-config")
+powerline_config_bins=( "${HOME}/.local/bin/powerline-config" "${HOME}/Library/Python/2.7/bin/powerline-config")
 for powerline_config in "${powerline_config_bins[@]}"; do
   test -x "$(which tmux)" && test -x "${powerline_config}" && "${powerline_config}" tmux setup && break
 done
