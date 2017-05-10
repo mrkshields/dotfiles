@@ -1,5 +1,5 @@
 # Environment variables
-set -x PATH $PATH $HOME/Library/Python/2.7/bin
+set -x PATH $PATH $HOME/Library/Python/2.7/bin /opt/twitter/bin /opt/twitter_mde/bin
 set -x EDITOR 'vim'
 set -x FIGNORE '*.pyc'
 set -x PYTHONDONTWRITEBYTECODE 'very_yes'
@@ -14,7 +14,9 @@ powerline-setup
 # Tmux/Powerline setup
 if command -v tmux >/dev/null
   if [ $TERM != 'screen' ]
-    if [ -z $TMUX ]
+    if pgrep tmux
+      exec tmux attach
+    else
       exec tmux
     end
   end
