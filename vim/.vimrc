@@ -12,7 +12,6 @@ let g:mapleader=","
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim' " needs to be first!
 
-
 Plugin 'FooSoft/vim-argwrap'
 Plugin 'Vimjas/vim-python-pep8-indent'
 Plugin 'Yggdroot/indentLine'
@@ -21,6 +20,7 @@ Plugin 'altercation/vim-colors-solarized'
 Plugin 'benmills/vimux'
 Plugin 'breard-r/vim-dnsserial'
 Plugin 'christoomey/vim-tmux-navigator'
+Plugin 'dag/vim-fish'
 Plugin 'davidhalter/jedi-vim'
 Plugin 'godlygeek/tabular'
 Plugin 'grahamking/lintswitch'
