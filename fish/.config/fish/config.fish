@@ -1,3 +1,5 @@
+set fish_greeting ""
+
 # Environment variables
 set -x PATH $PATH $HOME/Library/Python/2.7/bin $HOME/.local/bin /opt/twitter/bin /opt/twitter_mde/bin
 set -x EDITOR 'vim'
