@@ -7,7 +7,5 @@ install:
   - npm install vimlint --save
   - sudo apt-get install -y fish
 script:
-  - find -type f -name vimlint
-  - $(find -type f -name vimlint) vim/.vimrc
-  - fish --version
-  - fish -n fish/.config/config.fish
+  - ./node_modules/vimlint/bin/vimlint vim/.vimrc
+  - fish -n fish/.config/fish/config.fish
