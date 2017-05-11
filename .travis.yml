@@ -1,4 +1,6 @@
 ---
+dist: trusty
+sudo: required
 before_install:
   - npm install vimlint --save
   - sudo apt-get -qq update
