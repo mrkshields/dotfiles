@@ -4,6 +4,8 @@ before_install:
   - sudo apt-get -qq update
   - sudo apt-get install -y fish
   - nohup fish &
+  - bash --version
+  - fish --version
 script:
   - vimlint vim/.vimrc
   - bash -n bash/.local.bash
