@@ -1,7 +1,15 @@
 set fish_greeting ""
 
+# because fish complains if a path doesn't exist
+
+for path in $PATH $HOME/Library/Python/2.7/bin $HOME/.local/bin /opt/twitter/bin /opt/twitter_mde/bin
+  if test -d $path
+    set -x PATH $PATH $path
+  end
+end
+
 # Environment variables
-set -x PATH $PATH $HOME/Library/Python/2.7/bin $HOME/.local/bin /opt/twitter/bin /opt/twitter_mde/bin
+
 set -x EDITOR 'vim'
 set -x FIGNORE '*.pyc'
 set -x PYTHONDONTWRITEBYTECODE 'very_yes'
