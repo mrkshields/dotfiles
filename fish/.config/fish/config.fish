@@ -15,14 +15,16 @@ set -x FIGNORE '*.pyc'
 set -x PYTHONDONTWRITEBYTECODE 'very_yes'
 
 # Aliases
-alias s 'ssh'
+function s
+  ssh $argv
+end
 
 # Powerline config
 set fish_function_path $fish_function_path "$HOME/Library/Python/2.7/lib/python/site-packages/powerline/bindings/fish" "$HOME/.local/lib/python2.7/site-packages/powerline/bindings/fish"
 powerline-setup
 
 # Tmux/Powerline setup
-if type tmux > /dev/null 2>&1
+if command tmux -V > /dev/null 2>&1
   if [ $TERM != 'screen' ]
     if [ -z $TMUX ]
       if pgrep tmux >/dev/null
