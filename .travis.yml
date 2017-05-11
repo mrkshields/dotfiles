@@ -2,6 +2,7 @@
 dist: trusty
 sudo: required
 before_install:
+  - sudo add-apt-repository ppa:fish-shell/release-2 -y
   - sudo apt-get -qq update
 install:
   - npm install vimlint --save
