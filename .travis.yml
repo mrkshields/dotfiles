@@ -1,8 +1,9 @@
 ---
 before_install:
+  - npm install vimlint --save
   - sudo apt-get -qq update
   - sudo apt-get install -y fish
-  - npm install vimlint --save
+  - nohup fish &
 script:
   - vimlint vim/.vimrc
   - bash -n bash/.local.bash
