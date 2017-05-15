@@ -2,7 +2,7 @@ set fish_greeting ""
 
 # because fish complains if a path doesn't exist
 
-for path in $PATH $HOME/Library/Python/2.7/bin $HOME/.local/bin /opt/twitter/bin /opt/twitter_mde/bin
+for path in /opt/twitter_mde/bin /opt/twitter/bin $HOME/Library/Python/2.7/bin $HOME/.local/bin
   if test -d $path
     set -x PATH $PATH $path
   end
@@ -15,9 +15,10 @@ set -x FIGNORE '*.pyc'
 set -x PYTHONDONTWRITEBYTECODE 'very_yes'
 
 # Aliases
-function s
-  ssh $argv
-end
+alias s ssh $argv
+alias vim /opt/twitter/bin/vim
+alias svn /opt/twitter_mde/bin/svn
+alias git /opt/twitter_mde/bin/git
 
 # Powerline config
 set fish_function_path $fish_function_path "$HOME/Library/Python/2.7/lib/python/site-packages/powerline/bindings/fish" "$HOME/.local/lib/python2.7/site-packages/powerline/bindings/fish"
@@ -47,7 +48,7 @@ function work --argument-names 'target_workdir'
   end
 
   if git rev-parse --abbrev-ref HEAD > /dev/null 2>&1
-    if [ (git rev-parse --show-toplevel | awk -F'/' '{print $NF}') = 'source' ]
+    if [ $target_workdir = 'source' ]
       get_src
       get_tests
     end
@@ -69,6 +70,11 @@ function tests --argument-names 'tests_path'
   else
     set -U TESTS (echo $PWD | awk -F'/source/' '{print $NF}' | sed 's/src/tests/')
   end
+end
+
+function setup
+  src
+  tests
 end
 
 function get_src
