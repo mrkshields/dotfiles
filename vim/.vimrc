@@ -9,8 +9,10 @@ set rtp+=$HOME/.vim/bundle/Vundle.vim
 " the plugins.
 let g:mapleader=","
 
+set shell=/bin/bash
+
 call vundle#begin()
-Plugin 'VundleVim/Vundle.vim' " needs to be first!
+Plugin 'VundleVim/Vundle.vim'
 
 Plugin 'FooSoft/vim-argwrap'
 Plugin 'Vimjas/vim-python-pep8-indent'
@@ -161,9 +163,9 @@ let g:pymode_lint_checkers = ['mccabe', 'pyflakes', 'pylint', 'pep8', 'pep257']
 
 let g:vim_markdown_preview_toggle=2
 
-autocmd VimEnter * @b:last_tmux_window_name = system("tmux list-windows -a | ggrep -oP '(\S+)(?=\*)'")
-autocmd BufReadPost,FileReadPost,BufNewFile * call system("tmux rename-window " . expand("%"))
-autocmd VimLeave * call system("tmux rename-window " . expand("%last_tmux_window_name"))
+"autocmd VimEnter * @b:last_tmux_window_name = system("tmux list-windows -a | ggrep -oP '(\S+)(?=\*)'")
+"autocmd BufReadPost,FileReadPost,BufNewFile * call system("tmux rename-window " . expand("%"))
+"autocmd VimLeave * call system("tmux rename-window " . expand("%last_tmux_window_name"))
 
 autocmd FileType python map <buffer> <F3> :call Autoflake()<CR>
 autocmd FileType python set colorcolumn=100
