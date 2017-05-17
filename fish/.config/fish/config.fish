@@ -8,6 +8,14 @@ for path in /opt/twitter_mde/bin /opt/twitter/bin $HOME/Library/Python/2.7/bin $
   end
 end
 
+# Fundle plugin installs
+if functions fundle > /dev/null 2>&1
+  fundle plugin 'fisherman/get'
+  fundle plugin 'fisherman/spin'
+  fundle plugin 'oh-my-fish/plugin-bang-bang'
+  fundle plugin 'tuvistavie/fish-fastdir'
+end
+
 # Environment variables
 
 set -x EDITOR 'vim'
@@ -15,7 +23,7 @@ set -x FIGNORE '*.pyc'
 set -x PYTHONDONTWRITEBYTECODE 'very_yes'
 
 # Aliases
-alias s ssh $argv
+alias s ssh
 alias vim /opt/twitter/bin/vim
 alias svn /opt/twitter_mde/bin/svn
 alias git /opt/twitter_mde/bin/git
@@ -25,22 +33,24 @@ alias grep ggrep
 set fish_function_path $fish_function_path "$HOME/Library/Python/2.7/lib/python/site-packages/powerline/bindings/fish" "$HOME/.local/lib/python2.7/site-packages/powerline/bindings/fish"
 powerline-setup
 
-# Tmux/Powerline setup
-if command tmux -V > /dev/null 2>&1
-  if [ $TERM != 'screen' ]
-    if [ -z $TMUX ]
-      if pgrep tmux >/dev/null
-        exec tmux attach
-      else
-        exec tmux
-      end
-    end
-  end
-  powerline-config tmux setup
-end
-
+source ~/.config/fish/tmux.fish
 
 # Functions
+function svn-st-awk --argument-names awk_search
+  svn status | awk "/$awk_search/{print \$NF}"
+end
+
+function svn-ship --argument-names rb reviewers awk_search
+  eval $PWD/utilities/svn/svn-review -R $rb -r $reviewers commit (svn-st-awk $awk_search)
+end
+
+function !d
+	eval (vcprompt -f "%n") diff $argv
+end
+function !s
+	eval (vcprompt -f "%n") status $argv
+end
+
 function work --argument-names 'target_workdir'
   if [ $target_workdir = 'source' ]
     cd $HOME/workspace/source/$SRC
@@ -76,6 +86,8 @@ end
 function setup
   src
   tests
+  get_src
+  get_tests
 end
 
 function get_src
