@@ -8,6 +8,14 @@ for path in /opt/twitter_mde/bin /opt/twitter/bin $HOME/Library/Python/2.7/bin $
   end
 end
 
+# Fundle plugin installs
+if functions fundle > /dev/null 2>&1
+  fundle plugin 'fisherman/get'
+  fundle plugin 'fisherman/spin'
+  fundle plugin 'oh-my-fish/plugin-bang-bang'
+  fundle plugin 'tuvistavie/fish-fastdir'
+end
+
 # Environment variables
 
 set -x EDITOR 'vim'
