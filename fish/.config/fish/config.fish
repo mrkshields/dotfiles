@@ -25,6 +25,8 @@ alias grep ggrep
 set fish_function_path $fish_function_path "$HOME/Library/Python/2.7/lib/python/site-packages/powerline/bindings/fish" "$HOME/.local/lib/python2.7/site-packages/powerline/bindings/fish"
 powerline-setup
 
+source ~/.config/fish/tmux.fish
+
 # Functions
 function svn-st-awk --argument-names awk_search
   svn status | awk "/$awk_search/{print \$NF}"
