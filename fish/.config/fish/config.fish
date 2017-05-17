@@ -15,7 +15,7 @@ set -x FIGNORE '*.pyc'
 set -x PYTHONDONTWRITEBYTECODE 'very_yes'
 
 # Aliases
-alias s ssh $argv
+alias s ssh
 alias vim /opt/twitter/bin/vim
 alias svn /opt/twitter_mde/bin/svn
 alias git /opt/twitter_mde/bin/git
@@ -41,6 +41,21 @@ end
 
 
 # Functions
+function svn-st-awk --argument-names awk_search
+  svn status | awk "/$awk_search/{print \$NF}"
+end
+
+function svn-ship --argument-names rb reviewers awk_search
+  eval $PWD/utilities/svn/svn-review -R $rb -r $reviewers commit (svn-st-awk $awk_search)
+end
+
+function !d
+	eval (vcprompt -f "%n") diff $argv
+end
+function !s
+	eval (vcprompt -f "%n") status $argv
+end
+
 function work --argument-names 'target_workdir'
   if [ $target_workdir = 'source' ]
     cd $HOME/workspace/source/$SRC
@@ -76,6 +91,8 @@ end
 function setup
   src
   tests
+  get_src
+  get_tests
 end
 
 function get_src
