@@ -25,21 +25,6 @@ alias grep ggrep
 set fish_function_path $fish_function_path "$HOME/Library/Python/2.7/lib/python/site-packages/powerline/bindings/fish" "$HOME/.local/lib/python2.7/site-packages/powerline/bindings/fish"
 powerline-setup
 
-# Tmux/Powerline setup
-if command tmux -V > /dev/null 2>&1
-  if [ $TERM != 'screen' ]
-    if [ -z $TMUX ]
-      if pgrep tmux >/dev/null
-        exec tmux attach
-      else
-        exec tmux
-      end
-    end
-  end
-  powerline-config tmux setup
-end
-
-
 # Functions
 function svn-st-awk --argument-names awk_search
   svn status | awk "/$awk_search/{print \$NF}"
