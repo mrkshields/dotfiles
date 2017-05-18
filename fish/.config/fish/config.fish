@@ -24,10 +24,10 @@ set -x PYTHONDONTWRITEBYTECODE 'very_yes'
 
 # Aliases
 alias s ssh
-alias vim /opt/twitter/bin/vim
-alias svn /opt/twitter_mde/bin/svn
-alias git /opt/twitter_mde/bin/git
-alias grep ggrep
+if test -x /opt/twitter/bin/vim; alias vim /opt/twitter/bin/vim; end
+if test -x /opt/twitter_mde/bin/svn; alias svn /opt/twitter_mde/bin/svn; end
+if test -x /opt/twitter_mde/bin/git; alias git /opt/twitter_mde/bin/git; end
+if which ggrep > /dev/null; alias grep ggrep; end
 
 # Powerline config
 set fish_function_path $fish_function_path "$HOME/Library/Python/2.7/lib/python/site-packages/powerline/bindings/fish" "$HOME/.local/lib/python2.7/site-packages/powerline/bindings/fish"
