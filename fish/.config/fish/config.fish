@@ -13,6 +13,7 @@ if functions fundle > /dev/null 2>&1
   fundle plugin 'fisherman/get'
   fundle plugin 'fisherman/spin'
   fundle plugin 'oh-my-fish/plugin-bang-bang'
+  fundle plugin 'oh-my-fish/plugin-grc'
   fundle plugin 'tuvistavie/fish-fastdir'
 end
 
@@ -28,6 +29,8 @@ if test -x /opt/twitter/bin/vim; alias vim /opt/twitter/bin/vim; end
 if test -x /opt/twitter_mde/bin/svn; alias svn /opt/twitter_mde/bin/svn; end
 if test -x /opt/twitter_mde/bin/git; alias git /opt/twitter_mde/bin/git; end
 if which ggrep > /dev/null; alias grep ggrep; end
+alias git-tl "git rev-parse --show-toplevel"
+
 
 # Powerline config
 set fish_function_path $fish_function_path "$HOME/Library/Python/2.7/lib/python/site-packages/powerline/bindings/fish" "$HOME/.local/lib/python2.7/site-packages/powerline/bindings/fish"
