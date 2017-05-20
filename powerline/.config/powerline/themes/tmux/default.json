@@ -20,6 +20,13 @@
 					"istime": true
 				}
 			},
+      {
+        "function": "powerline.segments.common.mail.email_imap_alert",
+        "args": {
+          "username": "mshields@twitter.com",
+          "password": "gimwwjlzrnhrdvkx"
+        }
+      },
 			{
 				"function": "powerline.segments.common.net.hostname"
 			}
