@@ -14,25 +14,45 @@ set shell=/bin/bash
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 
+Plugin 'ConradIrwin/vim-bracketed-paste'
+Plugin 'Dinduks/vim-holylight'
 Plugin 'FooSoft/vim-argwrap'
+Plugin 'SirVer/ultisnips'
 Plugin 'Vimjas/vim-python-pep8-indent'
 Plugin 'Yggdroot/indentLine'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'altercation/vim-colors-solarized'
+Plugin 'ap/vim-buftabline'
+Plugin 'b3niup/numbers.vim'
 Plugin 'benmills/vimux'
 Plugin 'breard-r/vim-dnsserial'
 Plugin 'christoomey/vim-tmux-navigator'
+Plugin 'cirla/vim-giphy'
 Plugin 'dag/vim-fish'
 Plugin 'davidhalter/jedi-vim'
+Plugin 'davidpdrsn/vim-spectacular'
+Plugin 'dyng/ctrlsf.vim'
+Plugin 'farmergreg/vim-lastplace'
 Plugin 'godlygeek/tabular'
 Plugin 'grahamking/lintswitch'
+Plugin 'habamax/vim-skipit'
+Plugin 'junegunn/fzf.vim'
 Plugin 'kevints/vim-aurora-syntax'
+Plugin 'lucidstack/ctrlp-tmux.vim'
+Plugin 'machakann/vim-columnmove'
+Plugin 'machakann/vim-highlightedyank'
+Plugin 'machakann/vim-sandwich'
+Plugin 'machakann/vim-swap'
+Plugin 'mattn/webapi-vim'
 Plugin 'mbbill/undotree'
+Plugin 'nhooyr/neoman.vim'
+Plugin 'nkantar/GHT.vim'
 Plugin 'ntpeters/vim-better-whitespace'
 Plugin 'pantsbuild/vim-pants'
 Plugin 'plasticboy/vim-markdown'
 Plugin 'rodjek/vim-puppet'
 Plugin 'skywind3000/asyncrun.vim'
+Plugin 'sunaku/vim-shortcut'
 Plugin 'tell-k/vim-autoflake'
 Plugin 'tell-k/vim-autopep8'
 Plugin 'thaerkh/vim-workspace'
@@ -46,7 +66,9 @@ Plugin 'tpope/vim-rhubarb'
 Plugin 'tpope/vim-speeddating'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-tbone'
+Plugin 'tpope/vim-vinegar'
 Plugin 'w0rp/ale'
+Plugin 'zhaocai/GoldenView.Vim'
 
 call vundle#end()
 filetype plugin indent on
@@ -153,6 +175,7 @@ let g:gitgutter_realtime = 0
 let g:gitgutter_eager = 0
 
 set rtp+=$HOME/Library/Python/2.7/lib/python/site-packages/powerline/bindings/vim
+set rtp+=/usr/local/opt/fzf
 
 python from powerline.vim import setup as powerline_setup
 python powerline_setup
@@ -174,3 +197,5 @@ hi ColorColumn ctermbg=8
 let g:pymode_lint_config = "$HOME/.pylintrc"
 
 set background=dark
+
+map y <Plug>(highlightedyank)
