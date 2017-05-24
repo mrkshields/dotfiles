@@ -2,10 +2,14 @@ set fish_greeting ""
 
 # because fish complains if a path doesn't exist
 
-for path in /opt/twitter_mde/bin /opt/twitter/bin $HOME/Library/Python/2.7/bin $HOME/.local/bin
+for path in /opt/twitter_mde/bin /opt/twitter/bin $HOME/Library/Python/2.7/bin $HOME/.local/bin /opt/twitter/opt/coreutils/libexec/gnubin /usr/local/opt/coreutils/libexec/gnubin
   if test -d $path
-    set -x PATH $PATH $path
+    set -x PATH $path $PATH
   end
+end
+
+if test -d /opt/twitter/opt/coreutils/libexec/gnuman
+  set -x MANPATH /opt/twitter/opt/coreutils/libexec/gnuman $MANPATH
 end
 
 # Fundle plugin installs
