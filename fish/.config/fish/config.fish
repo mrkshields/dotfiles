@@ -1,11 +1,16 @@
 set fish_greeting ""
+set -l configdir ~/.config
 
 # because fish complains if a path doesn't exist
 
-for path in /opt/twitter_mde/bin /opt/twitter/bin $HOME/Library/Python/2.7/bin $HOME/.local/bin
+for path in $HOME/bin /opt/twitter_mde/bin /opt/twitter/bin $HOME/Library/Python/2.7/bin $HOME/.local/bin /opt/twitter/opt/coreutils/libexec/gnubin /usr/local/opt/coreutils/libexec/gnubin
   if test -d $path
-    set -x PATH $PATH $path
+    set -x PATH $path $PATH
   end
+end
+
+if test -d /opt/twitter/opt/coreutils/libexec/gnuman
+  set -x MANPATH /opt/twitter/opt/coreutils/libexec/gnuman $MANPATH
 end
 
 # Fundle plugin installs
@@ -36,7 +41,23 @@ alias git-tl "git rev-parse --show-toplevel"
 set fish_function_path $fish_function_path "$HOME/Library/Python/2.7/lib/python/site-packages/powerline/bindings/fish" "$HOME/.local/lib/python2.7/site-packages/powerline/bindings/fish"
 powerline-setup
 
-source ~/.config/fish/tmux.fish
+source $configdir/fish/tmux.fish
+
+if not set -q fish_function_path
+    set fish_function_path $configdir/fish/functions $__fish_sysconfdir/functions $__extra_functionsdir $__fish_datadir/functions
+end
+
+if not contains -- $__fish_datadir/functions $fish_function_path
+    set fish_function_path $fish_function_path $__fish_datadir/functions
+end
+
+if not set -q fish_complete_path
+    set fish_complete_path $configdir/fish/completions $__fish_sysconfdir/completions $__extra_completionsdir $__fish_datadir/completions $userdatadir/fish/generated_completions
+end
+
+if not contains -- $__fish_datadir/completions $fish_complete_path
+    set fish_complete_path $fish_complete_path $__fish_datadir/completions
+end
 
 # Functions
 function svn-st-awk --argument-names awk_search
@@ -55,17 +76,19 @@ function !s
 end
 
 function work --argument-names 'target_workdir'
-  if [ $target_workdir = 'source' ]
-    cd $HOME/workspace/source/$SRC
-  else
-    cd $HOME/workspace/$target_workdir
-  end
-
-  if git rev-parse --abbrev-ref HEAD > /dev/null 2>&1
-    if [ $target_workdir = 'source' ]
+  switch $target_workdir
+    case source src
+      cd $HOME/workspace/source/$SRC
+      set -x PANTS_CONFIG_OVERRIDE $HOME/workspace/source/pants.ini.daemon
       get_src
       get_tests
-    end
+    case tests
+      cd $HOME/workspace/source/$TESTS
+      set -x PANTS_CONFIG_OVERRIDE $HOME/workspace/source/pants.ini.daemon
+      get_src
+      get_tests
+    case '*'
+      cd $HOME/workspace/$target_workdir
   end
 end
 
