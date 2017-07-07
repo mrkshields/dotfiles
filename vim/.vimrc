@@ -99,6 +99,10 @@ syntax on
 "set noswapfile
 "set nobackup
 "set nowb
+if $VIM_CRONTAB == "true"
+  set nobackup
+  set nowritebackup
+endif
 
 " ================ Persistent Undo ==================
 " Keep undo history across sessions, by storing in file.
