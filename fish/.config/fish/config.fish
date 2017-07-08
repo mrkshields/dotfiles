@@ -13,13 +13,20 @@ if test -d /opt/twitter/opt/coreutils/libexec/gnuman
   set -x MANPATH /opt/twitter/opt/coreutils/libexec/gnuman $MANPATH
 end
 
+# Powerline config
+if status is-interactive
+  set fish_function_path $fish_function_path "$HOME/Library/Python/2.7/lib/python/site-packages/powerline/bindings/fish" "$HOME/.local/lib/python2.7/site-packages/powerline/bindings/fish"
+  powerline-setup
+
 # Fundle plugin installs
 if functions fundle > /dev/null 2>&1
   fundle plugin 'fisherman/get'
   fundle plugin 'fisherman/spin'
   fundle plugin 'oh-my-fish/plugin-bang-bang'
   fundle plugin 'oh-my-fish/plugin-grc'
+  fundle plugin 'oh-my-fish/theme-bobthefish'
   fundle plugin 'tuvistavie/fish-fastdir'
+  fundle init
 end
 
 # Environment variables
@@ -37,9 +44,7 @@ if which ggrep > /dev/null; alias grep ggrep; end
 alias git-tl "git rev-parse --show-toplevel"
 
 
-# Powerline config
-set fish_function_path $fish_function_path "$HOME/Library/Python/2.7/lib/python/site-packages/powerline/bindings/fish" "$HOME/.local/lib/python2.7/site-packages/powerline/bindings/fish"
-powerline-setup
+end
 
 source $configdir/fish/tmux.fish
 
@@ -103,4 +108,10 @@ end
 
 function get_tests
   echo $TESTS
+end
+
+function gc --argument-names 'repo'
+  if count $repo > /dev/null
+    git clone https://git.twitter.biz/$repo
+  end
 end

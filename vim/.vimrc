@@ -31,6 +31,7 @@ Plugin 'cirla/vim-giphy'
 Plugin 'dag/vim-fish'
 Plugin 'davidhalter/jedi-vim'
 Plugin 'davidpdrsn/vim-spectacular'
+Plugin 'derekwyatt/vim-scala'
 Plugin 'dyng/ctrlsf.vim'
 Plugin 'farmergreg/vim-lastplace'
 Plugin 'godlygeek/tabular'
@@ -98,6 +99,10 @@ syntax on
 "set noswapfile
 "set nobackup
 "set nowb
+if $VIM_CRONTAB == "true"
+  set nobackup
+  set nowritebackup
+endif
 
 " ================ Persistent Undo ==================
 " Keep undo history across sessions, by storing in file.
