@@ -1,4 +1,5 @@
 vim/.vim/backups
 vim/.vim/bundle.pathogen
+vim/.vim/bundle
 tmux/.tmux/resurrect
 *.swp
