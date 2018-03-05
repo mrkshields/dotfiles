@@ -17,29 +17,45 @@ end
 if status is-interactive
   set fish_function_path $fish_function_path "$HOME/Library/Python/2.7/lib/python/site-packages/powerline/bindings/fish" "$HOME/.local/lib/python2.7/site-packages/powerline/bindings/fish"
   powerline-setup
+  fzf_key_bindings
 
 # Fundle plugin installs
 if functions fundle > /dev/null 2>&1
+  #fundle plugin 'oh-my-fish/plugin-grc'
+  fundle plugin 'acomagu/fish-async-prompt'
+  fundle plugin 'edc/bass'
   fundle plugin 'fisherman/get'
   fundle plugin 'fisherman/spin'
   fundle plugin 'oh-my-fish/plugin-bang-bang'
-  fundle plugin 'oh-my-fish/plugin-grc'
+  fundle plugin 'oh-my-fish/plugin-expand'
   fundle plugin 'oh-my-fish/theme-bobthefish'
   fundle plugin 'tuvistavie/fish-fastdir'
   fundle init
 end
+
+# Fish config
+#
+set -g async_prompt_inherit_variables all
+set -g theme_display_git_dirty no
+set -g theme_display_git_untracked no
+
 
 # Environment variables
 
 set -x EDITOR 'vim'
 set -x FIGNORE '*.pyc'
 set -x PYTHONDONTWRITEBYTECODE 'very_yes'
+set -x SBT_PROXY_REPO 'http://artifactory.local.twitter.com/repo/'
 
 # Aliases
 alias s ssh
-if test -x /opt/twitter/bin/vim; alias vim /opt/twitter/bin/vim; end
-if test -x /opt/twitter_mde/bin/svn; alias svn /opt/twitter_mde/bin/svn; end
-if test -x /opt/twitter_mde/bin/git; alias git /opt/twitter_mde/bin/git; end
+alias stripcolor "perl -MTerm::ANSIColor=colorstrip -ne 'print colorstrip(\$_)'"
+alias find gfind
+#functions -e ls
+
+#if test -x /opt/twitter/bin/vim; alias vim /opt/twitter/bin/vim; end
+#if test -x /opt/twitter_mde/bin/svn; alias svn /opt/twitter_mde/bin/svn; end
+#if test -x /opt/twitter_mde/bin/git; alias git /opt/twitter_mde/bin/git; end
 if which ggrep > /dev/null; alias grep ggrep; end
 alias git-tl "git rev-parse --show-toplevel"
 
@@ -56,6 +72,10 @@ function svn-ship --argument-names rb reviewers awk_search
   eval $PWD/utilities/svn/svn-review -R $rb -r $reviewers commit (svn-st-awk $awk_search)
 end
 
+function svn-update --argument-names rb awk_search
+  eval $PWD/utilities/svn/svn-review -R $rb update (svn-st-awk $awk_search)
+end
+
 function !d
 	eval (vcprompt -f "%n") diff $argv
 end
@@ -64,17 +84,21 @@ function !s
 end
 
 function work --argument-names 'target_workdir'
-  switch $target_workdir
-    case source src
-      cd $HOME/workspace/source/$SRC
-      #set -x PANTS_CONFIG_OVERRIDE $HOME/workspace/source/pants.ini.daemon
-      get_src
-    case tests
-      cd $HOME/workspace/source/$TESTS
-      #set -x PANTS_CONFIG_OVERRIDE $HOME/workspace/source/pants.ini.daemon
-      get_tests
-    case '*'
-      cd $HOME/workspace/$target_workdir
+  if count $target_workdir > /dev/null
+    switch $target_workdir
+      case source src
+        cd $HOME/workspace/source/$SRC
+        #set -x PANTS_CONFIG_OVERRIDE $HOME/workspace/source/pants.ini.daemon
+        get_src
+      case tests
+        cd $HOME/workspace/source/$TESTS
+        #set -x PANTS_CONFIG_OVERRIDE $HOME/workspace/source/pants.ini.daemon
+        get_tests
+      case '*'
+        cd $HOME/workspace/$target_workdir
+    end
+  else
+    cd $HOME/workspace
   end
 end
 
