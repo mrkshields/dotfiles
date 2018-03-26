@@ -1,5 +1,11 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =3
+let g:netrw_dirhist_cnt =9
 let g:netrw_dirhist_1='/Users/mshields/workspace/ci-job-configs/ciss-team'
 let g:netrw_dirhist_2='/Users/mshields/workspace/audubon/docs'
 let g:netrw_dirhist_3='/Users/mshields/workspace/audubon/docs/_build'
+let g:netrw_dirhist_4='/Users/mshields/workspace/source/src/python/audubondata'
+let g:netrw_dirhist_5='/Users/mshields/workspace/ci-job-configs/.test/output'
+let g:netrw_dirhist_6='/Users/mshields/workspace/ci-job-configs/ciss-team'
+let g:netrw_dirhist_7='/Users/mshields/workspace/ci-job-configs'
+let g:netrw_dirhist_8='/Users/mshields/workspace/ci-job-configs/ciss-team'
+let g:netrw_dirhist_9='/Users/mshields/workspace/twitter-ops/puppet/modules'
