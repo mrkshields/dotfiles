@@ -1,3 +1,4 @@
 vim/.vim/backups
 vim/.vim/bundle.pathogen
+vim/.vim/.netrwhist
 *.swp
