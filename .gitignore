@@ -1,4 +1,7 @@
-vim/.vim/backups
-vim/.vim/bundle.pathogen
-vim/.vim/bundle
 *.swp
+fish/.config/fish/fish_history
+fish/.config/fish/fishd.8cae4cffc40e
+fish/.config/fish/fishd.allanon
+vim/.vim/backups
+vim/.vim/bundle/*
+vim/.vim/bundle.pathogen
