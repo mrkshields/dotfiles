@@ -1,5 +1,8 @@
+*.swp
+fish/.config/fish/fish_history
+fish/.config/fish/fishd.8cae4cffc40e
+fish/.config/fish/fishd.allanon
+tmux/.tmux/resurrect
 vim/.vim/backups
 vim/.vim/bundle.pathogen
-vim/.vim/bundle
-tmux/.tmux/resurrect
-*.swp
+vim/.vim/bundle/*

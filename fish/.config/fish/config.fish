@@ -14,9 +14,10 @@ if test -d /opt/twitter/opt/coreutils/libexec/gnuman
 end
 
 # Powerline config
-if status is-interactive
+if status is-interactive > /dev/null
   set fish_function_path $fish_function_path "$HOME/Library/Python/2.7/lib/python/site-packages/powerline/bindings/fish" "$HOME/.local/lib/python2.7/site-packages/powerline/bindings/fish"
   powerline-setup
+end
 
 # Fundle plugin installs
 if functions fundle > /dev/null 2>&1
@@ -43,8 +44,6 @@ if test -x /opt/twitter_mde/bin/git; alias git /opt/twitter_mde/bin/git; end
 if which ggrep > /dev/null; alias grep ggrep; end
 alias git-tl "git rev-parse --show-toplevel"
 
-
-end
 
 source $configdir/fish/tmux.fish
 
