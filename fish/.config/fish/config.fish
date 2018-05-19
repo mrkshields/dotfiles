@@ -114,3 +114,4 @@ function gc --argument-names 'repo'
     git clone https://git.twitter.biz/$repo
   end
 end
+set -g fish_user_paths "/usr/local/opt/qt/bin" $fish_user_paths
