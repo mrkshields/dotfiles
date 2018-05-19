@@ -14,6 +14,7 @@ set shell=/bin/bash
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 
+Plugin 'powerline/powerline', {'rtp': 'powerline/bindings/vim'}
 Plugin 'ConradIrwin/vim-bracketed-paste'
 Plugin 'Dinduks/vim-holylight'
 Plugin 'FooSoft/vim-argwrap'
