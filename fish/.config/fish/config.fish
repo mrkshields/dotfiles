@@ -1,9 +1,11 @@
 set fish_greeting ""
 set -l configdir ~/.config
 
+function fish_right_prompt; end
+
 # because fish complains if a path doesn't exist
 
-for path in $HOME/bin /opt/twitter_mde/bin /opt/twitter/bin $HOME/Library/Python/2.7/bin $HOME/.local/bin /opt/twitter/opt/coreutils/libexec/gnubin /usr/local/opt/coreutils/libexec/gnubin
+for path in $HOME/bin /opt/twitter_mde/bin /opt/twitter/bin $HOME/Library/Python/2.7/bin $HOME/Library/Python/3.6/bin $HOME/.local/bin /opt/twitter/opt/coreutils/libexec/gnubin /usr/local/opt/coreutils/libexec/gnubin
   if test -d $path
     set -x PATH $path $PATH
   end
@@ -15,9 +17,10 @@ end
 
 # Powerline config
 if status is-interactive
-  set fish_function_path $fish_function_path "$HOME/Library/Python/2.7/lib/python/site-packages/powerline/bindings/fish" "$HOME/.local/lib/python2.7/site-packages/powerline/bindings/fish"
+  set fish_function_path $fish_function_path "$HOME/Library/Python/3.6/lib/python/site-packages/powerline/bindings/fish" "$HOME/.local/lib/python3.6/site-packages/powerline/bindings/fish"
   powerline-setup
   fzf_key_bindings
+  source (jump shell | psub)
 
 # Fundle plugin installs
 if functions fundle > /dev/null 2>&1
@@ -65,7 +68,7 @@ end
 source $configdir/fish/tmux.fish
 
 function svn-st-awk --argument-names awk_search
-  svn status | awk "/$awk_search/{print \$NF}"
+  svn status | awk "/$awk_search/{print \$NF}" | sort -u
 end
 
 function svn-ship --argument-names rb reviewers awk_search
