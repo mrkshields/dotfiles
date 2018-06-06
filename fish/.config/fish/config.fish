@@ -1,8 +1,6 @@
 set fish_greeting ""
 set -l configdir ~/.config
 
-function fish_right_prompt; end
-
 # because fish complains if a path doesn't exist
 
 for path in $HOME/bin /opt/twitter_mde/bin /opt/twitter/bin $HOME/Library/Python/2.7/bin $HOME/Library/Python/3.6/bin $HOME/.local/bin /opt/twitter/opt/coreutils/libexec/gnubin /usr/local/opt/coreutils/libexec/gnubin
@@ -31,7 +29,7 @@ if functions fundle > /dev/null 2>&1
   fundle plugin 'fisherman/spin'
   fundle plugin 'oh-my-fish/plugin-bang-bang'
   fundle plugin 'oh-my-fish/plugin-expand'
-  fundle plugin 'oh-my-fish/theme-bobthefish'
+  fundle plugin 'oh-my-fish/theme-bobthefish'  # won't work without installing ohmyfish framework then using omf to install
   fundle plugin 'tuvistavie/fish-fastdir'
   fundle init
 end
@@ -39,8 +37,8 @@ end
 # Fish config
 #
 set -g async_prompt_inherit_variables all
-set -g theme_display_git_dirty no
-set -g theme_display_git_untracked no
+#set -g theme_display_git_dirty no
+#set -g theme_display_git_untracked no
 
 
 # Environment variables
