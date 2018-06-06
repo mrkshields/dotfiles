@@ -181,9 +181,9 @@ set sidescroll=1
 
 set et ts=2 ai
 
-autocmd BufNewFile,BufRead *.aurora set filetype=python
-autocmd BufNewFile,BufRead BUILD set filetype=python
-autocmd BufNewFile,BufRead AURORA set filetype=python
+"autocmd BufNewFile,BufRead *.aurora set filetype=python
+"autocmd BufNewFile,BufRead BUILD set filetype=python
+"autocmd BufNewFile,BufRead AURORA set filetype=python
 autocmd BufNewFile,BufRead PROJECT set filetype=yaml
 autocmd BufNewFile,BufRead *.jinja set filetype=jinja
 autocmd BufNewFile,BufRead *.workflow set filetype=json
