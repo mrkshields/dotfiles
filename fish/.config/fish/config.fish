@@ -19,6 +19,7 @@ if status is-interactive
   powerline-setup
   fzf_key_bindings
   source (jump shell | psub)
+end
 
 # Fundle plugin installs
 if functions fundle > /dev/null 2>&1
@@ -60,8 +61,6 @@ alias find gfind
 if which ggrep > /dev/null; alias grep ggrep; end
 alias git-tl "git rev-parse --show-toplevel"
 
-
-end
 
 source $configdir/fish/tmux.fish
 
@@ -139,4 +138,8 @@ function gc --argument-names 'repo'
   if count $repo > /dev/null
     git clone https://git.twitter.biz/$repo
   end
+end
+
+if test -d /usr/local/opt/qt/bin
+  set -g fish_user_paths "/usr/local/opt/qt/bin" $fish_user_paths
 end

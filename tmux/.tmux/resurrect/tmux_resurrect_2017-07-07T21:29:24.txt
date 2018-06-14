@@ -1,0 +1,5 @@
+pane	0	1	:ssh	1	:*	0	:/Users/mark	1	ssh	:-fish
+pane	0	3	:ssh	0	:-	0	:/Users/mark	1	ssh	:-fish
+window	0	1	1	:*	5fcf,153x35,0,0,10
+window	0	3	0	:-	5fd1,153x35,0,0,12
+state	0	
