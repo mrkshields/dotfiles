@@ -18,6 +18,8 @@ Plugin 'powerline/powerline', {'rtp': 'powerline/bindings/vim'}
 Plugin 'ConradIrwin/vim-bracketed-paste'
 Plugin 'Dinduks/vim-holylight'
 Plugin 'FooSoft/vim-argwrap'
+Plugin 'Shougo/denite.nvim'
+Plugin 'Shougo/neocomplete.vim'
 Plugin 'SirVer/ultisnips'
 Plugin 'Vimjas/vim-python-pep8-indent'
 Plugin 'Yggdroot/indentLine'
@@ -27,8 +29,11 @@ Plugin 'ap/vim-buftabline'
 Plugin 'b3niup/numbers.vim'
 Plugin 'benmills/vimux'
 Plugin 'breard-r/vim-dnsserial'
+Plugin 'chiedo/vim-sort-blocks-by'
+Plugin 'christoomey/vim-sort-motion'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'cirla/vim-giphy'
+Plugin 'clarke/vim-renumber'
 Plugin 'dag/vim-fish'
 Plugin 'davidhalter/jedi-vim'
 Plugin 'davidpdrsn/vim-spectacular'
@@ -36,8 +41,14 @@ Plugin 'derekwyatt/vim-scala'
 Plugin 'dyng/ctrlsf.vim'
 Plugin 'farmergreg/vim-lastplace'
 Plugin 'godlygeek/tabular'
+Plugin 'google/vim-codefmt'
+Plugin 'google/vim-maktaba'
 Plugin 'grahamking/lintswitch'
 Plugin 'habamax/vim-skipit'
+Plugin 'heavenshell/vim-pydocstring'
+Plugin 'ivanov/vim-ipython'
+Plugin 'jbgutierrez/vim-better-comments'
+Plugin 'junegunn/fzf', {'rtp': '/opt/twitter/opt/fzf'}
 Plugin 'junegunn/fzf.vim'
 Plugin 'kevints/vim-aurora-syntax'
 Plugin 'lucidstack/ctrlp-tmux.vim'
@@ -51,7 +62,6 @@ Plugin 'nhooyr/neoman.vim'
 Plugin 'nkantar/GHT.vim'
 Plugin 'ntpeters/vim-better-whitespace'
 Plugin 'pantsbuild/vim-pants'
-Plugin 'plasticboy/vim-markdown'
 Plugin 'rodjek/vim-puppet'
 Plugin 'sunaku/vim-shortcut'
 Plugin 'tell-k/vim-autoflake'
@@ -63,6 +73,7 @@ Plugin 'tpope/vim-capslock'
 Plugin 'tpope/vim-commentary'
 Plugin 'tpope/vim-dispatch'
 Plugin 'tpope/vim-eunuch'
+Plugin 'tpope/vim-markdown'
 Plugin 'tpope/vim-rhubarb'
 Plugin 'tpope/vim-speeddating'
 Plugin 'tpope/vim-surround'
@@ -169,17 +180,31 @@ set sidescroll=1
 
 set et ts=2 ai
 
-autocmd BufNewFile,BufRead *.aurora set filetype=python
-autocmd BufNewFile,BufRead BUILD set filetype=python
-autocmd BufNewFile,BufRead AURORA set filetype=python
+"autocmd BufNewFile,BufRead *.aurora set filetype=python
+"autocmd BufNewFile,BufRead BUILD set filetype=python
+"autocmd BufNewFile,BufRead AURORA set filetype=python
+autocmd BufNewFile,BufRead PROJECT set filetype=yaml
 autocmd BufNewFile,BufRead *.jinja set filetype=jinja
 autocmd BufNewFile,BufRead *.workflow set filetype=json
 autocmd BufNewFile,BufRead **/squid**/*.conf* set filetype=squid
 
+
+augroup autoformat_settings
+  autocmd FileType bzl AutoFormatBuffer buildifier
+  autocmd FileType c,cpp,proto,javascript AutoFormatBuffer clang-format
+  autocmd FileType dart AutoFormatBuffer dartfmt
+  autocmd FileType go AutoFormatBuffer gofmt
+  autocmd FileType gn AutoFormatBuffer gn
+  autocmd FileType html,css,json AutoFormatBuffer js-beautify
+  autocmd FileType java AutoFormatBuffer google-java-format
+  "autocmd FileType python AutoFormatBuffer yapf
+  " Alternative: autocmd FileType python AutoFormatBuffer autopep8
+augroup END
+
 let g:gitgutter_realtime = 0
 let g:gitgutter_eager = 0
 
-"set rtp+=$HOME/Library/Python/2.7/lib/python/site-packages/powerline/bindings/vim
+set rtp+=$HOME/Library/Python/3.6/lib/python/site-packages/powerline/bindings/vim
 set rtp+=/usr/local/opt/fzf
 
 "python from powerline.vim import setup as powerline_setup
@@ -204,3 +229,6 @@ let g:pymode_lint_config = "$HOME/.pylintrc"
 set background=dark
 
 map y <Plug>(highlightedyank)
+
+let g:ale_completion_enabled = 1
+let g:ale_fix_on_save = 1

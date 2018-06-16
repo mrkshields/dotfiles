@@ -1,7 +1,2 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =5
-let g:netrw_dirhist_1='/Users/mshields/workspace/source/src/python/twitter/infraops/fleetdata/docs/examples/v1/requests'
-let g:netrw_dirhist_2='/Users/mshields/workspace/source/src/python/twitter/infraops'
-let g:netrw_dirhist_3='/Users/mshields/workspace/ci-job-configs/agent-tools-source'
-let g:netrw_dirhist_4='/Users/mshields/workspace/source/src/python/twitter/infraops/fleetdata/docs'
-let g:netrw_dirhist_5='/Users/mshields/workspace/source/src/python/twitter/infraops/pap/docs'
+let g:netrw_dirhist_cnt =0
