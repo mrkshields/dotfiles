@@ -3,7 +3,7 @@ set -l configdir ~/.config
 
 # because fish complains if a path doesn't exist
 
-for path in $HOME/bin /opt/local/bin /opt/twitter_mde/bin /opt/twitter/bin $HOME/Library/Python/2.7/bin $HOME/Library/Python/3.6/bin $HOME/.local/bin /opt/twitter/opt/coreutils/libexec/gnubin /usr/local/opt/coreutils/libexec/gnubin
+for path in $HOME/bin /opt/local/bin /opt/twitter_mde/bin /opt/twitter/bin $HOME/Library/Python/2.7/bin $HOME/Library/Python/3.6/bin $HOME/.local/bin /opt/twitter/opt/coreutils/libexec/gnubin /usr/local/opt/coreutils/libexec/gnubin /opt/local/Library/Frameworks/Python.framework/Versions/3.7/bin
   if test -d $path
     set -x PATH $path $PATH
   end
