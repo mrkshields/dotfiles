@@ -15,10 +15,9 @@ end
 
 # Powerline config
 if status is-interactive
-  set fish_function_path $fish_function_path "$HOME/Library/Python/3.6/lib/python/site-packages/powerline/bindings/fish" "$HOME/.local/lib/python3.6/site-packages/powerline/bindings/fish"
+  set fish_function_path $fish_function_path "$HOME/Library/Python/3.7/lib/python/site-packages/powerline/bindings/fish"
   powerline-setup
-  fzf_key_bindings
-  source (jump shell | psub)
+  #  source (jump shell | psub)
 end
 
 # Fundle plugin installs
@@ -26,6 +25,7 @@ if functions fundle > /dev/null 2>&1
   #fundle plugin 'oh-my-fish/plugin-grc'
   fundle plugin 'acomagu/fish-async-prompt'
   fundle plugin 'edc/bass'
+  fundle plugin 'fisherman/fzy'
   fundle plugin 'fisherman/get'
   fundle plugin 'fisherman/spin'
   fundle plugin 'oh-my-fish/plugin-bang-bang'

@@ -30,6 +30,7 @@ Plugin 'b3niup/numbers.vim'
 Plugin 'benmills/vimux'
 Plugin 'breard-r/vim-dnsserial'
 Plugin 'chiedo/vim-sort-blocks-by'
+Plugin 'chrisbra/SudoEdit.vim'
 Plugin 'christoomey/vim-sort-motion'
 Plugin 'christoomey/vim-tmux-navigator'
 Plugin 'cirla/vim-giphy'
@@ -232,3 +233,19 @@ map y <Plug>(highlightedyank)
 
 let g:ale_completion_enabled = 1
 let g:ale_fix_on_save = 1
+
+function! FzyCommand(choice_command, vim_command)
+  try
+    let output = system(a:choice_command . " | fzy ")
+  catch /Vim:Interrupt/
+    " Swallow errors from ^C, allow redraw! below
+  endtry
+  redraw!
+  if v:shell_error == 0 && !empty(output)
+    exec a:vim_command . ' ' . output
+  endif
+endfunction
+
+nnoremap <leader>e :call FzyCommand("find -type f", ":e")<cr>
+nnoremap <leader>v :call FzyCommand("find -type f", ":vs")<cr>
+nnoremap <leader>s :call FzyCommand("find -type f", ":sp")<cr>
