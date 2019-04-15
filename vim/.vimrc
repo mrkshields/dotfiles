@@ -14,7 +14,6 @@ set shell=/bin/bash
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 
-Plugin 'powerline/powerline', {'rtp': 'powerline/bindings/vim'}
 Plugin 'ConradIrwin/vim-bracketed-paste'
 Plugin 'Dinduks/vim-holylight'
 Plugin 'FooSoft/vim-argwrap'
@@ -40,6 +39,7 @@ Plugin 'davidpdrsn/vim-spectacular'
 Plugin 'derekwyatt/vim-scala'
 Plugin 'dyng/ctrlsf.vim'
 Plugin 'farmergreg/vim-lastplace'
+Plugin 'fatih/vim-go'
 Plugin 'godlygeek/tabular'
 Plugin 'google/vim-codefmt'
 Plugin 'google/vim-maktaba'
@@ -50,7 +50,7 @@ Plugin 'ivanov/vim-ipython'
 Plugin 'jbgutierrez/vim-better-comments'
 Plugin 'junegunn/fzf', {'rtp': '/opt/twitter/opt/fzf'}
 Plugin 'junegunn/fzf.vim'
-Plugin 'kevints/vim-aurora-syntax'
+"Plugin 'kevints/vim-aurora-syntax'
 Plugin 'lucidstack/ctrlp-tmux.vim'
 Plugin 'machakann/vim-columnmove'
 Plugin 'machakann/vim-highlightedyank'
@@ -58,11 +58,14 @@ Plugin 'machakann/vim-sandwich'
 Plugin 'machakann/vim-swap'
 Plugin 'mattn/webapi-vim'
 Plugin 'mbbill/undotree'
+Plugin 'mdempsky/gocode', {'rtp': 'vim/'}
 Plugin 'nhooyr/neoman.vim'
 Plugin 'nkantar/GHT.vim'
 Plugin 'ntpeters/vim-better-whitespace'
 Plugin 'pantsbuild/vim-pants'
+Plugin 'powerline/powerline', {'rtp': 'powerline/bindings/vim'}
 Plugin 'rodjek/vim-puppet'
+Plugin 'solarnz/thrift.vim'
 Plugin 'sunaku/vim-shortcut'
 Plugin 'tell-k/vim-autoflake'
 Plugin 'tell-k/vim-autopep8'
@@ -204,7 +207,7 @@ augroup END
 let g:gitgutter_realtime = 0
 let g:gitgutter_eager = 0
 
-set rtp+=$HOME/Library/Python/3.6/lib/python/site-packages/powerline/bindings/vim
+set rtp+=$HOME/Library/Python/3.7/lib/python/site-packages/powerline/bindings/vim
 set rtp+=/usr/local/opt/fzf
 
 "python from powerline.vim import setup as powerline_setup
