@@ -19,20 +19,7 @@ if status is-interactive
   #source (jump shell | psub)
 end
 
-# Fundle plugin installs
-if functions fundle > /dev/null 2>&1
-  #fundle plugin 'acomagu/fish-async-prompt'
-  fundle plugin 'edc/bass'
-  fundle plugin 'fisherman/fzy'
-  fundle plugin 'fisherman/spin'
-  fundle plugin 'jethrokuan/z'
-  fundle plugin 'laughedelic/pisces'
-  fundle plugin 'oh-my-fish/plugin-bang-bang'
-  fundle plugin 'oh-my-fish/plugin-expand'
-  fundle plugin 'oh-my-fish/theme-bobthefish'  # won't work without installing ohmyfish framework then using omf to install
-  fundle plugin 'tuvistavie/fish-fastdir'
-  fundle init
-end
+source $configdir/fish/fundle.fish 
 
 # Fish config
 #
@@ -62,82 +49,12 @@ alias pip "python3.7 -m pip"
 
 source $configdir/fish/tmux.fish
 
-#function find
-#  if (string sub -l 1) == '-'
-#    exec /usr/bin/find . $@
-#  else
-#    exec /usr/bin/find $@
-#  end
-#end
-
-function svn-st-awk --argument-names awk_search
-  svn status | awk "/$awk_search/{print \$NF}" | sort -u
-end
-
-function svn-ship --argument-names rb reviewers awk_search
-  eval $PWD/utilities/svn/svn-review -R $rb -r $reviewers commit (svn-st-awk $awk_search)
-end
-
-function svn-update --argument-names rb awk_search
-  eval $PWD/utilities/svn/svn-review -R $rb update (svn-st-awk $awk_search)
-end
-
-function !d
-	eval (vcprompt -f "%n") diff $argv
-end
-function !s
-	eval (vcprompt -f "%n") status $argv
-end
-
 function work --argument-names 'target_workdir'
   if count $target_workdir > /dev/null
-#    switch $target_workdir
-#      case source src
-#        cd $HOME/workspace/source/$SRC
-#        #set -x PANTS_CONFIG_OVERRIDE $HOME/workspace/source/pants.ini.daemon
-#        get_src
-#      case tests
-#        cd $HOME/workspace/source/$TESTS
-#        #set -x PANTS_CONFIG_OVERRIDE $HOME/workspace/source/pants.ini.daemon
-#        get_tests
-#      case '*'
-        cd $HOME/workspace/$target_workdir
-#    end
+    cd $HOME/workspace/$target_workdir
   else
     cd $HOME/workspace
   end
-end
-
-function src --argument-names 'src_path'
-  if count $src_path > /dev/null
-    set -U SRC $src_path
-  else
-    set -U SRC (echo $PWD | awk -F'/source/' '{print $NF}')
-  end
-end
-
-function tests --argument-names 'tests_path'
-  if count $tests_path > /dev/null
-    set -U SRC $src_path
-    set -U TESTS $tests_path
-  else
-    set -U TESTS (echo $PWD | awk -F'/source/' '{print $NF}' | sed 's/src/tests/')
-  end
-end
-
-function setup
-  src
-  #tests
-  get_src
-  #get_tests
-end
-
-function get_src
-  echo $SRC
-end
-
-function get_tests
-  echo $TESTS
 end
 
 function projdir --argument-names 'name'
@@ -145,14 +62,4 @@ function projdir --argument-names 'name'
     mkdir -pv $name
     touch $name/PROJECT
   end
-end
-
-function gc --argument-names 'repo'
-  if count $repo > /dev/null
-    git clone https://git.twitter.biz/$repo
-  end
-end
-
-if test -d /usr/local/opt/qt/bin
-  set -g fish_user_paths "/usr/local/opt/qt/bin" $fish_user_paths
 end
