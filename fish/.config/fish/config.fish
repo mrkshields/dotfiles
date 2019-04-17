@@ -3,7 +3,7 @@ set -l configdir ~/.config
 
 # because fish complains if a path doesn't exist
 
-for path in $HOME/bin $HOME/go/bin /opt/local/bin /opt/twitter_mde/bin $HOME/Library/Python/2.7/bin $HOME/Library/Python/3.6/bin $HOME/.local/bin /usr/local/opt/coreutils/libexec/gnubin /opt/local/Library/Frameworks/Python.framework/Versions/3.7/bin $HOME/Library/Python/3.7/bin $HOME/workspace/source $HOME/workspace/source/bin
+for path in $HOME/bin $HOME/go/bin /opt/local/bin /usr/local/bin /opt/twitter_mde/bin $HOME/Library/Python/2.7/bin $HOME/Library/Python/3.6/bin $HOME/.local/bin /usr/local/opt/coreutils/libexec/gnubin /opt/local/Library/Frameworks/Python.framework/Versions/3.7/bin $HOME/Library/Python/3.7/bin $HOME/workspace/source $HOME/workspace/source/bin
   if test -d $path
     set -x PATH $path $PATH
   end
@@ -25,6 +25,8 @@ if functions fundle > /dev/null 2>&1
   fundle plugin 'edc/bass'
   fundle plugin 'fisherman/fzy'
   fundle plugin 'fisherman/spin'
+  fundle plugin 'jethrokuan/z'
+  fundle plugin 'laughedelic/pisces'
   fundle plugin 'oh-my-fish/plugin-bang-bang'
   fundle plugin 'oh-my-fish/plugin-expand'
   fundle plugin 'oh-my-fish/theme-bobthefish'  # won't work without installing ohmyfish framework then using omf to install
@@ -59,6 +61,14 @@ alias pip "python3.7 -m pip"
 
 
 source $configdir/fish/tmux.fish
+
+#function find
+#  if (string sub -l 1) == '-'
+#    exec /usr/bin/find . $@
+#  else
+#    exec /usr/bin/find $@
+#  end
+#end
 
 function svn-st-awk --argument-names awk_search
   svn status | awk "/$awk_search/{print \$NF}" | sort -u
