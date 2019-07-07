@@ -52,7 +52,7 @@ set -x SBT_PROXY_REPO 'http://artifactory.local.twitter.com/repo/'
 # Aliases
 alias s ssh
 alias stripcolor "perl -MTerm::ANSIColor=colorstrip -ne 'print colorstrip(\$_)'"
-alias find gfind
+#alias find gfind
 #functions -e ls
 
 #if test -x /opt/twitter/bin/vim; alias vim /opt/twitter/bin/vim; end
