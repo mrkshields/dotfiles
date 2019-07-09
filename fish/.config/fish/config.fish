@@ -3,7 +3,7 @@ set -l configdir ~/.config
 
 # because fish complains if a path doesn't exist
 
-for path in $HOME/bin $HOME/go/bin /opt/local/bin /usr/local/bin /opt/twitter_mde/bin $HOME/Library/Python/2.7/bin $HOME/Library/Python/3.6/bin $HOME/.local/bin /usr/local/opt/coreutils/libexec/gnubin /opt/local/Library/Frameworks/Python.framework/Versions/3.7/bin $HOME/Library/Python/3.7/bin $HOME/workspace/source $HOME/workspace/source/bin
+for path in $HOME/bin $HOME/go/bin /opt/local/bin /usr/local/bin /opt/twitter_mde/bin $HOME/Library/Python/2.7/bin $HOME/Library/Python/3.6/bin $HOME/.local/bin /usr/local/opt/coreutils/libexec/gnubin /opt/local/Library/Frameworks/Python.framework/Versions/3.7/bin $HOME/Library/Python/3.7/bin $HOME/workspace/source $HOME/workspace/source/bin $HOME/.npm-global/bin
   if test -d $path
     set -x PATH $path $PATH
   end
@@ -43,6 +43,7 @@ alias pamm $HOME/workspace/source/ammonite/repl
 #functions -e ls
 
 if which ggrep > /dev/null; alias grep ggrep; end
+if which gfind > /dev/null; alias find gfind; end
 alias git-tl "git rev-parse --show-toplevel"
 alias pip "python3.7 -m pip"
 
