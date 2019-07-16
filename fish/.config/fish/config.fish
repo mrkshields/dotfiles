@@ -19,7 +19,7 @@ if status is-interactive
   #source (jump shell | psub)
 end
 
-source $configdir/fish/fundle.fish 
+source $configdir/fish/fundle.fish
 
 # Fish config
 #

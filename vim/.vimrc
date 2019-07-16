@@ -14,9 +14,11 @@ set shell=/bin/bash
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 
+"Plugin 'kevints/vim-aurora-syntax'
 Plugin 'ConradIrwin/vim-bracketed-paste'
 Plugin 'Dinduks/vim-holylight'
 Plugin 'FooSoft/vim-argwrap'
+Plugin 'JamshedVesuna/vim-markdown-preview'
 Plugin 'Shougo/denite.nvim'
 Plugin 'Shougo/neocomplete.vim'
 Plugin 'SirVer/ultisnips'
@@ -51,7 +53,6 @@ Plugin 'ivanov/vim-ipython'
 Plugin 'jbgutierrez/vim-better-comments'
 Plugin 'junegunn/fzf', {'rtp': '/opt/twitter/opt/fzf'}
 Plugin 'junegunn/fzf.vim'
-"Plugin 'kevints/vim-aurora-syntax'
 Plugin 'lucidstack/ctrlp-tmux.vim'
 Plugin 'machakann/vim-columnmove'
 Plugin 'machakann/vim-highlightedyank'
