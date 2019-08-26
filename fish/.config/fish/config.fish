@@ -14,6 +14,7 @@ set -x GOPATH $HOME/go
 # Powerline config
 if status is-interactive
   set fish_function_path $fish_function_path "$HOME/Library/Python/3.7/lib/python/site-packages/powerline/bindings/fish"
+  set fish_function_path $fish_function_path "/usr/local/lib/python3.7/dist-packages/powerline/bindings/fish"
   powerline-setup
   #fzf_key_bindings
   #source (jump shell | psub)
