@@ -18,7 +18,6 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'ConradIrwin/vim-bracketed-paste'
 Plugin 'Dinduks/vim-holylight'
 Plugin 'FooSoft/vim-argwrap'
-Plugin 'JamshedVesuna/vim-markdown-preview'
 Plugin 'Shougo/denite.nvim'
 Plugin 'Shougo/neocomplete.vim'
 Plugin 'SirVer/ultisnips'
@@ -217,7 +216,7 @@ set rtp+=/usr/local/opt/fzf
 "python del powerline_setup
 set t_Co=256
 
-let g:pymode_lint_checkers = ['mccabe', 'pyflakes', 'pylint', 'pep8', 'pep257']
+let g:pymode_lint_checkers = ['pep8']
 
 let g:vim_markdown_preview_toggle=2
 
@@ -229,7 +228,7 @@ autocmd FileType python map <buffer> <F3> :call Autoflake()<CR>
 autocmd FileType python set colorcolumn=100
 hi ColorColumn ctermbg=8
 
-let g:pymode_lint_config = "$HOME/.pylintrc"
+"let g:pymode_lint_config = "$HOME/.pylintrc"
 
 set background=dark
 
