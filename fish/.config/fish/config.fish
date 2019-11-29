@@ -13,7 +13,7 @@ end
 set -x GOPATH $HOME/go
 
 # direnv
-direnv hook fish | source
+#direnv hook fish | source
 
 # Powerline config
 if status is-interactive
