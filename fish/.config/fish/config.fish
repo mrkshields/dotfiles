@@ -3,7 +3,7 @@ set -l configdir ~/.config
 
 # because fish complains if a path doesn't exist
 
-for path in $HOME/bin $HOME/go/bin /opt/local/bin /usr/local/bin /opt/twitter_mde/bin $HOME/Library/Python/2.7/bin $HOME/.local/bin /usr/local/opt/coreutils/libexec/gnubin /opt/local/Library/Frameworks/Python.framework/Versions/3.7/bin $HOME/.npm-global/bin
+for path in $HOME/bin $HOME/.local/bin $HOME/go/bin /opt/local/bin /usr/local/bin /opt/twitter_mde/bin $HOME/Library/Python/2.7/bin $HOME/.local/bin /usr/local/opt/coreutils/libexec/gnubin /opt/local/Library/Frameworks/Python.framework/Versions/3.7/bin $HOME/.npm-global/bin
   if test -d $path
     set -x PATH $path $PATH
   end
@@ -53,7 +53,7 @@ alias git-tl "git rev-parse --show-toplevel"
 alias pip "python3.7 -m pip"
 
 
-source $configdir/fish/tmux.fish
+#source $configdir/fish/tmux.fish
 
 function work --argument-names 'target_workdir'
   if count $target_workdir > /dev/null
@@ -96,4 +96,9 @@ end
 # The next line updates PATH for the Google Cloud SDK.
 if test -f '/Users/mshields/Downloads/google-cloud-sdk/path.fish.inc'
   source '/Users/mshields/Downloads/google-cloud-sdk/path.fish.inc'
+end
+
+# Extraterm extra integration
+if test -f $configdir/fish/extraterm/setup_extraterm_fish.fish
+  source $configdir/fish/extraterm/setup_extraterm_fish.fish
 end
