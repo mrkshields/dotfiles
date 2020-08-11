@@ -97,3 +97,8 @@ end
 if test -f '/Users/mshields/Downloads/google-cloud-sdk/path.fish.inc'
   source '/Users/mshields/Downloads/google-cloud-sdk/path.fish.inc'
 end
+
+# Extraterm extra integration
+if test -f $configdir/fish/extraterm/setup_extraterm_fish.fish
+  source $configdir/fish/extraterm/setup_extraterm_fish.fish
+end
