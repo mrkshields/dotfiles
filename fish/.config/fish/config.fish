@@ -53,7 +53,7 @@ alias git-tl "git rev-parse --show-toplevel"
 alias pip "python3.7 -m pip"
 
 
-source $configdir/fish/tmux.fish
+#source $configdir/fish/tmux.fish
 
 function work --argument-names 'target_workdir'
   if count $target_workdir > /dev/null
