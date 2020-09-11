@@ -62,6 +62,10 @@ function work --argument-names 'target_workdir'
   end
 end
 
+function ipmitool
+  /usr/bin/ipmitool -I lanplus -U root -P root -H $argv
+end
+
 function vwork --argument-names 'target_workdir'
   if count $target_workdir > /dev/null
     set basedir (string split "/" -- $target_workdir)[1]
