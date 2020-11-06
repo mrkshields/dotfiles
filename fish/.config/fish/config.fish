@@ -3,7 +3,7 @@ set -l configdir ~/.config
 
 # because fish complains if a path doesn't exist
 
-for path in /snap/bin $HOME/bin $HOME/.local/bin $HOME/go/bin /opt/local/bin /usr/local/bin $HOME/Library/Python/2.7/bin $HOME/.local/bin /usr/local/opt/coreutils/libexec/gnubin /opt/local/Library/Frameworks/Python.framework/Versions/3.7/bin $HOME/.npm-global/bin $HOME/.krew/bin
+for path in /snap/bin $HOME/bin $HOME/.local/bin $HOME/go/bin /opt/local/bin /usr/local/bin $HOME/Library/Python/2.7/bin $HOME/.local/bin /usr/local/opt/coreutils/libexec/gnubin /opt/local/Library/Frameworks/Python.framework/Versions/3.7/bin $HOME/.npm-global/bin $HOME/.krew/bin $HOME/Library/Python/3.8/bin $HOME/Library/Python/3.9/bin
   if test -d $path
     set -x PATH $path $PATH
   end
@@ -19,6 +19,7 @@ set -x GOPATH $HOME/go
 if status is-interactive
   set fish_function_path $fish_function_path "$HOME/Library/Python/3.7/lib/python/site-packages/powerline/bindings/fish"
   set fish_function_path $fish_function_path "/usr/local/lib/python3.7/dist-packages/powerline/bindings/fish"
+  set fish_function_path $fish_function_path "$HOME/Library/Python/3.8/lib/python/site-packages/powerline/bindings/fish"
   powerline-setup
   #fzf_key_bindings
   #source (jump shell | psub)
@@ -48,11 +49,20 @@ alias pamm $HOME/workspace/source/ammonite/repl
 
 if which ggrep > /dev/null; alias grep ggrep; end
 if which gfind > /dev/null; alias find gfind; end
+if which gls > /dev/null; alias ls gls; end
 alias git-tl "git rev-parse --show-toplevel"
 alias pip "python3.7 -m pip"
 
 
 #source $configdir/fish/tmux.fish
+
+function bt --argument-names 'target_workdir'
+  if count $target_workdir > /dev/null
+    cd $HOME/bt/$target_workdir
+  else
+    cd $HOME/bt
+  end
+end
 
 function work --argument-names 'target_workdir'
   if count $target_workdir > /dev/null

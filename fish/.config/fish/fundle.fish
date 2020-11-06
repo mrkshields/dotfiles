@@ -1,6 +1,6 @@
 # Fundle plugin installs
 if functions fundle > /dev/null 2>&1
-  #fundle plugin 'acomagu/fish-async-prompt'
+  fundle plugin 'Markcial/upto'
   fundle plugin 'edc/bass'
   fundle plugin 'fisherman/fzy'
   fundle plugin 'fisherman/spin'
