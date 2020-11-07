@@ -9,6 +9,8 @@ set rtp+=$HOME/.vim/bundle/Vundle.vim
 " the plugins.
 let g:mapleader=","
 
+let vim_markdown_preview_github=1
+
 set shell=/bin/bash
 
 call vundle#begin()
@@ -50,7 +52,7 @@ Plugin 'habamax/vim-skipit'
 Plugin 'heavenshell/vim-pydocstring'
 Plugin 'ivanov/vim-ipython'
 Plugin 'jbgutierrez/vim-better-comments'
-Plugin 'junegunn/fzf', {'rtp': '/opt/twitter/opt/fzf'}
+"Plugin 'junegunn/fzf', {'rtp': '/opt/twitter/opt/fzf'}
 Plugin 'junegunn/fzf.vim'
 Plugin 'lucidstack/ctrlp-tmux.vim'
 Plugin 'machakann/vim-columnmove'
@@ -77,7 +79,8 @@ Plugin 'tpope/vim-capslock'
 Plugin 'tpope/vim-commentary'
 Plugin 'tpope/vim-dispatch'
 Plugin 'tpope/vim-eunuch'
-Plugin 'tpope/vim-markdown'
+"Plugin 'tpope/vim-markdown'
+Plugin 'JamshedVesuna/vim-markdown-preview'
 Plugin 'tpope/vim-rhubarb'
 Plugin 'tpope/vim-speeddating'
 Plugin 'tpope/vim-surround'
