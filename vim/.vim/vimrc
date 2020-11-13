@@ -22,7 +22,7 @@ Plugin 'Dinduks/vim-holylight'
 Plugin 'FooSoft/vim-argwrap'
 Plugin 'Shougo/denite.nvim'
 Plugin 'Shougo/neocomplete.vim'
-Plugin 'SirVer/ultisnips'
+"Plugin 'SirVer/ultisnips'
 Plugin 'Vimjas/vim-python-pep8-indent'
 Plugin 'Yggdroot/indentLine'
 Plugin 'airblade/vim-gitgutter'
@@ -211,7 +211,8 @@ augroup END
 let g:gitgutter_realtime = 0
 let g:gitgutter_eager = 0
 
-set rtp+=$HOME/Library/Python/3.7/lib/python/site-packages/powerline/bindings/vim
+"set rtp+=$HOME/Library/Python/3.7/lib/python/site-packages/powerline/bindings/vim
+set rtp+=/usr/local/lib/python3.7/dist-packages/powerline/bindings/vim
 set rtp+=/usr/local/opt/fzf
 
 "python from powerline.vim import setup as powerline_setup
