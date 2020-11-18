@@ -56,6 +56,18 @@ alias pip "python3.7 -m pip"
 
 #source $configdir/fish/tmux.fish
 
+function cpair-select --argument-names 'account'
+  if count $account > /dev/null
+    set selected (cpair -A $account list | fzf --header-lines=1)
+    echo $selected
+    cpair -A $account ssh -p (echo $selected | awk '{print $1}')
+  else
+    set selected (cpair list | fzf --header-lines=1)
+    echo $selected
+    cpair ssh -p (echo $selected | awk '{print $1}')
+  end
+end
+
 function bt --argument-names 'target_workdir'
   if count $target_workdir > /dev/null
     cd $HOME/bt/$target_workdir
