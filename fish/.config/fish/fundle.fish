@@ -5,6 +5,7 @@ if functions fundle > /dev/null 2>&1
   fundle plugin 'fisherman/fzy'
   fundle plugin 'fisherman/spin'
   fundle plugin 'jethrokuan/z'
+  fundle plugin 'jorgebucaran/fish-bax'
   fundle plugin 'laughedelic/pisces'
   fundle plugin 'oh-my-fish/plugin-bang-bang'
   fundle plugin 'oh-my-fish/plugin-expand'

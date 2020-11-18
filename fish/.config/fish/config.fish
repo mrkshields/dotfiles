@@ -46,7 +46,6 @@ alias stripcolor "perl -MTerm::ANSIColor=colorstrip -ne 'print colorstrip(\$_)'"
 #alias find gfind
 alias pamm $HOME/workspace/source/ammonite/repl
 #functions -e ls
-
 if which ggrep > /dev/null; alias grep ggrep; end
 if which gfind > /dev/null; alias find gfind; end
 if which gls > /dev/null; alias ls gls; end
