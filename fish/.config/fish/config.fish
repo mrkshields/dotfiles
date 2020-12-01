@@ -21,6 +21,12 @@ if status is-interactive
   set fish_function_path $fish_function_path "/usr/local/lib/python3.7/dist-packages/powerline/bindings/fish"
   set fish_function_path $fish_function_path "$HOME/Library/Python/3.8/lib/python/site-packages/powerline/bindings/fish"
   powerline-setup
+  for path in "$HOME/Library/Python/3.7/lib/python/site-packages/powerline/bindings/fish" "/usr/local/lib/python3.7/dist-packages/powerline/bindings/fish"
+    if test -d $path
+      set fish_function_path $fish_function_path $path
+      powerline-setup
+    end
+  end
   #fzf_key_bindings
   #source (jump shell | psub)
 end
@@ -36,12 +42,17 @@ set -g async_prompt_inherit_variables all
 
 # Environment variables
 
+set -x DOCKER_HOST ssh://mark@shannara
 set -x EDITOR 'vim'
 set -x FIGNORE '*.pyc'
 set -x PYTHONDONTWRITEBYTECODE 1
 set -x SSL_CERT_FILE '/opt/local/etc/openssl/cert.pem'
 
 # Aliases
+alias ipython "python3 -m IPython"
+alias pip "python3 -m pip"
+alias f fluxctl
+alias k kubectl
 alias s ssh
 alias stripcolor "perl -MTerm::ANSIColor=colorstrip -ne 'print colorstrip(\$_)'"
 alias pamm $HOME/workspace/source/ammonite/repl
@@ -53,6 +64,7 @@ alias pip "python3 -m pip"
 
 
 #source $configdir/fish/tmux.fish
+source $configdir/fish/flux.fish
 
 function get-ldap
   get-passwd-from-tag ldap
