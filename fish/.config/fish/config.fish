@@ -38,22 +38,36 @@ set -g async_prompt_inherit_variables all
 
 set -x EDITOR 'vim'
 set -x FIGNORE '*.pyc'
-set -x PYTHONDONTWRITEBYTECODE 'very_yes'
+set -x PYTHONDONTWRITEBYTECODE 1
+set -x SSL_CERT_FILE '/opt/local/etc/openssl/cert.pem'
 
 # Aliases
 alias s ssh
 alias stripcolor "perl -MTerm::ANSIColor=colorstrip -ne 'print colorstrip(\$_)'"
-#alias find gfind
 alias pamm $HOME/workspace/source/ammonite/repl
-#functions -e ls
 if which ggrep > /dev/null; alias grep ggrep; end
 if which gfind > /dev/null; alias find gfind; end
 if which gls > /dev/null; alias ls gls; end
 alias git-tl "git rev-parse --show-toplevel"
-alias pip "python3.7 -m pip"
+alias pip "python3 -m pip"
 
 
 #source $configdir/fish/tmux.fish
+
+function get-ldap
+  get-passwd-from-tag ldap
+end
+
+function get-corp
+  get-passwd-from-tag corp
+end
+
+function get-passwd-from-tag --argument-names 'tags'
+  if test -z $OP_SESSION_braintree > /dev/null
+    eval (op signin braintree)
+  end
+  op list items --tags $tags | op get item --fields password - | pbcopy
+end
 
 function cpair-select --argument-names 'account'
   if count $account > /dev/null
@@ -106,14 +120,6 @@ function projdir --argument-names 'name'
   if count $name > /dev/null
     mkdir -pv $name
     touch $name/PROJECT
-  end
-end
-
-function fgrin --argument-names 'search' 'filename'
-  if count $filename > /dev/null
-    if count $search > /dev/null
-      find -type f -iname $filename -exec grin $search '{}' \;
-    end
   end
 end
 
