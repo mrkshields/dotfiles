@@ -2,6 +2,8 @@
 fish/.config/fish/fish_history
 fish/.config/fish/fishd.8cae4cffc40e
 fish/.config/fish/fishd.allanon
+fish/.config/fish/fundle
+fish/.config/fish/fundle/*
 powerline/.config/powerline/themes/tmux/default.json
 tmux/.tmux/resurrect
 vim/.vim/.netrwhist

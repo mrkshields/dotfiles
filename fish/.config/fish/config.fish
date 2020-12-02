@@ -47,9 +47,7 @@ set -x SSH_AUTH_SOCK "$XDG_RUNTIME_DIR/ssh-agent.sock"
 set -x EDITOR 'vim'
 set -x FIGNORE '*.pyc'
 set -x PYTHONDONTWRITEBYTECODE 1
-#set -x FLUX_FORWARD_NAMESPACE 'flux'
-#set -x WINEPREFIX "$HOME/.wine/prefix32"
-#set -x WINEARCH 'win32'
+set -x SSL_CERT_FILE '/opt/local/etc/openssl/cert.pem'
 
 # Aliases
 alias ipython "python3 -m IPython"
@@ -58,19 +56,43 @@ alias f fluxctl
 alias k kubectl
 alias s ssh
 alias stripcolor "perl -MTerm::ANSIColor=colorstrip -ne 'print colorstrip(\$_)'"
-#alias find gfind
 alias pamm $HOME/workspace/source/ammonite/repl
-#functions -e ls
-
 if which ggrep > /dev/null; alias grep ggrep; end
 if which gfind > /dev/null; alias find gfind; end
 if which gls > /dev/null; alias ls gls; end
 alias git-tl "git rev-parse --show-toplevel"
-alias pip "python3.7 -m pip"
+alias pip "python3 -m pip"
 
 
 #source $configdir/fish/tmux.fish
 source $configdir/fish/flux.fish
+
+function get-ldap
+  get-passwd-from-tag ldap
+end
+
+function get-corp
+  get-passwd-from-tag corp
+end
+
+function get-passwd-from-tag --argument-names 'tags'
+  if test -z $OP_SESSION_braintree > /dev/null
+    eval (op signin braintree)
+  end
+  op list items --tags $tags | op get item --fields password - | pbcopy
+end
+
+function cpair-select --argument-names 'account'
+  if count $account > /dev/null
+    set selected (cpair -A $account list | fzf --header-lines=1)
+    echo $selected
+    cpair -A $account ssh -p (echo $selected | awk '{print $1}')
+  else
+    set selected (cpair list | fzf --header-lines=1)
+    echo $selected
+    cpair ssh -p (echo $selected | awk '{print $1}')
+  end
+end
 
 function bt --argument-names 'target_workdir'
   if count $target_workdir > /dev/null
@@ -111,14 +133,6 @@ function projdir --argument-names 'name'
   if count $name > /dev/null
     mkdir -pv $name
     touch $name/PROJECT
-  end
-end
-
-function fgrin --argument-names 'search' 'filename'
-  if count $filename > /dev/null
-    if count $search > /dev/null
-      find -type f -iname $filename -exec grin $search '{}' \;
-    end
   end
 end
 
