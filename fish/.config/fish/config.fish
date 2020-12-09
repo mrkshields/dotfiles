@@ -3,7 +3,7 @@ set -l configdir ~/.config
 
 # because fish complains if a path doesn't exist
 
-for path in /snap/bin $HOME/bin $HOME/.local/bin $HOME/go/bin /opt/local/bin /usr/local/bin $HOME/Library/Python/2.7/bin $HOME/.local/bin /usr/local/opt/coreutils/libexec/gnubin /opt/local/Library/Frameworks/Python.framework/Versions/3.7/bin $HOME/.npm-global/bin $HOME/.krew/bin $HOME/Library/Python/3.8/bin $HOME/Library/Python/3.9/bin
+for path in /snap/bin $HOME/bin $HOME/.local/bin $HOME/go/bin /opt/local/bin /usr/local/bin $HOME/Library/Python/2.7/bin $HOME/.local/bin /usr/local/opt/coreutils/libexec/gnubin /opt/local/Library/Frameworks/Python.framework/Versions/3.7/bin $HOME/.npm-global/bin $HOME/.krew/bin $HOME/Library/Python/3.8/bin $HOME/Library/Python/3.9/bin $HOME/.gem/ruby/2.6.0/bin
   if test -d $path
     set -x PATH $path $PATH
   end
@@ -46,7 +46,8 @@ set -x DOCKER_HOST ssh://mark@shannara
 set -x EDITOR 'vim'
 set -x FIGNORE '*.pyc'
 set -x PYTHONDONTWRITEBYTECODE 1
-set -x SSL_CERT_FILE '/opt/local/etc/openssl/cert.pem'
+set -x SSL_CERT_FILE '/etc/ssl/cert.pem'
+#set -x SSL_CERT_FILE '/opt/local/etc/openssl/cert.pem'
 
 # Aliases
 alias ipython "python3 -m IPython"
@@ -64,7 +65,7 @@ alias pip "python3 -m pip"
 
 
 #source $configdir/fish/tmux.fish
-source $configdir/fish/flux.fish
+#source $configdir/fish/flux.fish
 
 function get-ldap
   get-passwd-from-tag ldap
@@ -75,10 +76,7 @@ function get-corp
 end
 
 function get-passwd-from-tag --argument-names 'tags'
-  if test -z $OP_SESSION_braintree > /dev/null
-    eval (op signin braintree)
-  end
-  op list items --tags $tags | op get item --fields password - | pbcopy
+  eval (op signin --session braintree); and op list items --tags $tags | op get item --fields password - | pbcopy
 end
 
 function cpair-select --argument-names 'account'
