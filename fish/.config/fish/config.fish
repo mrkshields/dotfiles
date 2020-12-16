@@ -79,16 +79,19 @@ function get-passwd-from-tag --argument-names 'tags'
   eval (op signin --session braintree); and op list items --tags $tags | op get item --fields password - | pbcopy
 end
 
-function cpair-select --argument-names 'account'
-  if count $account > /dev/null
-    set selected (cpair -A $account list | fzf --header-lines=1)
-    echo $selected
-    cpair -A $account ssh -p (echo $selected | awk '{print $1}')
+function cpair-tmux --argument-names 'account'
+  set query (tmux list-windows -F '#{window_active} #W' | awk '/^1/{printf $NF}')
+  cpair-select $account $query
+end
+
+function cpair-select --argument-names 'account' 'query'
+  if count $query > /dev/null
+    set selected (env CPAIR_ACCOUNT=$account cpair list | fzf --header-lines=1 --query $query)
   else
-    set selected (cpair list | fzf --header-lines=1)
-    echo $selected
-    cpair ssh -p (echo $selected | awk '{print $1}')
+    set selected (env CPAIR_ACCOUNT=$account cpair list | fzf --header-lines=1)
   end
+  echo $selected
+  env CPAIR_ACCOUNT=$account cpair ssh -p (echo $selected | awk '{printf $1}')
 end
 
 function bt --argument-names 'target_workdir'
