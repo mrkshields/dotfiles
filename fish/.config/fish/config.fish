@@ -64,7 +64,7 @@ alias git-tl "git rev-parse --show-toplevel"
 alias pip "python3 -m pip"
 
 
-#source $configdir/fish/tmux.fish
+source $configdir/fish/tmux.fish
 #source $configdir/fish/flux.fish
 
 function get-ldap
