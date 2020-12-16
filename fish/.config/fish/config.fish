@@ -42,8 +42,8 @@ set -g async_prompt_inherit_variables all
 
 # Environment variables
 
-set -x DOCKER_HOST ssh://mark@shannara
-set -x SSH_AUTH_SOCK "$XDG_RUNTIME_DIR/ssh-agent.sock"
+#set -x DOCKER_HOST ssh://mark@shannara
+#set -x SSH_AUTH_SOCK "$XDG_RUNTIME_DIR/ssh-agent.sock"
 set -x EDITOR 'vim'
 set -x FIGNORE '*.pyc'
 set -x PYTHONDONTWRITEBYTECODE 1
