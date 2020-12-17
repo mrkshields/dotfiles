@@ -17,11 +17,10 @@ set -x GOPATH $HOME/go
 
 # Powerline config
 if status is-interactive
-  set fish_function_path $fish_function_path "$HOME/Library/Python/3.7/lib/python/site-packages/powerline/bindings/fish"
-  set fish_function_path $fish_function_path "/usr/local/lib/python3.7/dist-packages/powerline/bindings/fish"
+  set fish_function_path $fish_function_path "/opt/local/share/fzf/shell/key-bindings.fish"
   set fish_function_path $fish_function_path "$HOME/Library/Python/3.8/lib/python/site-packages/powerline/bindings/fish"
   powerline-setup
-  for path in "$HOME/Library/Python/3.7/lib/python/site-packages/powerline/bindings/fish" "/usr/local/lib/python3.7/dist-packages/powerline/bindings/fish"
+  for path in "$HOME/Library/Python/3.8/lib/python/site-packages/powerline/bindings/fish"
     if test -d $path
       set fish_function_path $fish_function_path $path
       powerline-setup
@@ -42,8 +41,8 @@ set -g async_prompt_inherit_variables all
 
 # Environment variables
 
-set -x DOCKER_HOST ssh://mark@shannara
-set -x SSH_AUTH_SOCK "$XDG_RUNTIME_DIR/ssh-agent.sock"
+#set -x DOCKER_HOST ssh://mark@shannara
+#set -x SSH_AUTH_SOCK "$XDG_RUNTIME_DIR/ssh-agent.sock"
 set -x EDITOR 'vim'
 set -x FIGNORE '*.pyc'
 set -x PYTHONDONTWRITEBYTECODE 1
@@ -65,7 +64,7 @@ alias git-tl "git rev-parse --show-toplevel"
 alias pip "python3 -m pip"
 
 
-#source $configdir/fish/tmux.fish
+source $configdir/fish/tmux.fish
 #source $configdir/fish/flux.fish
 
 function get-ldap
@@ -80,16 +79,19 @@ function get-passwd-from-tag --argument-names 'tags'
   eval (op signin --session braintree); and op list items --tags $tags | op get item --fields password - | pbcopy
 end
 
-function cpair-select --argument-names 'account'
-  if count $account > /dev/null
-    set selected (cpair -A $account list | fzf --header-lines=1)
-    echo $selected
-    cpair -A $account ssh -p (echo $selected | awk '{print $1}')
+function cpair-tmux --argument-names 'account'
+  set query (tmux list-windows -F '#{window_active} #W' | awk '/^1/{printf $NF}')
+  cpair-select $account $query
+end
+
+function cpair-select --argument-names 'account' 'query'
+  if count $query > /dev/null
+    set selected (env CPAIR_ACCOUNT=$account cpair list | fzf --header-lines=1 --query $query)
   else
-    set selected (cpair list | fzf --header-lines=1)
-    echo $selected
-    cpair ssh -p (echo $selected | awk '{print $1}')
+    set selected (env CPAIR_ACCOUNT=$account cpair list | fzf --header-lines=1)
   end
+  echo $selected
+  env CPAIR_ACCOUNT=$account cpair ssh -p (echo $selected | awk '{printf $1}')
 end
 
 function bt --argument-names 'target_workdir'
