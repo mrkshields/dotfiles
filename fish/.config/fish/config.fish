@@ -3,7 +3,19 @@ set -l configdir ~/.config
 
 # because fish complains if a path doesn't exist
 
-for path in /snap/bin $HOME/bin $HOME/.local/bin $HOME/go/bin /opt/local/bin /usr/local/bin $HOME/Library/Python/2.7/bin $HOME/.local/bin /usr/local/opt/coreutils/libexec/gnubin /opt/local/Library/Frameworks/Python.framework/Versions/3.7/bin $HOME/.npm-global/bin $HOME/.krew/bin $HOME/Library/Python/3.8/bin $HOME/Library/Python/3.9/bin $HOME/.gem/ruby/2.6.0/bin
+for path in \
+  $HOME/.gem/ruby/2.6.0/bin \
+  $HOME/.krew/bin \
+  $HOME/.local/bin \
+  $HOME/.npm-global/bin \
+  $HOME/bin \
+  $HOME/go/bin \
+  $HOME/macports/Library/Frameworks/Python.framework/Versions/3.7/bin \
+  $HOME/macports/bin \
+  $HOME/macports/sbin \
+  /opt/local/bin \
+  /snap/bin \
+  /usr/local/bin
   if test -d $path
     set -x PATH $path $PATH
   end
@@ -11,6 +23,7 @@ end
 
 
 set -x GOPATH $HOME/go
+set -x POWERLINE_CONFIG_COMMAND $HOME/macports/Library/Frameworks/Python.framework/Versions/3.7/bin/powerline-config
 
 # direnv
 #direnv hook fish | source
@@ -18,9 +31,7 @@ set -x GOPATH $HOME/go
 # Powerline config
 if status is-interactive
   set fish_function_path $fish_function_path "/opt/local/share/fzf/shell/key-bindings.fish"
-  set fish_function_path $fish_function_path "$HOME/Library/Python/3.8/lib/python/site-packages/powerline/bindings/fish"
-  powerline-setup
-  for path in "$HOME/Library/Python/3.8/lib/python/site-packages/powerline/bindings/fish"
+  for path in $HOME/macports/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/powerline/bindings/fish
     if test -d $path
       set fish_function_path $fish_function_path $path
       powerline-setup
@@ -60,12 +71,19 @@ alias pamm $HOME/workspace/source/ammonite/repl
 if which ggrep > /dev/null; alias grep ggrep; end
 if which gfind > /dev/null; alias find gfind; end
 if which gls > /dev/null; alias ls gls; end
+if which cpair > /dev/null; alias c cpair; end
+if which tmux > /dev/null; alias t tmux; end
 alias git-tl "git rev-parse --show-toplevel"
 alias pip "python3 -m pip"
 
 
-source $configdir/fish/tmux.fish
+#source $configdir/fish/tmux.fish
+#powerline-config tmux setup
 #source $configdir/fish/flux.fish
+
+function git-master
+  git remote show origin | awk '/HEAD branch:/{printf $NF}'
+end
 
 function get-ldap
   get-passwd-from-tag ldap
@@ -80,6 +98,11 @@ function get-passwd-from-tag --argument-names 'tags'
 end
 
 function cpair-tmux --argument-names 'account'
+  set query (tmux list-windows -F '#{window_active} #W' | awk '/^1/{printf $NF}')
+  cpair-select $account $query
+end
+
+function cpair-window --argument-names 'account'
   set query (tmux list-windows -F '#{window_active} #W' | awk '/^1/{printf $NF}')
   cpair-select $account $query
 end
@@ -142,6 +165,6 @@ if test -f '/Users/mshields/Downloads/google-cloud-sdk/path.fish.inc'
 end
 
 # Extraterm extra integration
-if test -f $configdir/fish/extraterm/setup_extraterm_fish.fish
-  source $configdir/fish/extraterm/setup_extraterm_fish.fish
-end
+#if test -f $configdir/fish/extraterm/setup_extraterm_fish.fish
+#  source $configdir/fish/extraterm/setup_extraterm_fish.fish
+#end
