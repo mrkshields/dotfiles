@@ -1,6 +1,7 @@
 # Fundle plugin installs
 if functions fundle > /dev/null 2>&1
   fundle plugin 'Markcial/upto'
+  fundle plugin 'danhper/fish-ssh-agent'
   fundle plugin 'edc/bass'
   fundle plugin 'fisherman/fzy'
   fundle plugin 'fisherman/spin'
