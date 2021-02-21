@@ -4,5 +4,5 @@ jobs:
   fish-syntax-check:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/fish-actions-install-fish@V1.1.0
+      - uses: fish-actions/install-fish@v1.1.0
       - run: fish -n fish/.config/fish/config.fish
