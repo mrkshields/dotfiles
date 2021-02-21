@@ -17,17 +17,12 @@ set -x GOPATH $HOME/go
 
 # Powerline config
 if status is-interactive
-  set fish_function_path $fish_function_path "/opt/local/share/fzf/shell/key-bindings.fish"
-  set fish_function_path $fish_function_path "$HOME/Library/Python/3.8/lib/python/site-packages/powerline/bindings/fish"
-  powerline-setup
-  for path in "$HOME/Library/Python/3.8/lib/python/site-packages/powerline/bindings/fish"
+  for path in $HOME/.local/lib/python3.7/site-packages/powerline/bindings/fish $HOME/Library/Python/3.8/lib/python/site-packages/powerline/bindings/fish
     if test -d $path
       set fish_function_path $fish_function_path $path
       powerline-setup
     end
   end
-  #fzf_key_bindings
-  #source (jump shell | psub)
 end
 
 source $configdir/fish/fundle.fish
@@ -65,7 +60,7 @@ alias git-tl "git rev-parse --show-toplevel"
 alias pip "python3 -m pip"
 
 
-source $configdir/fish/tmux.fish
+#source $configdir/fish/tmux.fish
 #source $configdir/fish/flux.fish
 
 function get-ldap
