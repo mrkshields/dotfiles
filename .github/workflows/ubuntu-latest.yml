@@ -1,0 +1,8 @@
+name: validate-dotfiles
+on: [push]
+jobs:
+  vimlint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/fish-actions-install-fish@V1.1.0
+      - run: fish -n fish/.config/fish/config.fish
