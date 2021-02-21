@@ -3,5 +3,5 @@ My cross-functional config of tmux, vim, fish, and more, for work and home, Mac 
 
 # How to use
 
-## Linux
+## Debian and Pixelbook
 Run `./setup-linux`
