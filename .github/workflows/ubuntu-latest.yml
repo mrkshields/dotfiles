@@ -5,4 +5,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: fish-actions/install-fish@v1.1.0
+      - run: ls -lah
       - run: fish -n fish/.config/fish/config.fish
