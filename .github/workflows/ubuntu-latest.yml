@@ -6,4 +6,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: fish-actions/install-fish@v1.1.0
+      - uses: actions/setup-node@v2
+      - run: npm install vimlint --save
       - run: fish -n fish/.config/fish/config.fish
+      - run: ./node_modules/vimlint/bin/vimlint vim/.vimrc
