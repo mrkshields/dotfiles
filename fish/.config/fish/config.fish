@@ -63,12 +63,16 @@ alias pip "python3 -m pip"
 #source $configdir/fish/tmux.fish
 #source $configdir/fish/flux.fish
 
+function get-shannara
+  get-passwd-from-tag-per-session shannara marks | wl-copy
+end
+
 function get-ldap
-  get-passwd-from-tag ldap
+  get-passwd-from-tag-per-session ldap braintree | pbcopy
 end
 
 function get-corp
-  get-passwd-from-tag corp
+  get-passwd-from-tag-per-session corp braintree | pbcopy
 end
 
 function unzip-to --argument-names 'file' 'parentdir'
@@ -76,8 +80,8 @@ function unzip-to --argument-names 'file' 'parentdir'
 	unzip $file -d $parentdir/$dir
 end
 
-function get-passwd-from-tag --argument-names 'tags'
-  eval (op signin --session braintree); and op list items --tags $tags | op get item --fields password - | pbcopy
+function get-passwd-from-tag-per-session --argument-names 'tags' 'session'
+  eval (op signin --session $session); and op list items --tags $tags | op get item --fields password -
 end
 
 function cpair-tmux --argument-names 'account'
