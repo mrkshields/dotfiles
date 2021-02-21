@@ -3,7 +3,7 @@ set -l configdir ~/.config
 
 # because fish complains if a path doesn't exist
 
-for path in /snap/bin $HOME/bin $HOME/.local/bin $HOME/go/bin /opt/local/bin /usr/local/bin $HOME/Library/Python/2.7/bin $HOME/.local/bin /usr/local/opt/coreutils/libexec/gnubin /opt/local/Library/Frameworks/Python.framework/Versions/3.7/bin $HOME/.npm-global/bin $HOME/.krew/bin $HOME/Library/Python/3.8/bin $HOME/Library/Python/3.9/bin $HOME/.gem/ruby/2.6.0/bin
+for path in /snap/bin $HOME/bin $HOME/.local/bin $HOME/go/bin /opt/local/bin /usr/local/bin $HOME/Library/Python/2.7/bin $HOME/.local/bin /usr/local/opt/coreutils/libexec/gnubin /opt/local/Library/Frameworks/Python.framework/Versions/3.7/bin $HOME/.npm-global/bin $HOME/.krew/bin $HOME/Library/Python/3.8/bin $HOME/Library/Python/3.9/bin $HOME/.gem/ruby/2.6.0/bin $HOME/.krew/bin
   if test -d $path
     set -x PATH $path $PATH
   end
