@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+set -euxo pipefail
+sudo apt install -yq fish git stow vim
+python3 -m pip install powerline-status
+find -mindepth 1 -maxdepth 1 -type d ! -name .git -printf "%f\0" | xargs -0 stow 
+if ! [[ -e ~/.vim/bundle/Vundle.vim ]]; then
+	git clone https://github.com/VundleVim/Vundle.vim ~/.vim/bundle/Vundle.vim
+fi
+if ! grep -q fish <<< "$SHELL"; then
+	chsh -s $(which fish);
+fi
+fish -c 'fundle install'
