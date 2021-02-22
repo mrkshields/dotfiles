@@ -1,5 +1,5 @@
 set fish_greeting ""
-set -l configdir ~/.config
+set -l configdir ~/.config/fish
 
 # because fish complains if a path doesn't exist
 
@@ -10,7 +10,7 @@ for path in \
   $HOME/.npm-global/bin \
   $HOME/bin \
   $HOME/go/bin \
-  $HOME/macports/Library/Frameworks/Python.framework/Versions/3.7/bin \
+#  $HOME/macports/Library/Frameworks/Python.framework/Versions/3.7/bin \
   $HOME/macports/bin \
   $HOME/macports/sbin \
   /opt/local/bin \
@@ -21,6 +21,8 @@ for path in \
   end
 end
 
+#set -x PATH $HOME/macports/Library/Frameworks/Python.framework/Versions/3.7/bin $PATH
+
 
 set -x GOPATH $HOME/go
 
@@ -29,7 +31,7 @@ set -x GOPATH $HOME/go
 
 # Powerline config
 if status is-interactive
-  set fish_function_path $fish_function_path "/opt/local/share/fzf/shell/key-bindings.fish"
+  #set fish_function_path $fish_function_path "/opt/local/share/fzf/shell/key-bindings.fish"
   for path in $HOME/macports/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/powerline/bindings/fish
     if test -d $path
       set fish_function_path $fish_function_path $path
@@ -40,7 +42,7 @@ if status is-interactive
   #source (jump shell | psub)
 end
 
-source $configdir/fish/fundle.fish
+source $configdir/fundle.fish
 
 # Fish config
 #
@@ -77,9 +79,9 @@ alias git-tl "git rev-parse --show-toplevel"
 alias pip "python3 -m pip"
 
 
-#source $configdir/fish/tmux.fish
+#source $configdir/tmux.fish
 #powerline-config tmux setup
-#source $configdir/fish/flux.fish
+#source $configdir/flux.fish
 
 function git-master
   git remote show origin | awk '/HEAD branch:/{printf $NF}'
@@ -164,12 +166,7 @@ function projdir --argument-names 'name'
   end
 end
 
-# The next line updates PATH for the Google Cloud SDK.
-if test -f '/Users/mshields/Downloads/google-cloud-sdk/path.fish.inc'
-  source '/Users/mshields/Downloads/google-cloud-sdk/path.fish.inc'
-end
-
 # Extraterm extra integration
-#if test -f $configdir/fish/extraterm/setup_extraterm_fish.fish
-#  source $configdir/fish/extraterm/setup_extraterm_fish.fish
+#if test -f $configdir/extraterm/setup_extraterm_fish.fish
+#  source $configdir/extraterm/setup_extraterm_fish.fish
 #end
