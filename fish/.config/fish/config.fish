@@ -23,7 +23,6 @@ end
 
 
 set -x GOPATH $HOME/go
-set -x POWERLINE_CONFIG_COMMAND $HOME/macports/Library/Frameworks/Python.framework/Versions/3.7/bin/powerline-config
 
 # direnv
 #direnv hook fish | source
