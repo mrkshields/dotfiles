@@ -31,15 +31,12 @@ set -x GOPATH $HOME/go
 
 # Powerline config
 if status is-interactive
-  #set fish_function_path $fish_function_path "/opt/local/share/fzf/shell/key-bindings.fish"
-  for path in $HOME/macports/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/powerline/bindings/fish
+  for path in $HOME/.local/lib/python3.7/site-packages/powerline/bindings/fish $HOME/Library/Python/3.8/lib/python/site-packages/powerline/bindings/fish
     if test -d $path
       set fish_function_path $fish_function_path $path
       powerline-setup
     end
   end
-  #fzf_key_bindings
-  #source (jump shell | psub)
 end
 
 source $configdir/fundle.fish
@@ -87,12 +84,16 @@ function git-master
   git remote show origin | awk '/HEAD branch:/{printf $NF}'
 end
 
+function get-shannara
+  get-passwd-from-tag-per-session shannara marks | wl-copy
+end
+
 function get-ldap
-  get-passwd-from-tag ldap
+  get-passwd-from-tag-per-session ldap braintree | pbcopy
 end
 
 function get-corp
-  get-passwd-from-tag corp
+  get-passwd-from-tag-per-session corp braintree | pbcopy
 end
 
 function unzip-to --argument-names 'file' 'parentdir'
@@ -100,8 +101,8 @@ function unzip-to --argument-names 'file' 'parentdir'
 	unzip $file -d $parentdir/$dir
 end
 
-function get-passwd-from-tag --argument-names 'tags'
-  eval (op signin --session braintree); and op list items --tags $tags | op get item --fields password - | pbcopy
+function get-passwd-from-tag-per-session --argument-names 'tags' 'session'
+  eval (op signin --session $session); and op list items --tags $tags | op get item --fields password -
 end
 
 function cpair-tmux --argument-names 'account'
