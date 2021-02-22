@@ -66,6 +66,7 @@ alias pip "python3 -m pip"
 alias f fluxctl
 alias k kubectl
 alias s ssh
+alias m mosh
 alias stripcolor "perl -MTerm::ANSIColor=colorstrip -ne 'print colorstrip(\$_)'"
 alias pamm $HOME/workspace/source/ammonite/repl
 if which ggrep > /dev/null; alias grep ggrep; end
@@ -91,6 +92,11 @@ end
 
 function get-corp
   get-passwd-from-tag corp
+end
+
+function unzip-to --argument-names 'file' 'parentdir'
+	set dir (echo $file | awk -F'.zip' '{print $1}')
+	unzip $file -d $parentdir/$dir
 end
 
 function get-passwd-from-tag --argument-names 'tags'
