@@ -3,6 +3,7 @@ if functions fundle > /dev/null 2>&1
   fundle plugin 'Markcial/upto'
   fundle plugin 'danhper/fish-ssh-agent'
   fundle plugin 'edc/bass'
+  fundle plugin 'evanlucas/fish-kubectl-completions'
   fundle plugin 'fisherman/fzy'
   fundle plugin 'fisherman/spin'
   fundle plugin 'jethrokuan/z'
