@@ -1,13 +1,27 @@
 set fish_greeting ""
-set -l configdir ~/.config
+set -l configdir ~/.config/fish
 
 # because fish complains if a path doesn't exist
 
-for path in /snap/bin $HOME/bin $HOME/.local/bin $HOME/go/bin /opt/local/bin /usr/local/bin $HOME/Library/Python/2.7/bin $HOME/.local/bin /usr/local/opt/coreutils/libexec/gnubin /opt/local/Library/Frameworks/Python.framework/Versions/3.7/bin $HOME/.npm-global/bin $HOME/.krew/bin $HOME/Library/Python/3.8/bin $HOME/Library/Python/3.9/bin $HOME/.gem/ruby/2.6.0/bin $HOME/.krew/bin
+for path in \
+  $HOME/.gem/ruby/2.6.0/bin \
+  $HOME/.krew/bin \
+  $HOME/.local/bin \
+  $HOME/.npm-global/bin \
+  $HOME/bin \
+  $HOME/go/bin \
+  $HOME/macports/Library/Frameworks/Python.framework/Versions/3.7/bin \
+  $HOME/macports/bin \
+  $HOME/macports/sbin \
+  /opt/local/bin \
+  /snap/bin \
+  /usr/local/bin
   if test -d $path
     set -x PATH $path $PATH
   end
 end
+
+#set -x PATH $HOME/macports/Library/Frameworks/Python.framework/Versions/3.7/bin $PATH
 
 
 set -x GOPATH $HOME/go
@@ -17,7 +31,7 @@ set -x GOPATH $HOME/go
 
 # Powerline config
 if status is-interactive
-  for path in $HOME/.local/lib/python3.7/site-packages/powerline/bindings/fish $HOME/Library/Python/3.8/lib/python/site-packages/powerline/bindings/fish
+  for path in $HOME/.local/lib/python3.7/site-packages/powerline/bindings/fish $HOME/macports/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/powerline/bindings/fish
     if test -d $path
       set fish_function_path $fish_function_path $path
       powerline-setup
@@ -25,7 +39,7 @@ if status is-interactive
   end
 end
 
-source $configdir/fish/fundle.fish
+source $configdir/fundle.fish
 
 # Fish config
 #
@@ -56,12 +70,19 @@ alias pamm $HOME/workspace/source/ammonite/repl
 if which ggrep > /dev/null; alias grep ggrep; end
 if which gfind > /dev/null; alias find gfind; end
 if which gls > /dev/null; alias ls gls; end
+if which cpair > /dev/null; alias c cpair; end
+if which tmux > /dev/null; alias t tmux; end
 alias git-tl "git rev-parse --show-toplevel"
 alias pip "python3 -m pip"
 
 
-#source $configdir/fish/tmux.fish
-#source $configdir/fish/flux.fish
+#source $configdir/tmux.fish
+#powerline-config tmux setup
+#source $configdir/flux.fish
+
+function git-master
+  git remote show origin | awk '/HEAD branch:/{printf $NF}'
+end
 
 function get-shannara
   get-passwd-from-tag-per-session shannara marks | wl-copy
@@ -85,6 +106,11 @@ function get-passwd-from-tag-per-session --argument-names 'tags' 'session'
 end
 
 function cpair-tmux --argument-names 'account'
+  set query (tmux list-windows -F '#{window_active} #W' | awk '/^1/{printf $NF}')
+  cpair-select $account $query
+end
+
+function cpair-window --argument-names 'account'
   set query (tmux list-windows -F '#{window_active} #W' | awk '/^1/{printf $NF}')
   cpair-select $account $query
 end
@@ -119,34 +145,7 @@ function ipmitool
   /usr/bin/ipmitool -I lanplus -U root -P root -H $argv
 end
 
-function vwork --argument-names 'target_workdir'
-  if count $target_workdir > /dev/null
-    set basedir (string split "/" -- $target_workdir)[1]
-    set restofdir (string split --max 1 "/" -- $target_workdir)[2]
-    if count $restofdir > /dev/null
-      cd /Volumes/Source/$basedir/src/$restofdir
-    else
-      cd /Volumes/Source/$basedir/src
-    end
-  else
-    cd /Volumes/Source
-  end
-end
-
-
-function projdir --argument-names 'name'
-  if count $name > /dev/null
-    mkdir -pv $name
-    touch $name/PROJECT
-  end
-end
-
-# The next line updates PATH for the Google Cloud SDK.
-if test -f '/Users/mshields/Downloads/google-cloud-sdk/path.fish.inc'
-  source '/Users/mshields/Downloads/google-cloud-sdk/path.fish.inc'
-end
-
 # Extraterm extra integration
-if test -f $configdir/fish/extraterm/setup_extraterm_fish.fish
-  source $configdir/fish/extraterm/setup_extraterm_fish.fish
-end
+#if test -f $configdir/extraterm/setup_extraterm_fish.fish
+#  source $configdir/extraterm/setup_extraterm_fish.fish
+#end
