@@ -10,7 +10,7 @@ for path in \
   $HOME/.npm-global/bin \
   $HOME/bin \
   $HOME/go/bin \
-#  $HOME/macports/Library/Frameworks/Python.framework/Versions/3.7/bin \
+  $HOME/macports/Library/Frameworks/Python.framework/Versions/3.7/bin \
   $HOME/macports/bin \
   $HOME/macports/sbin \
   /opt/local/bin \
@@ -31,7 +31,7 @@ set -x GOPATH $HOME/go
 
 # Powerline config
 if status is-interactive
-  for path in $HOME/.local/lib/python3.7/site-packages/powerline/bindings/fish $HOME/Library/Python/3.8/lib/python/site-packages/powerline/bindings/fish
+  for path in $HOME/.local/lib/python3.7/site-packages/powerline/bindings/fish $HOME/macports/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/powerline/bindings/fish
     if test -d $path
       set fish_function_path $fish_function_path $path
       powerline-setup
@@ -86,7 +86,7 @@ end
 
 function get-shannara
   get-passwd-from-tag-per-session shannara marks | wl-copy
-end
+:wend
 
 function get-ldap
   get-passwd-from-tag-per-session ldap braintree | pbcopy
@@ -143,28 +143,6 @@ end
 
 function ipmitool
   /usr/bin/ipmitool -I lanplus -U root -P root -H $argv
-end
-
-function vwork --argument-names 'target_workdir'
-  if count $target_workdir > /dev/null
-    set basedir (string split "/" -- $target_workdir)[1]
-    set restofdir (string split --max 1 "/" -- $target_workdir)[2]
-    if count $restofdir > /dev/null
-      cd /Volumes/Source/$basedir/src/$restofdir
-    else
-      cd /Volumes/Source/$basedir/src
-    end
-  else
-    cd /Volumes/Source
-  end
-end
-
-
-function projdir --argument-names 'name'
-  if count $name > /dev/null
-    mkdir -pv $name
-    touch $name/PROJECT
-  end
 end
 
 # Extraterm extra integration
