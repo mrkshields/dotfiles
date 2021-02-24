@@ -86,7 +86,7 @@ end
 
 function get-shannara
   get-passwd-from-tag-per-session shannara marks | wl-copy
-:wend
+end
 
 function get-ldap
   get-passwd-from-tag-per-session ldap braintree | pbcopy
