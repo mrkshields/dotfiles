@@ -15,7 +15,8 @@ for path in \
   $HOME/macports/sbin \
   /opt/local/bin \
   /snap/bin \
-  /usr/local/bin
+  /usr/local/bin \
+  $HOME/.local/go/bin
   if test -d $path
     set -x PATH $path $PATH
   end
