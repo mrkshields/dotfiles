@@ -4,6 +4,7 @@ sudo apt install -yq \
 	ca-certificates \
 	fish \
 	git \
+  ripgrep \
 	stow \
 	vim
 python3 -m pip install powerline-status
