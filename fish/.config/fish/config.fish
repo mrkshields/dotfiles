@@ -143,7 +143,7 @@ function work --argument-names 'target_workdir'
 end
 
 function ipmitool
-  /usr/bin/ipmitool -I lanplus -U root -P root -H $argv
+  /opt/local/bin/ipmitool -I lanplus -U root -P root -H $argv
 end
 
 # Extraterm extra integration
