@@ -1,37 +1,42 @@
 #!/usr/bin/env bash
 set -euxo pipefail
 sudo apt install -yq \
-	ca-certificates \
-	fish \
-	git \
+  ca-certificates \
+  dnsutils \
+  fish \
+  git \
   ripgrep \
-	stow \
-	vim
-python3 -m pip install powerline-status
+  python3-pip \
+  stow \
+  tmux \
+  vim
+python3 -m pip install --upgrade \
+  powerline-status \
+  stormssh
 find -mindepth 1 -maxdepth 1 -type d ! -name .git -printf "%f\0" | xargs -0 stow
 if ! [[ -e ~/.vim/bundle/Vundle.vim ]]; then
 	git clone https://github.com/VundleVim/Vundle.vim ~/.vim/bundle/Vundle.vim
 fi
 if ! grep -q fish <<< "$SHELL"; then
-	chsh -s $(which fish);
+	sudo chsh -s $(which fish) $USER
 fi
-curl -L https://get.oh-my.fish | fish
+curl -fksSLO https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install | fish
 fish -c 'fundle install'
-curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
-curl -LO "https://dl.k8s.io/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
+curl -fksSLO "https://dl.k8s.io/release/$(curl -kL -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+curl -fksSLO "https://dl.k8s.io/$(curl -kL -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
 echo "$(<kubectl.sha256) kubectl" | sha256sum --check
 install -m 0755 kubectl $HOME/.local/bin/kubectl
 (
   set -x; cd "$(mktemp -d)" &&
   OS="$(uname | tr '[:upper:]' '[:lower:]')" &&
   ARCH="$(uname -m | sed -e 's/x86_64/amd64/' -e 's/\(arm\)\(64\)\?.*/\1\2/' -e 's/aarch64$/arm64/')" &&
-  curl -fsSLO "https://github.com/kubernetes-sigs/krew/releases/latest/download/krew.tar.gz" &&
+  curl -fksSLO "https://github.com/kubernetes-sigs/krew/releases/latest/download/krew.tar.gz" &&
   tar zxvf krew.tar.gz &&
   KREW=./krew-"${OS}_${ARCH}" &&
   "$KREW" install krew
 )
-kubectl krew install ctx ns ingress-nginx neat
-kubectl krew update
-kubectl krew upgrade
-curl -LO https://github.com/argoproj/argo-cd/releases/download/v1.8.5/argocd-linux-amd64
+~/.local/bin/kubectl krew install ctx ns ingress-nginx neat
+~/.local/bin/kubectl krew update
+~/.local/bin/kubectl krew upgrade
+curl -fksSLO https://github.com/argoproj/argo-cd/releases/download/v1.8.5/argocd-linux-amd64
 install -m 0755 argocd-linux-amd64 $HOME/.local/bin/argocd
