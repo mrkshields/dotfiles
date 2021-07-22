@@ -13,14 +13,16 @@ for path in \
   $HOME/macports/Library/Frameworks/Python.framework/Versions/3.7/bin \
   $HOME/macports/bin \
   $HOME/macports/sbin \
-  /opt/local/bin \
+  $HOME/Library/Python/3.7/bin \
   /snap/bin \
-  /usr/local/bin \
-  $HOME/.local/go/bin
+  $HOME/.local/go/bin \
+  $HOME/.krew
   if test -d $path
-    set -x PATH $path $PATH
+    contains $path $PATH
+    or set -x PATH $path $PATH
   end
 end
+
 
 #set -x PATH $HOME/macports/Library/Frameworks/Python.framework/Versions/3.7/bin $PATH
 
