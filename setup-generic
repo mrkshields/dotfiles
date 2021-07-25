@@ -1,15 +1,5 @@
 #!/usr/bin/env bash
 set -euxo pipefail
-sudo apt install -yq \
-  ca-certificates \
-  dnsutils \
-  fish \
-  git \
-  ripgrep \
-  python3-pip \
-  stow \
-  tmux \
-  vim
 python3 -m pip install --upgrade \
   powerline-status \
   stormssh
