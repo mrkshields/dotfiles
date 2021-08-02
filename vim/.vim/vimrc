@@ -222,6 +222,7 @@ set t_Co=256
 
 let g:pymode_lint_checkers = ['pep8']
 
+let vim_markdown_preview_github=1
 let g:vim_markdown_preview_toggle=2
 
 "autocmd VimEnter * @b:last_tmux_window_name = system("tmux list-windows -a | ggrep -oP '(\S+)(?=\*)'")
