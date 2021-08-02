@@ -1,30 +1,19 @@
 set fish_greeting ""
 set -l configdir ~/.config/fish
 
-# because fish complains if a path doesn't exist
-
-for path in \
-  $HOME/.gem/ruby/2.6.0/bin \
-  $HOME/.krew/bin \
-  $HOME/.local/bin \
-  $HOME/.npm-global/bin \
-  $HOME/bin \
-  $HOME/go/bin \
-  $HOME/macports/Library/Frameworks/Python.framework/Versions/3.7/bin \
-  $HOME/macports/bin \
-  $HOME/macports/sbin \
-  $HOME/Library/Python/3.7/bin \
-  /snap/bin \
-  $HOME/.local/go/bin \
-  $HOME/.krew
-  if test -d $path
-    contains $path $PATH
-    or set -x PATH $path $PATH
-  end
-end
-
-
-#set -x PATH $HOME/macports/Library/Frameworks/Python.framework/Versions/3.7/bin $PATH
+fish_add_path /usr/local/bin
+fish_add_path $HOME/.krew/bin
+fish_add_path $HOME/.local/bin
+fish_add_path $HOME/.npm-global/bin
+fish_add_path $HOME/bin
+fish_add_path $HOME/go/bin
+fish_add_path $HOME/macports/bin
+fish_add_path $HOME/macports/sbin
+fish_add_path $HOME/Library/Python/3.7/bin
+fish_add_path /snap/bin
+fish_add_path $HOME/.local/go/bin
+fish_add_path $HOME/.krew
+fish_add_path /usr/local/opt/mysql@5.7/bin
 
 
 set -x GOPATH $HOME/go
