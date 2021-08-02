@@ -23,7 +23,7 @@ set -x GOPATH $HOME/go
 
 # Powerline config
 if status is-interactive
-  for path in $HOME/.local/lib/python3.7/site-packages/powerline/bindings/fish $HOME/macports/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/powerline/bindings/fish
+  for path in $HOME/.local/lib/python3.7/site-packages/powerline/bindings/fish $HOME/macports/Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/powerline/bindings/fish /usr/local/lib/python3.9/site-packages/powerline/bindings/fish
     if test -d $path
       set fish_function_path $fish_function_path $path
       powerline-setup
