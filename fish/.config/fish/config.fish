@@ -47,7 +47,6 @@ alias stripcolor "perl -MTerm::ANSIColor=colorstrip -ne 'print colorstrip(\$_)'"
 if which ggrep > /dev/null; alias grep ggrep; end
 if which gfind > /dev/null; alias find gfind; end
 if which gls > /dev/null; alias ls gls; end
-if which cpair > /dev/null; alias c cpair; end
 if which tmux > /dev/null; alias t tmux; end
 alias git-tl "git rev-parse --show-toplevel"
 
