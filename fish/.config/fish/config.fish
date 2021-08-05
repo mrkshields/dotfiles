@@ -41,7 +41,9 @@ set -g async_prompt_inherit_variables all
 
 
 # Environment variables
-source $configdir/secrets.fish
+if test -d $configdir/secrets.fish
+  source $configdir/secrets.fish
+end
 
 #set -x DOCKER_HOST ssh://mark@shannara
 #set -x SSH_AUTH_SOCK "$XDG_RUNTIME_DIR/ssh-agent.sock"
