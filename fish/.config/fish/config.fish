@@ -26,11 +26,13 @@ source $configdir/fundle.fish
 set -g async_prompt_inherit_variables all
 
 
-# Environment variables
-if test -d $configdir/secrets.fish
-  source $configdir/secrets.fish
+# Secret environment variables
+if test -s $configdir/keychain-environment-variables.fish
+  source $configdir/keychain-environment-variables.fish
+  set -x GITHUB_TOKEN (keychain-environment-variable GITHUB_TOKEN)
 end
 
+# Environment variables
 #set -x DOCKER_HOST ssh://mark@shannara
 #set -x SSH_AUTH_SOCK "$XDG_RUNTIME_DIR/ssh-agent.sock"
 set -x EDITOR 'vim'
