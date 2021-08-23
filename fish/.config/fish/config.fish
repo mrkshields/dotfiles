@@ -30,6 +30,7 @@ set -g async_prompt_inherit_variables all
 if test -s $configdir/keychain-environment-variables.fish
   source $configdir/keychain-environment-variables.fish
   set -x GITHUB_TOKEN (keychain-environment-variable GITHUB_TOKEN)
+  set -x HOMEBREW_GITHUB_API_TOKEN (keychain-environment-variable GITHUB_TOKEN)
 end
 
 # Environment variables
@@ -51,6 +52,9 @@ if which gfind > /dev/null; alias find gfind; end
 if which gls > /dev/null; alias ls gls; end
 if which tmux > /dev/null; alias t tmux; end
 alias git-tl "git rev-parse --show-toplevel"
+alias kctx "kubectl ctx"
+alias cert-manager "kubectl cert-manager"
+alias krew "kubectl krew"
 
 
 function git-master
