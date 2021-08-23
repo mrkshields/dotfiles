@@ -52,6 +52,9 @@ if which gfind > /dev/null; alias find gfind; end
 if which gls > /dev/null; alias ls gls; end
 if which tmux > /dev/null; alias t tmux; end
 alias git-tl "git rev-parse --show-toplevel"
+alias kctx "kubectl ctx"
+alias cert-manager "kubectl cert-manager"
+alias krew "kubectl krew"
 
 
 function git-master
