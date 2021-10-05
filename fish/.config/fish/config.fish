@@ -32,6 +32,8 @@ if test -s $configdir/keychain-environment-variables.fish
   source $configdir/keychain-environment-variables.fish
   set -x GITHUB_TOKEN (keychain-environment-variable GITHUB_TOKEN)
   set -x HOMEBREW_GITHUB_API_TOKEN (keychain-environment-variable GITHUB_TOKEN)
+  set -x ARTIFACTORY_USERNAME (keychain-environment-variable ARTIFACTORY_USERNAME)
+  set -x ARTIFACTORY_TOKEN (keychain-environment-variable ARTIFACTORY_TOKEN)
 end
 
 # Environment variables
