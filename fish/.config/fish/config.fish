@@ -11,6 +11,7 @@ fish_add_path /snap/bin
 fish_add_path $HOME/.local/go/bin
 fish_add_path $HOME/.krew
 fish_add_path /usr/local/opt/mysql@5.7/bin
+fish_add_path /usr/local/opt/go@1.16/bin
 
 
 set -x GOPATH $HOME/go
@@ -31,6 +32,8 @@ if test -s $configdir/keychain-environment-variables.fish
   source $configdir/keychain-environment-variables.fish
   set -x GITHUB_TOKEN (keychain-environment-variable GITHUB_TOKEN)
   set -x HOMEBREW_GITHUB_API_TOKEN (keychain-environment-variable GITHUB_TOKEN)
+  set -x ARTIFACTORY_USERNAME (keychain-environment-variable ARTIFACTORY_USERNAME)
+  set -x ARTIFACTORY_TOKEN (keychain-environment-variable ARTIFACTORY_TOKEN)
 end
 
 # Environment variables
@@ -39,6 +42,7 @@ end
 set -x EDITOR 'vim'
 set -x FIGNORE '*.pyc'
 set -x PYTHONDONTWRITEBYTECODE 1
+set -x GL_REPOS_DIR $HOME/workspace
 # Aliases
 alias ipython "python3 -m IPython"
 alias pip "python3 -m pip"

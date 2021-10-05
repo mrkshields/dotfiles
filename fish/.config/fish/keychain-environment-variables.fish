@@ -11,7 +11,7 @@ end
 #   provide: super_secret_key_abc123
 function set-keychain-environment-variable --argument-name env_name
   test -z "$env_name"; and echo >&2 "Missing environment variable name"; and return 1
-  read -sp "Enter Value for $env_name: " secret
+  read -sP "Enter Value for $env_name: " secret
   if test -n $secret
     security add-generic-password -U -a $USER -D "environment variable" -s $env_name -w $secret
   end
