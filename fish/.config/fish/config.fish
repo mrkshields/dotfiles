@@ -11,6 +11,7 @@ fish_add_path /snap/bin
 fish_add_path $HOME/.local/go/bin
 fish_add_path $HOME/.krew
 fish_add_path /usr/local/opt/mysql@5.7/bin
+fish_add_path /usr/local/opt/go@1.16/bin
 
 
 set -x GOPATH $HOME/go
