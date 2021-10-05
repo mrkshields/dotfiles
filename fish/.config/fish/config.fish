@@ -42,6 +42,7 @@ end
 set -x EDITOR 'vim'
 set -x FIGNORE '*.pyc'
 set -x PYTHONDONTWRITEBYTECODE 1
+set -x GL_REPOS_DIR $HOME/workspace
 # Aliases
 alias ipython "python3 -m IPython"
 alias pip "python3 -m pip"
