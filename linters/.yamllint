@@ -1,0 +1,12 @@
+locale: en_US.UTF-8
+rules:
+  colons:
+    max-spaces-after: 1
+    max-spaces-before: 1
+  key-ordering: {}
+  line-length:
+    allow-non-breakable-inline-mappings: true
+yaml-files:
+  - '*.yaml'
+  - '*.yml'
+  - .yamllint
