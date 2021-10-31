@@ -81,9 +81,9 @@ end
 
 function work --argument-names 'target_workdir'
   if count $target_workdir > /dev/null
-    cd $HOME/workspace/$target_workdir
+    cd $HOME/Documents/workspace/$target_workdir
   else
-    cd $HOME/workspace
+    cd $HOME/Documents/workspace
   end
 end
 
