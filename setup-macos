@@ -10,3 +10,6 @@
 #  tmux \
 #  vim
 exec ./setup-generic
+brew install \
+  homebrew/cask/docker \
+  linkerd
