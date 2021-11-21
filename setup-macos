@@ -10,6 +10,5 @@
 #  tmux \
 #  vim
 exec ./setup-generic
-brew install \
-  homebrew/cask/docker \
-  linkerd
+brew install --formula <<< brew.formula
+brew install --cask <<< brew.casks
