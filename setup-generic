@@ -25,7 +25,7 @@ install -m 0755 kubectl $HOME/.local/bin/kubectl
   KREW=./krew-"${OS}_${ARCH}" &&
   "$KREW" install krew
 )
-~/.local/bin/kubectl krew install ctx ns ingress-nginx neat
+~/.local/bin/kubectl krew install ctx ns ingress-nginx minio neat
 ~/.local/bin/kubectl krew update
 ~/.local/bin/kubectl krew upgrade
 curl -fksSLO https://github.com/argoproj/argo-cd/releases/download/v1.8.5/argocd-linux-amd64
