@@ -3,7 +3,7 @@ set -euxo pipefail
 python3 -m pip install --upgrade \
   powerline-status \
   stormssh
-find -mindepth 1 -maxdepth 1 -type d ! -name .git -printf "%f\0" | xargs -0 stow
+find . -mindepth 1 -maxdepth 1 -type d ! -name .git -printf "%f\0" | xargs -0 stow
 if ! [[ -e ~/.vim/bundle/Vundle.vim ]]; then
 	git clone https://github.com/VundleVim/Vundle.vim ~/.vim/bundle/Vundle.vim
 fi

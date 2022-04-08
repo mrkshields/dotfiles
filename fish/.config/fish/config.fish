@@ -43,6 +43,7 @@ set -x EDITOR 'vim'
 set -x FIGNORE '*.pyc'
 set -x PYTHONDONTWRITEBYTECODE 1
 set -x GL_REPOS_DIR $HOME/workspace
+set -x INFLUX_HOST http://influxdb.marax.local:8086
 # Aliases
 alias ipython "python3 -m IPython"
 alias pip "python3 -m pip"
@@ -90,3 +91,6 @@ end
 function ipmitool
   /opt/local/bin/ipmitool -I lanplus -U root -P root -H $argv
 end
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/mark/.dotfiles/google-cloud-sdk/path.fish.inc' ]; . '/Users/mark/.dotfiles/google-cloud-sdk/path.fish.inc'; end

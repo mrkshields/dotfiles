@@ -1,14 +1,11 @@
 #!/usr/bin/env bash
-#sudo apt install -yq \
-#  ca-certificates \
-#  dnsutils \
-#  fish \
-#  git \
-#  ripgrep \
-#  python3-pip \
-#  stow \
-#  tmux \
-#  vim
 exec ./setup-generic
 brew install --formula <<< brew.formula
 brew install --cask <<< brew.casks
+{
+  set -e
+  wget https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-379.0.0-darwin-arm.tar.gz
+  tar xf google-cloud-sdk-379.0.0-darwin-arm.tar.gz
+  ./google-cloud-sdk/install.sh
+  set +e
+}

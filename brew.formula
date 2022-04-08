@@ -55,6 +55,7 @@ grc
 grep
 guile
 harfbuzz
+helm
 htop
 hub
 hunspell
@@ -203,6 +204,7 @@ xz
 yamllint
 yarn
 yasm
+yq
 zeromq
 zimg
 zstd
