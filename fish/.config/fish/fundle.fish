@@ -1,18 +1,12 @@
 # Fundle plugin installs
 if functions fundle > /dev/null 2>&1
   fundle plugin 'Markcial/upto'
-  fundle plugin 'PatrickF1/fzf.fish'
-  fundle plugin 'acomagu/fish-async-prompt'
   fundle plugin 'aluxian/fish-kube-prompt'
   fundle plugin 'danhper/fish-ssh-agent'
-  fundle plugin 'edc/bass'
   fundle plugin 'evanlucas/fish-kubectl-completions'
   fundle plugin 'fisherman/fzy'
   fundle plugin 'fisherman/spin'
   fundle plugin 'jethrokuan/z'
-  fundle plugin 'jorgebucaran/autopair.fish'
-  fundle plugin 'jorgebucaran/fish-bax'
-  fundle plugin 'jorgebucaran/replay.fish'
   fundle plugin 'joseluisq/gitnow'
   fundle plugin 'laughedelic/pisces'
   fundle plugin 'oh-my-fish/plugin-bang-bang'
