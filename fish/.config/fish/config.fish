@@ -95,3 +95,6 @@ end
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/mark/.dotfiles/google-cloud-sdk/path.fish.inc' ]; . '/Users/mark/.dotfiles/google-cloud-sdk/path.fish.inc'; end
+
+
+set -x KUBECONFIG $HOME/.kube/shannara-config

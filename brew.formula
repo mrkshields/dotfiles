@@ -69,6 +69,7 @@ jasper
 jemalloc
 jpeg
 jpeg-xl
+jq
 kubernetes-cli
 kubeseal
 lame
