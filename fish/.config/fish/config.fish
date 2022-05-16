@@ -1,17 +1,18 @@
 set fish_greeting ""
 set -l configdir ~/.config/fish
 
-fish_add_path /usr/local/bin
+fish_add_path $HOME/.foundry/bin
+fish_add_path $HOME/.krew
 fish_add_path $HOME/.krew/bin
 fish_add_path $HOME/.local/bin
+fish_add_path $HOME/.local/go/bin
 fish_add_path $HOME/.npm-global/bin
 fish_add_path $HOME/bin
 fish_add_path $HOME/go/bin
 fish_add_path /snap/bin
-fish_add_path $HOME/.local/go/bin
-fish_add_path $HOME/.krew
-fish_add_path /usr/local/opt/mysql@5.7/bin
+fish_add_path /usr/local/bin
 fish_add_path /usr/local/opt/go@1.16/bin
+fish_add_path /usr/local/opt/mysql@5.7/bin
 
 
 set -x GOPATH $HOME/Documents/workspace/go
