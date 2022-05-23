@@ -87,12 +87,13 @@ function work --argument-names 'target_workdir'
   end
 end
 
+function vsc
+  open -a 'Visual Studio Code' .
+end
+
 function ipmitool
   /opt/local/bin/ipmitool -I lanplus -U root -P root -H $argv
 end
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/mark/.dotfiles/google-cloud-sdk/path.fish.inc' ]; . '/Users/mark/.dotfiles/google-cloud-sdk/path.fish.inc'; end
-
-
-set -x KUBECONFIG $HOME/.kube/shannara-config

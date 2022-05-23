@@ -1,5 +1,6 @@
 adns
 ammonite-repl
+ansible
 aom
 argocd
 assimp
@@ -125,6 +126,7 @@ lzop
 m4
 mbedtls
 md4c
+mfuentesg/tap/ksd
 mosh
 most
 mpdecimal
