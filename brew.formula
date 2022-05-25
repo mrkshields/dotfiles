@@ -1,6 +1,7 @@
 adns
 ammonite-repl
 ansible
+argoproj/tap/kubectl-argo-rollouts
 aom
 argocd
 assimp
