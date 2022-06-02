@@ -31,7 +31,7 @@ set -g async_prompt_inherit_variables all
 # Secret environment variables
 if test -s $configdir/keychain-environment-variables.fish
   source $configdir/keychain-environment-variables.fish
-  # example
+  # example - set initial value with set-keychain-environment-variable ENV_VAR_NAME
   # set -x GITHUB_TOKEN (keychain-environment-variable GITHUB_TOKEN)
 end
 
@@ -79,6 +79,14 @@ function get-passwd-from-tag-per-session --argument-names 'tags' 'session'
   eval (op signin --session $session); and op list items --tags $tags | op get item --fields password -
 end
 
+function get-otp-from-item-per-account --argument-names 'item' 'account'
+  eval (op signin --account $account); and op item get 'AWS' --otp
+end
+
+function get-aws-enso-mfa
+  get-otp-from-item-per-account AWS ensoassociation.1password.com
+end
+
 function work --argument-names 'target_workdir'
   if count $target_workdir > /dev/null
     cd $HOME/Documents/workspace/$target_workdir
@@ -93,6 +101,30 @@ end
 
 function ipmitool
   /opt/local/bin/ipmitool -I lanplus -U root -P root -H $argv
+end
+
+function aws-auth --argument-names 'seconds'
+  set envvars '{
+    "AWS_SECRET_ACCESS_KEY": "SecretAccessKey",
+    "AWS_SESSION_TOKEN": "SessionToken",
+    "AWS_ACCESS_KEY_ID": "AccessKeyId"
+  }'
+  # clear all current envvars first to avoid auth error with invalid or expired credentials
+  echo $envvars | jq -r 'keys|.[]' | while read envvar
+    set -e $envvar
+  end
+
+  if count $seconds > /dev/null
+    set json (aws sts get-session-token  --serial-number arn:aws:iam::614212999630:mfa/root-account-mfa-device --token-code (get-aws-enso-mfa) --duration-seconds $seconds)
+  else
+    set json (aws sts get-session-token  --serial-number arn:aws:iam::614212999630:mfa/root-account-mfa-device --token-code (get-aws-enso-mfa) --duration-seconds 10800)
+  end
+  echo $json | jq -C .
+  echo $envvars | jq -r 'keys|.[]' | while read envvar
+    set jsonVal (echo $envvars | jq -r .$envvar)
+    set -x $envvar (echo $json | jq -r .Credentials.$jsonVal)
+    set -S $envvar
+  end
 end
 
 # The next line updates PATH for the Google Cloud SDK.
