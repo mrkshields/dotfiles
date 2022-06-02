@@ -1,12 +1,13 @@
 adns
 ammonite-repl
 ansible
-argoproj/tap/kubectl-argo-rollouts
 aom
 argocd
+argoproj/tap/kubectl-argo-rollouts
 assimp
 autoconf
 automake
+awscli
 bash
 bash-completion
 bdw-gc
