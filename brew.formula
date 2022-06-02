@@ -49,7 +49,6 @@ glib
 gmp
 gnu-sed
 gnupg
-gnupg2.old
 gnutls
 gobject-introspection
 gpg-agent
