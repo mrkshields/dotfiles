@@ -43,6 +43,8 @@ set -x FIGNORE '*.pyc'
 set -x PYTHONDONTWRITEBYTECODE 1
 set -x GL_REPOS_DIR $HOME/workspace
 set -x INFLUX_HOST http://influxdb.marax.local:8086
+set -x USE_GKE_GCLOUD_AUTH_PLUGIN True
+set -x SEALED_SECRETS_CONTROLLER_NAMESPACE sealed-secrets
 # Aliases
 alias ipython "python3 -m IPython"
 alias pip "python3 -m pip"
