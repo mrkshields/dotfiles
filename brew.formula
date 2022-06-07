@@ -4,6 +4,7 @@ ansible
 aom
 argocd
 argoproj/tap/kubectl-argo-rollouts
+codefresh-io/cli/codefresh
 assimp
 autoconf
 automake
