@@ -12,10 +12,7 @@ if ! grep -q fish <<< "$SHELL"; then
 fi
 curl -fksSLO https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install | fish
 fish -c 'fundle install'
-curl -fksSLO "https://dl.k8s.io/release/$(curl -kL -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
-curl -fksSLO "https://dl.k8s.io/$(curl -kL -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
-echo "$(<kubectl.sha256) kubectl" | sha256sum --check
-install -m 0755 kubectl $HOME/.local/bin/kubectl
+
 (
   set -x; cd "$(mktemp -d)" &&
   OS="$(uname | tr '[:upper:]' '[:lower:]')" &&
@@ -30,10 +27,9 @@ install -m 0755 kubectl $HOME/.local/bin/kubectl
   ~/.local/bin/kubectl krew update
   ~/.local/bin/kubectl krew upgrade
 )
-curl -fksSLO https://github.com/argoproj/argo-cd/releases/download/v1.8.5/argocd-linux-amd64
-install -m 0755 argocd-linux-amd64 $HOME/.local/bin/argo
 (
   curl -sL https://raw.githubusercontent.com/crossplane/crossplane/master/install.sh | sh
-  sudo mv kubectl-crossplane /usr/local/bin
+  install -m 0755 kubectl-crossplane $HOME/.local/bin/kubectl-crossplane
+  install -m 0755 kubectl-crossplane $HOME/.local/bin/crossplane
 )
 # TODO: gcloud components install gke-gcloud-auth-plugin

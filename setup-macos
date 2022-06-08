@@ -12,6 +12,14 @@ brew install --cask <<< brew.casks
 }
 {
   set -e
+  curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/darwin/arm64/kubectl"
+  curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/darwin/arm64/kubectl.sha256"
+  echo "$(cat kubectl.sha256)  kubectl" | shasum -a 256 --check
+  install -m 0755 kubectl $HOME/.local/bin/kubectl
+  install -m 0755 kubectl $HOME/.local/bin/k
+  set +e
+{
+  set -e
   curl -L --output - https://github.com/codefresh-io/cli-v2/releases/latest/download/cf-darwin-amd64.tar.gz \
     | tar zx
   install ./cf-darwin-amd64 /usr/local/bin/cf

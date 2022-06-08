@@ -9,4 +9,6 @@ sudo apt install -yq \
   stow \
   tmux \
   vim
+curl -fksSLO https://github.com/argoproj/argo-cd/releases/download/v1.8.5/argocd-linux-amd64
+install -m 0755 argocd-linux-amd64 $HOME/.local/bin/argo
 exec ./setup-generic
