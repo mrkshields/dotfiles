@@ -9,6 +9,7 @@ fish/.config/fish/secrets.fish
 powerline/.config/powerline/themes/tmux/default.json
 tmux/.tmux/plugins
 tmux/.tmux/resurrect
+tmux/.tmux/resurrect/last
 vim/.vim/.netrwhist
 vim/.vim/backups
 vim/.vim/bundle

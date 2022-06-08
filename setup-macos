@@ -26,3 +26,14 @@ brew install --cask <<< brew.casks
   cf version
   set +e
 }
+{
+  set -e
+  tmpdir="$(mktemp -d)"
+  cd $tmpdir
+  curl -LO https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-389.0.0-darwin-arm.tar.gz
+  tar xf *.tar.gz
+  cp -a ./google-cloud-sdk $HOME/.local/
+  cd $HOME/.local/google-cloud-sdk
+  ./install.sh
+  set +e
+}
