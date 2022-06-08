@@ -25,9 +25,15 @@ install -m 0755 kubectl $HOME/.local/bin/kubectl
   KREW=./krew-"${OS}_${ARCH}" &&
   "$KREW" install krew
 )
-~/.local/bin/kubectl krew install ctx ns ingress-nginx minio neat konfig
-~/.local/bin/kubectl krew update
-~/.local/bin/kubectl krew upgrade
+(
+  ~/.local/bin/kubectl krew install ctx ns ingress-nginx minio neat konfig
+  ~/.local/bin/kubectl krew update
+  ~/.local/bin/kubectl krew upgrade
+)
 curl -fksSLO https://github.com/argoproj/argo-cd/releases/download/v1.8.5/argocd-linux-amd64
 install -m 0755 argocd-linux-amd64 $HOME/.local/bin/argo
+(
+  curl -sL https://raw.githubusercontent.com/crossplane/crossplane/master/install.sh | sh
+  sudo mv kubectl-crossplane /usr/local/bin
+)
 # TODO: gcloud components install gke-gcloud-auth-plugin
