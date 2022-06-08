@@ -33,6 +33,7 @@ if test -s $configdir/keychain-environment-variables.fish
   source $configdir/keychain-environment-variables.fish
   # example - set initial value with set-keychain-environment-variable ENV_VAR_NAME
   # set -x GITHUB_TOKEN (keychain-environment-variable GITHUB_TOKEN)
+  set -x ETH_RPC_URL (keychain-environment-variable ETH_RPC_URL)
 end
 
 # Environment variables
