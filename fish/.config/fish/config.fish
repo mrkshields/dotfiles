@@ -129,4 +129,4 @@ function aws-auth --argument-names 'seconds'
 end
 
 # The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/mark/.dotfiles/google-cloud-sdk/path.fish.inc' ]; . '/Users/mark/.dotfiles/google-cloud-sdk/path.fish.inc'; end
+if [ -f '/Users/mark/.local/google-cloud-sdk/path.fish.inc' ]; . '/Users/mark/.local/google-cloud-sdk/path.fish.inc'; end
