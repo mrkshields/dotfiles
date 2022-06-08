@@ -48,8 +48,6 @@ set -x SEALED_SECRETS_CONTROLLER_NAMESPACE sealed-secrets
 # Aliases
 alias ipython "python3 -m IPython"
 alias pip "python3 -m pip"
-alias f fluxctl
-alias k kubectl
 alias s ssh
 alias m mosh
 alias stripcolor "perl -MTerm::ANSIColor=colorstrip -ne 'print colorstrip(\$_)'"
