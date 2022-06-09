@@ -4,7 +4,6 @@ ansible
 aom
 argocd
 argoproj/tap/kubectl-argo-rollouts
-codefresh-io/cli/codefresh
 assimp
 autoconf
 automake
@@ -23,6 +22,7 @@ cairo
 cjson
 cmake
 cmocka
+codefresh-io/cli/codefresh
 colordiff
 criterion
 dav1d
@@ -157,6 +157,7 @@ php@7.0
 pinentry
 pixman
 pkg-config
+pre-commit
 protobuf
 psutils
 pth
