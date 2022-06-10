@@ -75,6 +75,7 @@ jpeg-xl
 jq
 kubernetes-cli
 kubeseal
+kustomize
 lame
 leptonica
 libass
