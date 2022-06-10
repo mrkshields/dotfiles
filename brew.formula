@@ -58,6 +58,7 @@ grc
 grep
 guile
 harfbuzz
+hashicorp/tap/terraform
 helm
 htop
 hub
