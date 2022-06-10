@@ -3,6 +3,8 @@ exec ./setup-generic
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 brew install --formula <<< brew.formula
 brew install --cask <<< brew.casks
+brew tap homebrew/autoupdate
+brew autoupdate start
 {
   set -e
   wget https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-379.0.0-darwin-arm.tar.gz
