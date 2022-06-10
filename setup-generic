@@ -35,3 +35,4 @@ fish -c 'fundle install'
 curl https://gcpdiag.dev/gcpdiag.sh -o $HOME/.local/bin/gcpdiag
 chmod +x $HOME/.local/bin/gcpdiag
 # TODO: gcloud components install gke-gcloud-auth-plugin
+python3 -m pip install asciicast2movie

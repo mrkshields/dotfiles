@@ -28,12 +28,13 @@ source $configdir/fundle.fish
 set -g async_prompt_inherit_variables all
 
 
-# Secret environment variables
+# Secret environment variables and other values
 if test -s $configdir/keychain-environment-variables.fish
   source $configdir/keychain-environment-variables.fish
   # example - set initial value with set-keychain-environment-variable ENV_VAR_NAME
   # set -x GITHUB_TOKEN (keychain-environment-variable GITHUB_TOKEN)
   set -x ETH_RPC_URL (keychain-environment-variable ETH_RPC_URL)
+  alias gcpdiag-lint "gcpdiag lint --config "(keychain-environment-variable GCPDIAG_CONFIG_PATH)
 end
 
 # Environment variables
