@@ -4,6 +4,7 @@ ansible
 aom
 argocd
 argoproj/tap/kubectl-argo-rollouts
+asciinema
 assimp
 autoconf
 automake
