@@ -160,6 +160,7 @@ php@7.0
 pinentry
 pixman
 pkg-config
+podman
 pre-commit
 protobuf
 psutils

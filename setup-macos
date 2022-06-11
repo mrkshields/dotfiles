@@ -39,3 +39,4 @@ brew autoupdate start
   ./install.sh
   set +e
 }
+podman machine init && podman machine start
