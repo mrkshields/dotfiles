@@ -24,13 +24,13 @@ cjson
 cmake
 cmocka
 codefresh-io/cli/codefresh
+colima
 colordiff
 criterion
 dav1d
 dbus
 ddrescue
 dirmngr
-docker
 double-conversion
 erlang
 exiftool
@@ -161,7 +161,6 @@ php@7.0
 pinentry
 pixman
 pkg-config
-podman
 pre-commit
 protobuf
 psutils
