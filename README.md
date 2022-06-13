@@ -8,3 +8,10 @@ Run `./setup-linux`
 
 ## MacOS
 Run `./setup-macos`
+
+### Current Issues
+
+Since installing arm64 homebrew packages:
+
+- tmux crashes on start
+- `kubectl ctx` krew plugin crashes on start, though `kubectl ctx -c` does work
