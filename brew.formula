@@ -20,11 +20,11 @@ c-ares
 ca-certificates
 cabextract
 cairo
+checkmake
 cjson
 cmake
 cmocka
 codefresh-io/cli/codefresh
-colima
 colordiff
 criterion
 dav1d
@@ -53,6 +53,7 @@ gmp
 gnu-sed
 gnupg
 gnutls
+go@1.17
 gobject-introspection
 gpg-agent
 graphite2

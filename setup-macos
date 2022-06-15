@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 exec ./setup-generic
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-brew install --formula <<< brew.formula
+arch -arm64 brew install --formula <<< brew.formula
+arch -arm64 brew install --formula <<< brew-arm64.formula
 brew install --cask <<< brew.casks
 brew tap homebrew/autoupdate
 brew autoupdate start

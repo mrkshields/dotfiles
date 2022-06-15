@@ -1,6 +1,7 @@
 set fish_greeting ""
 set -l configdir ~/.config/fish
 
+fish_add_path $GOPATH/bin
 fish_add_path $HOME/.foundry/bin
 fish_add_path $HOME/.krew
 fish_add_path $HOME/.krew/bin
@@ -8,18 +9,18 @@ fish_add_path $HOME/.local/bin
 fish_add_path $HOME/.local/go/bin
 fish_add_path $HOME/.npm-global/bin
 fish_add_path $HOME/bin
-fish_add_path $HOME/go/bin
+fish_add_path /opt/homebrew/Cellar/go@1.17/1.17.11/bin
+fish_add_path /opt/homebrew/bin
 fish_add_path /snap/bin
 fish_add_path /usr/local/bin
-fish_add_path /usr/local/opt/go@1.16/bin
-fish_add_path /usr/local/opt/mysql@5.7/bin
 
+eval (/opt/homebrew/bin/brew shellenv)
 
 set -x GOPATH $HOME/Documents/workspace/go
 
 # Powerline config
 if status is-interactive
-    set fish_function_path $fish_function_path /usr/local/lib/python3.9/site-packages/powerline/bindings/fish
+    set fish_function_path $fish_function_path /opt/homebrew/lib/python3.9/site-packages/powerline/bindings/fish
     powerline-setup
 end
 
