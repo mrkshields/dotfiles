@@ -34,7 +34,7 @@ if test -s $configdir/keychain-environment-variables.fish
   source $configdir/keychain-environment-variables.fish
   # example - set initial value with set-keychain-environment-variable ENV_VAR_NAME
   # set -x GITHUB_TOKEN (keychain-environment-variable GITHUB_TOKEN)
-  set -x ETH_RPC_URL (keychain-environment-variable ETH_RPC_URL)
+  #set -x ETH_RPC_URL (keychain-environment-variable ETH_RPC_URL)
   alias gcpdiag-lint "gcpdiag lint --config "(keychain-environment-variable GCPDIAG_CONFIG_PATH)
 end
 
@@ -63,6 +63,7 @@ alias kctx "kubectl ctx"
 alias cert-manager "kubectl cert-manager"
 alias krew "kubectl krew"
 alias kns "kubectl ns"
+alias neat "kubectl neat"
 
 
 function git-master

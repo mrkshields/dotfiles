@@ -9,6 +9,7 @@ assimp
 autoconf
 automake
 awscli
+base64
 bash
 bash-completion
 bdw-gc
