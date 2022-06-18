@@ -64,6 +64,7 @@ alias cert-manager "kubectl cert-manager"
 alias krew "kubectl krew"
 alias kns "kubectl ns"
 alias neat "kubectl neat"
+alias match-name "kubectl match-name"
 
 
 function git-master

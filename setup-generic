@@ -23,7 +23,7 @@ fish -c 'fundle install'
   "$KREW" install krew
 )
 (
-  ~/.local/bin/kubectl krew install ctx ns ingress-nginx minio neat konfig
+  ~/.local/bin/kubectl krew install ctx ns ingress-nginx minio neat konfig cert-manager
   ~/.local/bin/kubectl krew update
   ~/.local/bin/kubectl krew upgrade
 )
@@ -36,3 +36,6 @@ curl https://gcpdiag.dev/gcpdiag.sh -o $HOME/.local/bin/gcpdiag
 chmod +x $HOME/.local/bin/gcpdiag
 # TODO: gcloud components install gke-gcloud-auth-plugin
 python3 -m pip install asciicast2movie
+OS=$(go env GOOS); ARCH=$(go env GOARCH); curl -sSL -o cmctl.tar.gz https://github.com/cert-manager/cert-manager/releases/download/v1.7.2/cmctl-$OS-$ARCH.tar.gz
+tar xzf cmctl.tar.gz
+mv -v cmctl $HOME/.local/bin/
