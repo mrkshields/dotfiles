@@ -132,5 +132,7 @@ function aws-auth --argument-names 'seconds'
   end
 end
 
+kubectl completion fish | source
+
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/mark/.local/google-cloud-sdk/path.fish.inc' ]; . '/Users/mark/.local/google-cloud-sdk/path.fish.inc'; end
