@@ -68,9 +68,13 @@ alias kns "kubectl ns"
 alias neat "kubectl neat"
 alias match-name "kubectl match-name"
 
+function dotfiles
+  cd ~/.dotfiles
+end
+
 function kenv
-  echo -n "context: "; and kubectl ctx -c
-  and echo -n "namespace: "; and kubectl ns -c
+  echo -e '\e[1m\e[33mContext: \e[0m\e[37m'(kubectl ctx -c)'\e[0m'
+  echo -e '\e[1m\e[33mNamespace: \e[0m\e[37m'(kubectl ns -c)'\e[0m'
 end
 
 function git-master
