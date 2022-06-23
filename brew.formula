@@ -80,6 +80,7 @@ jpeg-xl
 jq
 kubernetes-cli
 kubeseal
+kubeval
 kustomize
 lame
 leptonica

@@ -6,6 +6,7 @@ arch -arm64 brew install --formula <<< brew-arm64.formula
 brew install --cask <<< brew.casks
 brew tap homebrew/autoupdate
 brew autoupdate start
+brew tap instrumenta/instrumenta
 {
   set -e
   wget https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-379.0.0-darwin-arm.tar.gz
