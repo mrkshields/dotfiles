@@ -25,6 +25,7 @@ if status is-interactive
 end
 
 source $configdir/fundle.fish
+source $configdir/tmux.fish
 
 set -g async_prompt_inherit_variables all
 
@@ -48,6 +49,7 @@ set -x GL_REPOS_DIR $HOME/workspace
 set -x INFLUX_HOST http://influxdb.marax.local:8086
 set -x USE_GKE_GCLOUD_AUTH_PLUGIN True
 set -x SEALED_SECRETS_CONTROLLER_NAMESPACE sealed-secrets
+set -x BASE_WORKDIR EnsoFinance
 # Aliases
 alias ipython "python3 -m IPython"
 alias pip "python3 -m pip"
@@ -66,6 +68,10 @@ alias kns "kubectl ns"
 alias neat "kubectl neat"
 alias match-name "kubectl match-name"
 
+function kenv
+  echo -n "context: "; and kubectl ctx -c
+  and echo -n "namespace: "; and kubectl ns -c
+end
 
 function git-master
   git remote show origin | awk '/HEAD branch:/{printf $NF}'
@@ -93,6 +99,9 @@ function get-aws-enso-mfa
 end
 
 function work --argument-names 'target_workdir'
+  if count $BASE_WORKDIR > /dev/null
+    set target_workdir $BASE_WORKDIR/$target_workdir
+  end
   if count $target_workdir > /dev/null
     cd $HOME/Documents/workspace/$target_workdir
   else
@@ -106,30 +115,6 @@ end
 
 function ipmitool
   /opt/local/bin/ipmitool -I lanplus -U root -P root -H $argv
-end
-
-function aws-auth --argument-names 'seconds'
-  set envvars '{
-    "AWS_SECRET_ACCESS_KEY": "SecretAccessKey",
-    "AWS_SESSION_TOKEN": "SessionToken",
-    "AWS_ACCESS_KEY_ID": "AccessKeyId"
-  }'
-  # clear all current envvars first to avoid auth error with invalid or expired credentials
-  echo $envvars | jq -r 'keys|.[]' | while read envvar
-    set -e $envvar
-  end
-
-  if count $seconds > /dev/null
-    set json (aws sts get-session-token  --serial-number arn:aws:iam::614212999630:mfa/root-account-mfa-device --token-code (get-aws-enso-mfa) --duration-seconds $seconds)
-  else
-    set json (aws sts get-session-token  --serial-number arn:aws:iam::614212999630:mfa/root-account-mfa-device --token-code (get-aws-enso-mfa) --duration-seconds 10800)
-  end
-  echo $json | jq -C .
-  echo $envvars | jq -r 'keys|.[]' | while read envvar
-    set jsonVal (echo $envvars | jq -r .$envvar)
-    set -x $envvar (echo $json | jq -r .Credentials.$jsonVal)
-    set -S $envvar
-  end
 end
 
 kubectl completion fish | source
