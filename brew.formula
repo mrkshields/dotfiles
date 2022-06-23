@@ -2,6 +2,7 @@ adns
 ammonite-repl
 ansible
 aom
+argo
 argocd
 argoproj/tap/kubectl-argo-rollouts
 asciinema
