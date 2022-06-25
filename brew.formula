@@ -28,6 +28,7 @@ cmake
 cmocka
 codefresh-io/cli/codefresh
 colordiff
+coreutils
 criterion
 dav1d
 dbus
@@ -38,6 +39,7 @@ erlang
 exiftool
 ext4fuse
 ffmpeg
+findutils
 fish
 flac
 fontconfig
