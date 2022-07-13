@@ -32,6 +32,10 @@ fish -c 'fundle install'
   install -m 0755 kubectl-crossplane $HOME/.local/bin/kubectl-crossplane
   install -m 0755 kubectl-crossplane $HOME/.local/bin/crossplane
 )
+(
+  curl https://storage.googleapis.com/csm-artifacts/asm/asmcli_1.13 > asmcli
+  install -m 0755 asmctl $HOME/.local/bin/asmcli
+)
 curl https://gcpdiag.dev/gcpdiag.sh -o $HOME/.local/bin/gcpdiag
 chmod +x $HOME/.local/bin/gcpdiag
 # TODO: gcloud components install gke-gcloud-auth-plugin

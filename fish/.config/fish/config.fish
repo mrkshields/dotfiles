@@ -27,7 +27,7 @@ if status is-interactive
 end
 
 source $configdir/fundle.fish
-source $configdir/tmux.fish
+#source $configdir/tmux.fish
 
 set -g async_prompt_inherit_variables all
 
@@ -51,7 +51,7 @@ set -x GL_REPOS_DIR $HOME/workspace
 set -x INFLUX_HOST http://influxdb.marax.local:8086
 set -x USE_GKE_GCLOUD_AUTH_PLUGIN True
 set -x SEALED_SECRETS_CONTROLLER_NAMESPACE sealed-secrets
-set -x BASE_WORKDIR EnsoFinance/devops
+set -x BASE_WORKDIR EnsoFinance
 # Aliases
 alias ipython "python3 -m IPython"
 alias pip "python3 -m pip"
@@ -69,6 +69,16 @@ alias krew "kubectl krew"
 alias kns "kubectl ns"
 alias neat "kubectl neat"
 alias match-name "kubectl match-name"
+alias argocd "argocd --grpc-web"
+alias gss "gcloud compute ssh --zone"
+
+function gs --argument-names vm zone
+  if count $zone >/dev/null
+    gcloud compute ssh --zone $zone $vm
+  else
+    gcloud compute ssh --zone europe-west6-a $vm
+    end
+end
 
 function dotfiles
   cd ~/.dotfiles

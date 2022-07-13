@@ -81,6 +81,7 @@ jemalloc
 jpeg
 jpeg-xl
 jq
+k9s
 kubernetes-cli
 kubeseal
 kubeval
