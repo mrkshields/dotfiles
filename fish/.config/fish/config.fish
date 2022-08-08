@@ -114,6 +114,14 @@ function get-aws-enso-mfa
   get-otp-from-item-per-account AWS ensoassociation.1password.com
 end
 
+function argocd-app-match --argument-names 'match' 'op'
+  if count $op >/dev/null
+    argocd app list -o name | grep $match | xargs -P0 -n1 argocd app $op
+  else
+    argocd app list -o name | grep $match
+  end
+end
+
 function work --argument-names 'target_workdir'
   if count $BASE_WORKDIR > /dev/null
     set target_workdir $BASE_WORKDIR/$target_workdir
@@ -124,6 +132,8 @@ function work --argument-names 'target_workdir'
     cd $HOME/Documents/workspace/$BASE_WORKDIR
   end
 end
+
+
 
 function vsc
   open -a 'Visual Studio Code' .
