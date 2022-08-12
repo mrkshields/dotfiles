@@ -38,6 +38,8 @@ if test -s $configdir/keychain-environment-variables.fish
   # example - set initial value with set-keychain-environment-variable ENV_VAR_NAME
   # set -x GITHUB_TOKEN (keychain-environment-variable GITHUB_TOKEN)
   #set -x ETH_RPC_URL (keychain-environment-variable ETH_RPC_URL)
+  set -x CLONE_ORG_GITHUB_TOKEN (keychain-environment-variable CLONE_ORG_GITHUB_TOKEN)
+  set -x NPM_TOKEN (keychain-environment-variable NPM_TOKEN)
   alias gcpdiag-lint "gcpdiag lint --config "(keychain-environment-variable GCPDIAG_CONFIG_PATH)
 end
 
@@ -50,8 +52,8 @@ set -x PYTHONDONTWRITEBYTECODE 1
 set -x GL_REPOS_DIR $HOME/workspace
 set -x INFLUX_HOST http://influxdb.marax.local:8086
 set -x USE_GKE_GCLOUD_AUTH_PLUGIN True
-set -x SEALED_SECRETS_CONTROLLER_NAMESPACE sealed-secrets
 set -x BASE_WORKDIR EnsoFinance
+set -x PROJECT_ID enso-finance
 # Aliases
 alias ipython "python3 -m IPython"
 alias pip "python3 -m pip"
@@ -63,7 +65,6 @@ if which gfind > /dev/null; alias find gfind; end
 if which gls > /dev/null; alias ls gls; end
 if which tmux > /dev/null; alias t tmux; end
 alias git-tl "git rev-parse --show-toplevel"
-alias kctx "kubectl ctx"
 alias cert-manager "kubectl cert-manager"
 alias krew "kubectl krew"
 alias kns "kubectl ns"
@@ -71,6 +72,18 @@ alias neat "kubectl neat"
 alias match-name "kubectl match-name"
 alias argocd "argocd --grpc-web"
 alias gss "gcloud compute ssh --zone"
+
+function kctx --argument-names match
+  if count $match >/dev/null
+    if test $match = "-c"
+      kubectl ctx -c
+    else
+      kubectl ctx | grep $match | xargs kubectl ctx
+    end
+  else
+    kubectl ctx
+  end
+end
 
 function gs --argument-names vm zone
   if count $zone >/dev/null
@@ -141,6 +154,16 @@ end
 
 function ipmitool
   /opt/local/bin/ipmitool -I lanplus -U root -P root -H $argv
+end
+
+function kgetall --argument-names 'namespace'
+  kubectl api-resources --verbs=list --namespaced -o name | grep -vP 'events(\.events\.k8s\.io)*' | sort -u | while read resource
+    kubectl -n $namespace get --ignore-not-found $resource | while read res
+      if count $res > /dev/null
+        echo "> resource: $resource"
+      end
+    end
+  end
 end
 
 kubectl completion fish | source

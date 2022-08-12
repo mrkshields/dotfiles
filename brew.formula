@@ -20,6 +20,7 @@ boost
 brotli
 c-ares
 ca-certificates
+caarlos0/tap/clone-org
 cabextract
 cairo
 checkmake
