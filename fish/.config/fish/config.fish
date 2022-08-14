@@ -97,7 +97,10 @@ function dotfiles
   cd ~/.dotfiles
 end
 
-function kenv
+function kenv --argument-names 'ctx'
+  if count $ctx >/dev/null
+    kctx $ctx
+  end
   echo -e '\e[1m\e[33mContext: \e[0m\e[37m'(kubectl ctx -c)'\e[0m'
   echo -e '\e[1m\e[33mNamespace: \e[0m\e[37m'(kubectl ns -c)'\e[0m'
 end
