@@ -8,6 +8,7 @@ fish_add_path $HOME/.krew/bin
 fish_add_path $HOME/.local/bin
 fish_add_path $HOME/.local/go/bin
 fish_add_path $HOME/.npm-global/bin
+fish_add_path $HOME/Library/Android/sdk/platform-tools
 fish_add_path $HOME/bin
 fish_add_path /opt/homebrew/Cellar/go@1.17/1.17.11/bin
 fish_add_path /opt/homebrew/bin
@@ -74,16 +75,8 @@ alias match-name "kubectl match-name"
 alias argocd "argocd --grpc-web"
 alias gss "gcloud compute ssh --zone"
 
-function kctx --argument-names match
-  if count $match >/dev/null
-    if test $match = "-c"
-      kubectl ctx -c
-    else
-      kubectl ctx | grep $match | xargs kubectl ctx
-    end
-  else
-    kubectl ctx
-  end
+function cf-hosted
+  work codefresh-runtime-applications
 end
 
 function gs --argument-names vm zone
@@ -98,12 +91,16 @@ function dotfiles
   cd ~/.dotfiles
 end
 
+alias kctx "kubectl ctx"
+
 function kenv --argument-names 'ctx'
   if count $ctx >/dev/null
-    kctx $ctx
+    kubectl ctx | grep $ctx | xargs kubectl ctx
+    echo $ctx | grep -oP '(dev|int|prod)' | xargs kubectl ns # switch to matching Namespace
+  else
+    echo -e '\e[1m\e[33mContext: \e[0m\e[37m'(kubectl ctx -c)'\e[0m'
+    echo -e '\e[1m\e[33mNamespace: \e[0m\e[37m'(kubectl ns -c)'\e[0m'
   end
-  echo -e '\e[1m\e[33mContext: \e[0m\e[37m'(kubectl ctx -c)'\e[0m'
-  echo -e '\e[1m\e[33mNamespace: \e[0m\e[37m'(kubectl ns -c)'\e[0m'
 end
 
 function git-master

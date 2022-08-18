@@ -41,4 +41,8 @@ brew tap instrumenta/instrumenta
   ./install.sh
   set +e
 }
-colima start
+{
+  wget https://github.com/datreeio/datree/releases/download/1.6.10-rc/datree-cli_1.6.10-rc_Darwin_arm64.zip
+  unzip datree-cli_1.6.10-rc_Darwin_arm64.zip
+  install datree $HOME/.local/bin/
+}
