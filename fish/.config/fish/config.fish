@@ -55,7 +55,7 @@ set -x INFLUX_HOST http://influxdb.marax.local:8086
 set -x USE_GKE_GCLOUD_AUTH_PLUGIN True
 set -x BASE_WORKDIR EnsoFinance
 set -x PROJECT_ID enso-finance
-set -x SEALED_SECRETS_CONTROLLER_NAMESPACE cf-hybrid-int
+set -x SEALED_SECRETS_CONTROLLER_NAMESPACE codefresh-hybrid
 # Aliases
 alias ipython "python3 -m IPython"
 alias pip "python3 -m pip"
