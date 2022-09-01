@@ -147,9 +147,11 @@ function work --argument-names 'target_workdir'
 end
 
 
-
-function vsc
-  open -a 'Visual Studio Code' .
+function vsc --argument-names 'target_workdir'
+  if count $target_workdir > /dev/null
+    work $target_workdir
+  end
+    open -a 'Visual Studio Code' .
 end
 
 function ipmitool

@@ -44,3 +44,8 @@ OS=$(go env GOOS); ARCH=$(go env GOARCH); curl -sSL -o cmctl.tar.gz https://gith
 tar xzf cmctl.tar.gz
 mv -v cmctl $HOME/.local/bin/
 npm install --global jsonwebtokencli
+{
+  mkdir -p ~/.local/bin
+  echo -e "#!/usr/bin/env bash\nset -euxo pipefail\ngit branch --merged | grep -v '*' | xargs git branch -d || echo No merged local branches found" > ~/.local/bin/git-prune-branches
+  chmod +x ~/.local/bin/git-prune-branches
+}
