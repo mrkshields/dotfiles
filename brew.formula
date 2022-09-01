@@ -187,6 +187,7 @@ rust
 s-lang
 scala
 sdl2
+signadot/tap/signadot-cli
 six
 snappy
 speex
@@ -199,7 +200,6 @@ texi2html
 theora
 timelimit
 tintin
-tmux
 tmux
 tree
 ucl
