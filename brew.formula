@@ -60,6 +60,7 @@ gnupg
 gnutls
 go@1.17
 gobject-introspection
+gox
 gpg-agent
 graphite2
 grc
