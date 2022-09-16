@@ -13,6 +13,7 @@ awscli
 base64
 bash
 bash-completion
+bazel
 bdw-gc
 berkeley-db
 bitchx
