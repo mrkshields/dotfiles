@@ -18,6 +18,7 @@ berkeley-db
 bitchx
 boost
 brotli
+buildifier
 c-ares
 ca-certificates
 caarlos0/tap/clone-org
