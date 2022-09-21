@@ -57,6 +57,7 @@ set -x BASE_WORKDIR EnsoFinance
 set -x PROJECT_ID enso-finance
 set -x SIGNADOT_ORG ensofinanc
 set -x KUBECTL_EXTERNAL_DIFF '/Users/mark/Documents/workspace/go/bin/kubectl-neat-diff --diff=colordiff'
+set -x ETH_RPC_URL https://mainnet.ensofinance.dev
 # Aliases
 alias ipython "python3 -m IPython"
 alias pip "python3 -m pip"
