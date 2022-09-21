@@ -70,6 +70,7 @@ guile
 harfbuzz
 hashicorp/tap/terraform
 helm
+hidetatz/tap/kubecolor
 htop
 hub
 hunspell
