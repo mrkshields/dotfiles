@@ -53,3 +53,4 @@ npm install --global jsonwebtokencli
   wget https://github.com/sh0rez/kubectl-neat-diff/releases/download/v0.1.0/kubectl-neat-diff-darwin-amd64
   install kubectl-neat-diff-darwin-amd64 $HOME/.local/bin/kubectl-neat-diff
 }
+curl -fsSL https://get.pnpm.io/install.sh | sh -a
