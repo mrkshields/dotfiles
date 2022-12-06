@@ -55,6 +55,7 @@ gdbm
 gettext
 giflib
 git
+gitversion
 glib
 gmp
 gnu-sed
