@@ -46,3 +46,8 @@ brew tap instrumenta/instrumenta
   unzip datree-cli_1.6.10-rc_Darwin_arm64.zip
   install datree $HOME/.local/bin/
 }
+{
+  wget https://github.com/kubernetes/minikube/releases/download/v1.23.2/minikube-darwin-arm64
+  install -m 0755 minikube-darwin-arm64 $HOME/.local/bin/minikube
+  rm -rf minikube-darwin-arm64
+}
