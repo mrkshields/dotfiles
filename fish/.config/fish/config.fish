@@ -41,6 +41,7 @@ if test -s $configdir/keychain-environment-variables.fish
   #set -x ETH_RPC_URL (keychain-environment-variable ETH_RPC_URL)
   set -x CLONE_ORG_GITHUB_TOKEN (keychain-environment-variable CLONE_ORG_GITHUB_TOKEN)
   set -x NPM_TOKEN (keychain-environment-variable NPM_TOKEN)
+  set -x SIGNADOT_API_KEY (keychain-environment-variable SIGNADOT_API_KEY)
   alias gcpdiag-lint "gcpdiag lint --config "(keychain-environment-variable GCPDIAG_CONFIG_PATH)
 end
 
