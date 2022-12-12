@@ -71,6 +71,7 @@ guile
 harfbuzz
 hashicorp/tap/terraform
 helm
+heroku/brew/heroku
 hidetatz/tap/kubecolor
 htop
 hub
