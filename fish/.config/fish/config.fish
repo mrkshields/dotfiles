@@ -173,6 +173,10 @@ function kgetall --argument-names 'namespace'
   end
 end
 
+function nvm
+    bass source ~/.nvm/nvm.sh --no-use ';' nvm $argv
+end
+
 kubectl completion fish | source
 k completion fish | sed 's/kubectl/k/g' | source
 

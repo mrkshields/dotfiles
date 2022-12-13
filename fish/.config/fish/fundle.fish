@@ -2,11 +2,11 @@
 if functions fundle > /dev/null 2>&1
   fundle plugin 'Markcial/upto'
   fundle plugin 'danhper/fish-ssh-agent'
+  fundle plugin 'edc/bass'
   fundle plugin 'evanlucas/fish-kubectl-completions'
   fundle plugin 'fisherman/fzy'
   fundle plugin 'fisherman/spin'
   fundle plugin 'jethrokuan/z'
-  fundle plugin 'jorgebucaran/nvm.fish'
   fundle plugin 'joseluisq/gitnow'
   fundle plugin 'laughedelic/pisces'
   fundle plugin 'oh-my-fish/plugin-bang-bang'
@@ -14,5 +14,8 @@ if functions fundle > /dev/null 2>&1
   fundle plugin 'oh-my-fish/theme-bobthefish'  # won't work without installing ohmyfish framework then using omf to install
   fundle plugin 'tuvistavie/fish-fastdir'
 
+  # nvm install
+  # test: Missing argument at index 3
+  #fundle plugin 'jorgebucaran/nvm.fish'
   fundle init
 end
