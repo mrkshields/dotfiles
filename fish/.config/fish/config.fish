@@ -59,6 +59,7 @@ set -x PROJECT_ID enso-finance
 set -x SIGNADOT_ORG ensofinanc
 set -x KUBECTL_EXTERNAL_DIFF '/Users/mark/Documents/workspace/go/bin/kubectl-neat-diff --diff=colordiff'
 set -x ETH_RPC_URL https://mainnet.ensofinance.dev
+set -x KUBECONFIG $HOME/.kube/config:$HOME/.kube/macmini-config
 # Aliases
 alias ipython "python3 -m IPython"
 alias pip "python3 -m pip"
