@@ -29,7 +29,6 @@ checkmake
 cjson
 cmake
 cmocka
-codefresh-io/cli/codefresh
 colordiff
 coreutils
 criterion
@@ -194,6 +193,7 @@ scala
 sdl2
 signadot/tap/signadot-cli
 six
+smartmontools
 snappy
 speex
 sqlite
