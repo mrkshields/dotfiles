@@ -34,6 +34,7 @@ set -g async_prompt_inherit_variables all
 
 
 # Secret environment variables and other values
+# Set with: set-keychain-environment-variable ENV_VAR_NAME
 if test -s $configdir/keychain-environment-variables.fish
   source $configdir/keychain-environment-variables.fish
   # example - set initial value with set-keychain-environment-variable ENV_VAR_NAME
@@ -42,6 +43,7 @@ if test -s $configdir/keychain-environment-variables.fish
   set -x CLONE_ORG_GITHUB_TOKEN (keychain-environment-variable CLONE_ORG_GITHUB_TOKEN)
   set -x NPM_TOKEN (keychain-environment-variable NPM_TOKEN)
   set -x SIGNADOT_API_KEY (keychain-environment-variable SIGNADOT_API_KEY)
+  set -x CLOUDFLARE_API_TOKEN (keychain-environment-variable CLOUDFLARE_API_TOKEN)
   alias gcpdiag-lint "gcpdiag lint --config "(keychain-environment-variable GCPDIAG_CONFIG_PATH)
 end
 
