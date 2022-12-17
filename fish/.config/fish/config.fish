@@ -44,6 +44,8 @@ if test -s $configdir/keychain-environment-variables.fish
   set -x NPM_TOKEN (keychain-environment-variable NPM_TOKEN)
   set -x SIGNADOT_API_KEY (keychain-environment-variable SIGNADOT_API_KEY)
   set -x CLOUDFLARE_API_TOKEN (keychain-environment-variable CLOUDFLARE_API_TOKEN)
+  set -x GOOGLE_ENCRYPTION_KEY (keychain-environment-variable GOOGLE_ENCRYPTION_KEY)
+  set -x VERCEL_API_TOKEN (keychain-environment-variable VERCEL_API_TOKEN)
   alias gcpdiag-lint "gcpdiag lint --config "(keychain-environment-variable GCPDIAG_CONFIG_PATH)
 end
 
