@@ -46,6 +46,8 @@ if test -s $configdir/keychain-environment-variables.fish
   set -x CLOUDFLARE_API_TOKEN (keychain-environment-variable CLOUDFLARE_API_TOKEN)
   set -x GOOGLE_ENCRYPTION_KEY (keychain-environment-variable GOOGLE_ENCRYPTION_KEY)
   set -x VERCEL_API_TOKEN (keychain-environment-variable VERCEL_API_TOKEN)
+  set -x DISCORD_API_TOKEN (keychain-environment-variable DISCORD_API_TOKEN)
+  set -x TF_VAR_DISCORD_API_TOKEN (keychain-environment-variable DISCORD_API_TOKEN)
   alias gcpdiag-lint "gcpdiag lint --config "(keychain-environment-variable GCPDIAG_CONFIG_PATH)
 end
 
