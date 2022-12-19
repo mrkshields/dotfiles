@@ -38,7 +38,7 @@ set -g async_prompt_inherit_variables all
 if test -s $configdir/keychain-environment-variables.fish
   source $configdir/keychain-environment-variables.fish
   # example - set initial value with set-keychain-environment-variable ENV_VAR_NAME
-  # set -x GITHUB_TOKEN (keychain-environment-variable GITHUB_TOKEN)
+  set -x GITHUB_TOKEN (keychain-environment-variable GITHUB_TOKEN)
   #set -x ETH_RPC_URL (keychain-environment-variable ETH_RPC_URL)
   set -x CLONE_ORG_GITHUB_TOKEN (keychain-environment-variable CLONE_ORG_GITHUB_TOKEN)
   set -x NPM_TOKEN (keychain-environment-variable NPM_TOKEN)

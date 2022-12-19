@@ -52,6 +52,7 @@ fzf
 gcc
 gdbm
 gettext
+gh
 giflib
 git
 gitversion
