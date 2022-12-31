@@ -35,7 +35,7 @@ brew tap instrumenta/instrumenta
   tmpdir="$(mktemp -d)"
   cd $tmpdir
   curl -LO https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-389.0.0-darwin-arm.tar.gz
-  tar xf *.tar.gz
+  tar xf google-cloud-cli-389.0.0-darwin-arm.tar.gz
   cp -a ./google-cloud-sdk $HOME/.local/
   cd $HOME/.local/google-cloud-sdk
   ./install.sh
@@ -50,4 +50,9 @@ brew tap instrumenta/instrumenta
   wget https://github.com/kubernetes/minikube/releases/download/v1.23.2/minikube-darwin-arm64
   install -m 0755 minikube-darwin-arm64 $HOME/.local/bin/minikube
   rm -rf minikube-darwin-arm64
+}
+{
+  wget https://github.com/kvz/json2hcl/releases/download/v0.1.1/json2hcl_0.1.1_darwin_arm64.tar.gz
+  tar xf json2hcl_0.1.1_darwin_arm64.tar.gz
+  install -m 0755 json2hcl $HOME/.local/bin/json2hcl
 }
