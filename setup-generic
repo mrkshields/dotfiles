@@ -49,3 +49,4 @@ npm install --global jsonwebtokencli
   echo -e "#!/usr/bin/env bash\nset -euxo pipefail\ngit branch --merged | grep -v '*' | xargs git branch -d || echo No merged local branches found" > ~/.local/bin/git-prune-branches
   chmod +x ~/.local/bin/git-prune-branches
 }
+go install github.com/hashicorp/terraform-config-inspect@latest
