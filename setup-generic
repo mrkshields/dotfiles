@@ -50,3 +50,5 @@ npm install --global jsonwebtokencli
   chmod +x ~/.local/bin/git-prune-branches
 }
 go install github.com/hashicorp/terraform-config-inspect@latest
+curl https://get.volta.sh | bash
+

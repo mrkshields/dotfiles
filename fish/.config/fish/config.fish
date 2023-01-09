@@ -54,7 +54,6 @@ end
 
 # Environment variables
 #set -x DOCKER_HOST ssh://mark@shannara
-#set -x SSH_AUTH_SOCK "$XDG_RUNTIME_DIR/ssh-agent.sock"
 set -x EDITOR 'vim'
 set -x FIGNORE '*.pyc'
 set -x PYTHONDONTWRITEBYTECODE 1
@@ -67,6 +66,7 @@ set -x SIGNADOT_ORG ensofinanc
 set -x KUBECTL_EXTERNAL_DIFF '/Users/mark/Documents/workspace/go/bin/kubectl-neat-diff --diff=colordiff'
 set -x ETH_RPC_URL https://mainnet.ensofinance.dev
 set -x KUBECONFIG $HOME/.kube/config:$HOME/.kube/macmini-config
+#set -x XDG_DATA_HOME $HOME/Library
 # Aliases
 alias ipython "python3 -m IPython"
 alias pip "python3 -m pip"
@@ -180,9 +180,6 @@ function kgetall --argument-names 'namespace'
   end
 end
 
-function nvm
-    bass source ~/.nvm/nvm.sh --no-use ';' nvm $argv
-end
 
 kubectl completion fish | source
 k completion fish | sed 's/kubectl/k/g' | source
@@ -194,3 +191,5 @@ if [ -f '/Users/mark/.local/google-cloud-sdk/path.fish.inc' ]; . '/Users/mark/.l
 set -gx PNPM_HOME "/Users/mark/Library/pnpm"
 set -gx PATH "$PNPM_HOME" $PATH
 # pnpm end
+set -gx VOLTA_HOME "$HOME/.volta"
+set -gx PATH "$VOLTA_HOME/bin" $PATH
