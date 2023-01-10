@@ -27,6 +27,7 @@ cabextract
 cairo
 checkmake
 cjson
+cloudflared
 cmake
 cmocka
 colordiff
