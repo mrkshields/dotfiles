@@ -57,13 +57,12 @@ end
 set -x EDITOR 'vim'
 set -x FIGNORE '*.pyc'
 set -x PYTHONDONTWRITEBYTECODE 1
-set -x GL_REPOS_DIR $HOME/workspace
 set -x INFLUX_HOST http://influxdb.marax.local:8086
 set -x USE_GKE_GCLOUD_AUTH_PLUGIN True
 set -x BASE_WORKDIR EnsoFinance
 set -x PROJECT_ID enso-finance
 set -x SIGNADOT_ORG ensofinanc
-set -x KUBECTL_EXTERNAL_DIFF '/Users/mark/Documents/workspace/go/bin/kubectl-neat-diff --diff=colordiff'
+set -x KUBECTL_EXTERNAL_DIFF '/home/mark//workspace/go/bin/kubectl-neat-diff --diff=colordiff'
 set -x ETH_RPC_URL https://mainnet.ensofinance.dev
 set -x KUBECONFIG $HOME/.kube/config:$HOME/.kube/macmini-config
 #set -x XDG_DATA_HOME $HOME/Library
@@ -152,9 +151,9 @@ function work --argument-names 'target_workdir'
     set target_workdir $BASE_WORKDIR/$target_workdir
   end
   if count $target_workdir > /dev/null
-    cd $HOME/Documents/workspace/$target_workdir
+    cd $HOME/workspace/$target_workdir
   else
-    cd $HOME/Documents/workspace/$BASE_WORKDIR
+    cd $HOME/workspace/$BASE_WORKDIR
   end
 end
 
