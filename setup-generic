@@ -23,7 +23,7 @@ fish -c 'fundle install'
   "$KREW" install krew
 )
 (
-  ~/.local/bin/kubectl krew install ctx ns ingress-nginx minio neat konfig cert-manager
+  ~/.local/bin/kubectl krew install ctx ns ingress-nginx minio neat konfig cert-manager sniff
   ~/.local/bin/kubectl krew update
   ~/.local/bin/kubectl krew upgrade
 )
