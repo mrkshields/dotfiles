@@ -62,7 +62,6 @@ set -x USE_GKE_GCLOUD_AUTH_PLUGIN True
 set -x BASE_WORKDIR EnsoFinance
 set -x PROJECT_ID enso-finance
 set -x SIGNADOT_ORG ensofinanc
-set -x KUBECTL_EXTERNAL_DIFF '/home/mark//workspace/go/bin/kubectl-neat-diff --diff=colordiff'
 set -x ETH_RPC_URL https://mainnet.ensofinance.dev
 set -x KUBECONFIG $HOME/.kube/config:$HOME/.kube/macmini-config
 #set -x XDG_DATA_HOME $HOME/Library
