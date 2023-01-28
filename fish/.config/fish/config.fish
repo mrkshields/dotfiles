@@ -50,6 +50,8 @@ if test -s $configdir/keychain-environment-variables.fish
   set -x DISCORD_API_TOKEN (keychain-environment-variable DISCORD_API_TOKEN)
   set -x TF_VAR_DISCORD_API_TOKEN (keychain-environment-variable DISCORD_API_TOKEN)
   alias gcpdiag-lint "gcpdiag lint --config "(keychain-environment-variable GCPDIAG_CONFIG_PATH)
+  set -x AUTH_GOOGLE_CLIENT_ID (keychain-environment-variable AUTH_GOOGLE_CLIENT_ID)
+  set -x AUTH_GOOGLE_CLIENT_SECRET (keychain-environment-variable AUTH_GOOGLE_CLIENT_SECRET)
 end
 
 # Environment variables
