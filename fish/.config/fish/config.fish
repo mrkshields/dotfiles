@@ -23,7 +23,7 @@ set -x GOPATH $HOME/Documents/workspace/go
 
 # Powerline config
 if status is-interactive
-    set fish_function_path $fish_function_path /opt/homebrew/lib/python3.9/site-packages/powerline/bindings/fish
+    set fish_function_path $fish_function_path /opt/homebrew/lib/python3.{9,11}/site-packages/powerline/bindings/fish
     powerline-setup
 end
 
@@ -39,19 +39,7 @@ if test -s $configdir/keychain-environment-variables.fish
   source $configdir/keychain-environment-variables.fish
   # example - set initial value with set-keychain-environment-variable ENV_VAR_NAME
   set -x GITHUB_TOKEN (keychain-environment-variable GITHUB_TOKEN)
-  #set -x ETH_RPC_URL (keychain-environment-variable ETH_RPC_URL)
-  set -x CLONE_ORG_GITHUB_TOKEN (keychain-environment-variable CLONE_ORG_GITHUB_TOKEN)
-  set -x NPM_TOKEN (keychain-environment-variable NPM_TOKEN)
-  set -x SIGNADOT_API_KEY (keychain-environment-variable SIGNADOT_API_KEY)
-  set -x CLOUDFLARE_API_TOKEN (keychain-environment-variable CLOUDFLARE_API_TOKEN)
-  set -x GOOGLE_ENCRYPTION_KEY (keychain-environment-variable GOOGLE_ENCRYPTION_KEY)
-  set -x VERCEL_API_TOKEN (keychain-environment-variable VERCEL_API_TOKEN)
-  set -x VERCEL_TOKEN (keychain-environment-variable VERCEL_API_TOKEN)
-  set -x DISCORD_API_TOKEN (keychain-environment-variable DISCORD_API_TOKEN)
-  set -x TF_VAR_DISCORD_API_TOKEN (keychain-environment-variable DISCORD_API_TOKEN)
   alias gcpdiag-lint "gcpdiag lint --config "(keychain-environment-variable GCPDIAG_CONFIG_PATH)
-  set -x AUTH_GOOGLE_CLIENT_ID (keychain-environment-variable AUTH_GOOGLE_CLIENT_ID)
-  set -x AUTH_GOOGLE_CLIENT_SECRET (keychain-environment-variable AUTH_GOOGLE_CLIENT_SECRET)
 end
 
 # Environment variables
@@ -61,7 +49,7 @@ set -x FIGNORE '*.pyc'
 set -x PYTHONDONTWRITEBYTECODE 1
 set -x INFLUX_HOST http://influxdb.marax.local:8086
 set -x USE_GKE_GCLOUD_AUTH_PLUGIN True
-set -x BASE_WORKDIR EnsoFinance
+set -x BASE_WORKDIR alaskaair/Alaska-ECommerce
 set -x PROJECT_ID enso-finance
 set -x SIGNADOT_ORG ensofinanc
 set -x ETH_RPC_URL https://mainnet.ensofinance.dev
