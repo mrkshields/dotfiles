@@ -1,3 +1,4 @@
+Azure/kubelogin/kubelogin
 adns
 ammonite-repl
 ansible
@@ -10,6 +11,7 @@ assimp
 autoconf
 automake
 awscli
+azure-cli
 base64
 bash
 bash-completion
@@ -36,7 +38,6 @@ criterion
 dav1d
 dbus
 ddrescue
-dirmngr
 double-conversion
 erlang
 exiftool
@@ -64,7 +65,6 @@ gnupg
 gnutls
 go@1.17
 gobject-introspection
-gpg-agent
 graphite2
 grc
 grep
@@ -170,13 +170,10 @@ p7zip
 pcre
 pcre2
 perl
-php70
-php@7.0
 pinentry
 pixman
 pkg-config
 platformio
-postgresql
 pre-commit
 protobuf
 psutils
@@ -214,19 +211,13 @@ tree
 ucl
 unbound
 unixodbc
-unrar
 unzip
 upx
-urbit
 utf8proc
 vim
 watch
 webp
 wget
-wine
-winetricks
-wxmac
-wxwidgets
 x264
 x265
 xorgproto
