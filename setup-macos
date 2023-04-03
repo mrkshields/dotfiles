@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
-exec ./setup-generic
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+#/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 arch -arm64 brew install --formula <<< brew.formula
 arch -arm64 brew install --formula <<< brew-arm64.formula
 brew install --cask <<< brew.casks
@@ -47,12 +46,8 @@ brew tap instrumenta/instrumenta
   install datree $HOME/.local/bin/
 }
 {
-  wget https://github.com/kubernetes/minikube/releases/download/v1.23.2/minikube-darwin-arm64
-  install -m 0755 minikube-darwin-arm64 $HOME/.local/bin/minikube
-  rm -rf minikube-darwin-arm64
-}
-{
   wget https://github.com/kvz/json2hcl/releases/download/v0.1.1/json2hcl_0.1.1_darwin_arm64.tar.gz
   tar xf json2hcl_0.1.1_darwin_arm64.tar.gz
   install -m 0755 json2hcl $HOME/.local/bin/json2hcl
 }
+exec ./setup-generic

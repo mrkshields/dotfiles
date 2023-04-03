@@ -3,7 +3,7 @@ set -euxo pipefail
 python3 -m pip install --upgrade \
   powerline-status \
   stormssh
-find . -mindepth 1 -maxdepth 1 -type d ! -name .git -printf "%f\0" | xargs -0 stow
+#gfind . -mindepth 1 -maxdepth 1 -type d ! -name '*git' | xargs basename | xargs -0 stow
 if ! [[ -e ~/.vim/bundle/Vundle.vim ]]; then
 	git clone https://github.com/VundleVim/Vundle.vim ~/.vim/bundle/Vundle.vim
 fi
@@ -17,15 +17,15 @@ fish -c 'fundle install'
   set -x; cd "$(mktemp -d)" &&
   OS="$(uname | tr '[:upper:]' '[:lower:]')" &&
   ARCH="$(uname -m | sed -e 's/x86_64/amd64/' -e 's/\(arm\)\(64\)\?.*/\1\2/' -e 's/aarch64$/arm64/')" &&
-  curl -fksSLO "https://github.com/kubernetes-sigs/krew/releases/latest/download/krew.tar.gz" &&
-  tar zxvf krew.tar.gz &&
-  KREW=./krew-"${OS}_${ARCH}" &&
-  "$KREW" install krew
+  KREW="krew-${OS}_${ARCH}" &&
+  curl -fsSLO "https://github.com/kubernetes-sigs/krew/releases/latest/download/${KREW}.tar.gz" &&
+  tar zxvf "${KREW}.tar.gz" &&
+  ./"${KREW}" install krew
 )
 (
-  ~/.local/bin/kubectl krew install ctx ns ingress-nginx minio neat konfig cert-manager sniff
-  ~/.local/bin/kubectl krew update
-  ~/.local/bin/kubectl krew upgrade
+  k krew install ctx ns ingress-nginx minio neat konfig cert-manager sniff
+  k krew update
+  k krew upgrade
 )
 (
   curl -sL https://raw.githubusercontent.com/crossplane/crossplane/master/install.sh | sh
