@@ -38,8 +38,8 @@ set -g async_prompt_inherit_variables all
 if test -s $configdir/keychain-environment-variables.fish
   source $configdir/keychain-environment-variables.fish
   # example - set initial value with set-keychain-environment-variable ENV_VAR_NAME
-  set -x GITHUB_TOKEN (keychain-environment-variable GITHUB_TOKEN)
-  alias gcpdiag-lint "gcpdiag lint --config "(keychain-environment-variable GCPDIAG_CONFIG_PATH)
+  #set -x GITHUB_TOKEN (keychain-environment-variable GITHUB_TOKEN)
+  #alias gcpdiag-lint "gcpdiag lint --config "(keychain-environment-variable GCPDIAG_CONFIG_PATH)
 end
 
 # Environment variables

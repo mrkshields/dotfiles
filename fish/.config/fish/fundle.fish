@@ -13,7 +13,7 @@ if functions fundle > /dev/null 2>&1
   fundle plugin 'oh-my-fish/plugin-expand'
   fundle plugin 'oh-my-fish/theme-bobthefish'  # won't work without installing ohmyfish framework then using omf to install
   fundle plugin 'tuvistavie/fish-fastdir'
-  #fundle plugin 'halostatue/fish-direnv'
+  fundle plugin 'halostatue/fish-direnv'
 
   fundle init
 end
