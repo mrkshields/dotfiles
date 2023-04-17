@@ -49,10 +49,7 @@ set -x FIGNORE '*.pyc'
 set -x PYTHONDONTWRITEBYTECODE 1
 set -x INFLUX_HOST http://influxdb.marax.local:8086
 set -x USE_GKE_GCLOUD_AUTH_PLUGIN True
-set -x BASE_WORKDIR alaskaair/Alaska-ECommerce
-set -x PROJECT_ID enso-finance
-set -x SIGNADOT_ORG ensofinanc
-set -x ETH_RPC_URL https://mainnet.ensofinance.dev
+set -x BASE_WORKDIR alaskaair/Alaska-Airlines-Shared
 set -x KUBECONFIG $HOME/.kube/config:$HOME/.kube/macmini-config
 #set -x XDG_DATA_HOME $HOME/Library
 # Aliases
