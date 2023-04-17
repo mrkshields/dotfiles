@@ -6,6 +6,7 @@ brew install --cask <<< brew.casks
 brew tap homebrew/autoupdate
 brew autoupdate start
 brew tap instrumenta/instrumenta
+mkdir -pv $HOME/.local/bin
 {
   set -e
   wget https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-379.0.0-darwin-arm.tar.gz
@@ -49,5 +50,10 @@ brew tap instrumenta/instrumenta
   wget https://github.com/kvz/json2hcl/releases/download/v0.1.1/json2hcl_0.1.1_darwin_arm64.tar.gz
   tar xf json2hcl_0.1.1_darwin_arm64.tar.gz
   install -m 0755 json2hcl $HOME/.local/bin/json2hcl
+}
+{
+  wget https://github.com/einride/backstage-go/releases/download/v0.6.0/backstage-go_0.6.0_darwin_arm64.tar.gz
+  tar xf backstage-go_0.6.0_darwin_arm64.tar.gz
+  install -m 0755 backstage $HOME/.local/bin/backstage
 }
 exec ./setup-generic
