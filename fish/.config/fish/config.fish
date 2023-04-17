@@ -71,17 +71,6 @@ alias match-name "kubectl match-name"
 alias argocd "argocd --grpc-web"
 alias gss "gcloud compute ssh --zone"
 
-function cf-hosted
-  work codefresh-runtime-applications
-end
-
-function gs --argument-names vm zone
-  if count $zone >/dev/null
-    gcloud compute ssh --zone $zone $vm
-  else
-    gcloud compute ssh --zone europe-west6-a $vm
-    end
-end
 
 function dotfiles
   cd ~/.dotfiles
