@@ -73,7 +73,6 @@ harfbuzz
 hashicorp/tap/terraform
 helm
 heroku/brew/heroku
-hidetatz/tap/kubecolor
 htop
 hub
 hunspell
@@ -89,6 +88,7 @@ jpeg
 jpeg-xl
 jq
 k9s
+kubecolor/tap/kubecolor
 kubernetes-cli
 kubeseal
 kubeval

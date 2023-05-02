@@ -16,6 +16,7 @@ fish_add_path /opt/homebrew/opt/coreutils/libexec/gnubin
 fish_add_path /opt/homebrew/opt/findutils/libexec/gnubin
 fish_add_path /snap/bin
 fish_add_path /usr/local/bin
+fish_add_path /usr/local/go/bin
 
 eval (/opt/homebrew/bin/brew shellenv)
 
@@ -49,7 +50,7 @@ set -x FIGNORE '*.pyc'
 set -x PYTHONDONTWRITEBYTECODE 1
 set -x INFLUX_HOST http://influxdb.marax.local:8086
 set -x USE_GKE_GCLOUD_AUTH_PLUGIN True
-set -x BASE_WORKDIR alaskaair/Alaska-Airlines-Shared
+set -x BASE_WORKDIR alaskaair/Alaska-ECommerce
 set -x KUBECONFIG $HOME/.kube/config:$HOME/.kube/macmini-config
 #set -x XDG_DATA_HOME $HOME/Library
 # Aliases
