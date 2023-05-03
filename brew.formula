@@ -195,6 +195,7 @@ signadot/tap/signadot-cli
 six
 smartmontools
 snappy
+sonatype-nexus-community/nancy-tap/nancy
 speex
 sqlite
 srt
