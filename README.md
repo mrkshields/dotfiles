@@ -3,7 +3,7 @@ My cross-functional config of tmux, vim, fish, and more, for work and home, Mac 
 
 # How to use
 
-## Debian and Pixelbook
+## Debian
 Run `./setup-linux`
 
 ## MacOS
