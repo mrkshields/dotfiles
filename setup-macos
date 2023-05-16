@@ -22,13 +22,6 @@ mkdir -pv $HOME/.local/bin
   install -m 0755 kubectl $HOME/.local/bin/kubectl
   install -m 0755 kubectl $HOME/.local/bin/k
   set +e
-{
-  set -e
-  curl -L --output - https://github.com/codefresh-io/cli-v2/releases/latest/download/cf-darwin-amd64.tar.gz \
-    | tar zx
-  install ./cf-darwin-amd64 /usr/local/bin/cf
-  cf version
-  set +e
 }
 {
   set -e
