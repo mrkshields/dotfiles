@@ -1,4 +1,4 @@
-set __fundle_current_version '0.7.0'
+set __fundle_current_version '0.7.1'
 
 function __fundle_seq -a upto
 	seq 1 1 $upto 2>/dev/null
@@ -63,7 +63,7 @@ function __fundle_url_rev -d "prints the revision from the url" -a git_url
 	if test -n "$rev"
 		echo $rev
 	else
-		echo master
+		echo HEAD
 	end
 end
 
@@ -123,7 +123,13 @@ function __fundle_check_date -d "check date"
 end
 
 function __fundle_get_url -d "returns the url for the given plugin" -a repo
-	echo "https://github.com/$repo.git"
+    set split (string split @ $repo)
+    set repo $split[1]
+    set tag  $split[2]
+    set url "https://github.com/$repo.git"
+
+    test ! -z "$tag"; and set url (string join "#tags/" "$url" "$tag")
+    echo "$url"
 end
 
 
@@ -214,7 +220,7 @@ function __fundle_load_plugin -a plugin -a path -a fundle_dir -a profile -d "loa
 
 	if not test -d $plugin_dir
 		__fundle_show_doc_msg "$plugin not installed. You may need to run 'fundle install'"
-		return 0
+		return 1
 	end
 
     # Take everything but "plugin-" from the last path component
@@ -302,6 +308,7 @@ Try reloading your shell if you just edited your configuration."
 		set profile 1
 	end
 
+    set -l has_uninstalled_plugins 0
 	for name_path in $__fundle_plugin_name_paths
         set -l name_path (string split : -- $name_path)
         if test "$profile" -eq 1
@@ -310,11 +317,12 @@ Try reloading your shell if you just edited your configuration."
 	        set -l ellapsed_time (math \((__fundle_date +%s%N) - $start_time\) / 1000)
 	        echo "$name_path[1]": {$ellapsed_time}us
         else
-		    __fundle_load_plugin $name_path[1] $name_path[2] $fundle_dir $profile
+		    __fundle_load_plugin $name_path[1] $name_path[2] $fundle_dir $profile || set has_uninstalled_plugins 1
         end
 	end
 
 	__fundle_bind
+    return $has_uninstalled_plugins
 end
 
 function __fundle_install -d "install plugin"
@@ -380,6 +388,7 @@ function __fundle_plugin -d "add plugin to fundle" -a name
 		end
 	end
 	test -z "$plugin_url"; and set plugin_url (__fundle_get_url $name)
+    set name (string split @ $name)[1]
 
 	if not contains $name $__fundle_plugin_names
 		set -g __fundle_plugin_names $__fundle_plugin_names $name

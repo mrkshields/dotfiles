@@ -1,7 +1,12 @@
 set fish_greeting ""
 set -l configdir ~/.config/fish
 
+set -x GOPATH $HOME/go
+set -x GOROOT (brew --prefix golang)/"libexec"
+set -x GO111MODULE on
+
 fish_add_path $GOPATH/bin
+fish_add_path $GOROOT/bin
 fish_add_path $HOME/.foundry/bin
 fish_add_path $HOME/.krew
 fish_add_path $HOME/.krew/bin
@@ -38,7 +43,7 @@ if test -s $configdir/keychain-environment-variables.fish
   source $configdir/keychain-environment-variables.fish
   # example - set initial value with set-keychain-environment-variable ENV_VAR_NAME
   #set -x GITHUB_TOKEN (keychain-environment-variable GITHUB_TOKEN)
-  #alias gcpdiag-lint "gcpdiag lint --config "(keychain-environment-variable GCPDIAG_CONFIG_PATH)
+  set -x GOPRIVATE (keychain-environment-variable GOPRIVATE)
 end
 
 # Environment variables
@@ -48,9 +53,10 @@ set -x FIGNORE '*.pyc'
 set -x PYTHONDONTWRITEBYTECODE 1
 set -x INFLUX_HOST http://influxdb.marax.local:8086
 set -x USE_GKE_GCLOUD_AUTH_PLUGIN True
-set -x BASE_WORKDIR alaskaair/Alaska-ECommerce
-set -x KUBECONFIG $HOME/.kube/config:$HOME/.kube/macmini-config
+#set -x KUBECONFIG $HOME/.kube/config:$HOME/.kube/macmini-config
 #set -x XDG_DATA_HOME $HOME/Library
+set -x VAULT_ADDR (keychain-environment-variable VAULT_ADDR)
+#set -x HTTPS_PROXY http://localhost:9995
 # Aliases
 alias ipython "python3 -m IPython"
 alias pip "python3 -m pip"

@@ -11,6 +11,7 @@ if ! grep -q fish <<< "$SHELL"; then
 	sudo chsh -s $(which fish) $USER
 fi
 curl -fksSLO https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install | fish
+curl -sfL https://git.io/fundle-install | fish
 fish -c 'fundle install'
 
 (
@@ -23,9 +24,9 @@ fish -c 'fundle install'
   ./"${KREW}" install krew
 )
 (
-  k krew install ctx ns ingress-nginx minio neat konfig cert-manager sniff
-  k krew update
-  k krew upgrade
+  $HOME/.krew/bin/kubectl-krew install ctx ns ingress-nginx minio neat konfig cert-manager sniff
+  $HOME/.krew/bin/kubectl-krew update
+  $HOME/.krew/bin/kubectl-krew upgrade
 )
 (
   curl -sL https://raw.githubusercontent.com/crossplane/crossplane/master/install.sh | sh

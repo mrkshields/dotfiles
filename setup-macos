@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 #/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-arch -arm64 brew install --formula <<< brew.formula
-arch -arm64 brew install --formula <<< brew-arm64.formula
-brew install --cask <<< brew.casks
+cat brew.formula | xargs arch -arm64 brew install --formula
+cat brew-arm64.formula | xargs arch -arm64 brew install --formula
+cat brew.casks | xargs brew install --cask
 brew tap homebrew/autoupdate
 brew autoupdate start
 brew tap instrumenta/instrumenta
