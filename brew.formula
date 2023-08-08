@@ -72,6 +72,7 @@ grep
 guile
 harfbuzz
 hashicorp/tap/terraform
+hashicorp/tap/vault
 helm
 heroku/brew/heroku
 htop
