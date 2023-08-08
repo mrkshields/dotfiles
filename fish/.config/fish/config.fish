@@ -20,8 +20,6 @@ fish_add_path /usr/local/go/bin
 
 eval (/opt/homebrew/bin/brew shellenv)
 
-set -x GOPATH $HOME/Documents/workspace/go
-
 # Powerline config
 if status is-interactive
     set fish_function_path $fish_function_path /opt/homebrew/lib/python3.{9,11}/site-packages/powerline/bindings/fish
