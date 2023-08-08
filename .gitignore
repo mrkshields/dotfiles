@@ -6,6 +6,9 @@ fish/.config/fish/fishd.allanon
 fish/.config/fish/fundle
 fish/.config/fish/fundle/*
 fish/.config/fish/secrets.fish
+ipython/.ipython/profile_default/db/
+ipython/.ipython/profile_default/history.sqlite
+ipython/.ipython/profile_default/startup/
 powerline/.config/powerline/themes/tmux/default.json
 tmux/.tmux/plugins
 tmux/.tmux/resurrect
