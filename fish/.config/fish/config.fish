@@ -12,7 +12,6 @@ fish_add_path $HOME/.local/bin
 fish_add_path $HOME/.local/go/bin
 fish_add_path $HOME/.npm-global/bin
 fish_add_path $HOME/Library/Android/sdk/platform-tools
-fish_add_path $HOME/bin
 fish_add_path /opt/homebrew/Cellar/go@1.17/1.17.11/bin
 fish_add_path /opt/homebrew/bin
 fish_add_path /opt/homebrew/opt/coreutils/libexec/gnubin
