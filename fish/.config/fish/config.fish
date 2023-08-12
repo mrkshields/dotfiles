@@ -2,7 +2,9 @@ set fish_greeting ""
 set -l configdir ~/.config/fish
 
 set -x GOPATH $HOME/go
-set -x GOROOT (brew --prefix golang)/"libexec"
+if command -q brew
+  set -x GOROOT (brew --prefix golang)/"libexec"
+end
 set -x GO111MODULE on
 
 if functions -q fish_add_path
