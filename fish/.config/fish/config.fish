@@ -11,7 +11,6 @@ fish_add_path $HOME/.krew/bin
 fish_add_path $HOME/.local/bin
 fish_add_path $HOME/.local/go/bin
 fish_add_path $HOME/.npm-global/bin
-fish_add_path $HOME/Library/Android/sdk/platform-tools
 fish_add_path /opt/homebrew/Cellar/go@1.17/1.17.11/bin
 fish_add_path /opt/homebrew/bin
 fish_add_path /opt/homebrew/opt/coreutils/libexec/gnubin
@@ -72,6 +71,7 @@ alias neat "kubectl neat"
 alias match-name "kubectl match-name"
 alias argocd "argocd --grpc-web"
 alias gss "gcloud compute ssh --zone"
+alias k "kubectl"
 
 
 function dotfiles
