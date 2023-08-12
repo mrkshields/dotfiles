@@ -51,3 +51,4 @@ curl https://get.volta.sh | bash
 for dir in fish git ipython linters powerline tmux vim
   stow $dir
 done
+vim +VundleInstall
