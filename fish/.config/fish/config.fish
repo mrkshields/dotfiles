@@ -7,7 +7,6 @@ set -x GO111MODULE on
 
 fish_add_path $GOPATH/bin
 fish_add_path $GOROOT/bin
-fish_add_path $HOME/.krew
 fish_add_path $HOME/.krew/bin
 fish_add_path $HOME/.local/bin
 fish_add_path $HOME/.local/go/bin
