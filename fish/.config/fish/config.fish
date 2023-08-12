@@ -5,19 +5,21 @@ set -x GOPATH $HOME/go
 set -x GOROOT (brew --prefix golang)/"libexec"
 set -x GO111MODULE on
 
-fish_add_path $GOPATH/bin
-fish_add_path $GOROOT/bin
-fish_add_path $HOME/.krew/bin
-fish_add_path $HOME/.local/bin
-fish_add_path $HOME/.local/go/bin
-fish_add_path $HOME/.npm-global/bin
-fish_add_path /opt/homebrew/Cellar/go@1.17/1.17.11/bin
-fish_add_path /opt/homebrew/bin
-fish_add_path /opt/homebrew/opt/coreutils/libexec/gnubin
-fish_add_path /opt/homebrew/opt/findutils/libexec/gnubin
-fish_add_path /snap/bin
-fish_add_path /usr/local/bin
-fish_add_path /usr/local/go/bin
+if functions -q fish_add_path
+  fish_add_path $GOPATH/bin
+  fish_add_path $GOROOT/bin
+  fish_add_path $HOME/.krew/bin
+  fish_add_path $HOME/.local/bin
+  fish_add_path $HOME/.local/go/bin
+  fish_add_path $HOME/.npm-global/bin
+  fish_add_path /opt/homebrew/Cellar/go@1.17/1.17.11/bin
+  fish_add_path /opt/homebrew/bin
+  fish_add_path /opt/homebrew/opt/coreutils/libexec/gnubin
+  fish_add_path /opt/homebrew/opt/findutils/libexec/gnubin
+  fish_add_path /snap/bin
+  fish_add_path /usr/local/bin
+  fish_add_path /usr/local/go/bin
+end
 
 eval (/opt/homebrew/bin/brew shellenv)
 
