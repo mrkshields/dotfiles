@@ -48,4 +48,6 @@ npm install --global jsonwebtokencli
 }
 go install github.com/hashicorp/terraform-config-inspect@latest
 curl https://get.volta.sh | bash
-
+for dir in fish git ipython linters powerline tmux vim
+  stow $dir
+done
