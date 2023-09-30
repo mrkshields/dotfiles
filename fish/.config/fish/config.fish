@@ -43,7 +43,7 @@ if test -s $configdir/keychain-environment-variables.fish
   source $configdir/keychain-environment-variables.fish
   # example - set initial value with set-keychain-environment-variable ENV_VAR_NAME
   #set -x GITHUB_TOKEN (keychain-environment-variable GITHUB_TOKEN)
-  set -x GOPRIVATE (keychain-environment-variable GOPRIVATE)
+  set -x GOPRIVATE (keychain-environment-variable GOPRIVATE 2>/dev/null)
 end
 
 # Environment variables
@@ -55,7 +55,7 @@ set -x INFLUX_HOST http://influxdb.marax.local:8086
 set -x USE_GKE_GCLOUD_AUTH_PLUGIN True
 #set -x KUBECONFIG $HOME/.kube/config:$HOME/.kube/macmini-config
 #set -x XDG_DATA_HOME $HOME/Library
-set -x VAULT_ADDR (keychain-environment-variable VAULT_ADDR)
+set -x VAULT_ADDR (keychain-environment-variable VAULT_ADDR 2>/dev/null)
 #set -x HTTPS_PROXY http://localhost:9995
 # Aliases
 alias ipython "python3 -m IPython"
