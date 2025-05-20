@@ -14,20 +14,25 @@ if functions -q fish_add_path
   fish_add_path $HOME/.local/bin
   fish_add_path $HOME/.local/go/bin
   fish_add_path $HOME/.npm-global/bin
-  fish_add_path /opt/homebrew/Cellar/go@1.17/1.17.11/bin
+  #fish_add_path /opt/homebrew/Cellar/go@1.17/1.17.11/bin
   fish_add_path /opt/homebrew/bin
   fish_add_path /opt/homebrew/opt/coreutils/libexec/gnubin
   fish_add_path /opt/homebrew/opt/findutils/libexec/gnubin
   fish_add_path /snap/bin
   fish_add_path /usr/local/bin
   fish_add_path /usr/local/go/bin
+  fish_add_path /opt/homebrew/share/google-cloud-sdk/bin
+  fish_add_path /Users/markshields/Library/Python/3.9/bin
 end
 
 eval (/opt/homebrew/bin/brew shellenv)
 
+ set -q KREW_ROOT; and set -gx PATH $PATH $KREW_ROOT/.krew/bin; or set -gx PATH $PATH $HOME/.krew/bin
+
 # Powerline config
 if status is-interactive
-    set fish_function_path $fish_function_path /opt/homebrew/lib/python3.{9,11}/site-packages/powerline/bindings/fish
+    set fish_function_path $fish_function_path /Users/markshields/Library/Python/3.9/lib/python/site-packages/powerline/bindings/fish/powerline-setup.fish
+    source /Users/markshields/Library/Python/3.9/lib/python/site-packages/powerline/bindings/fish/powerline-setup.fish
     powerline-setup
 end
 
@@ -59,6 +64,7 @@ set -x USE_GKE_GCLOUD_AUTH_PLUGIN True
 #set -x XDG_DATA_HOME $HOME/Library
 set -x VAULT_ADDR (keychain-environment-variable VAULT_ADDR 2>/dev/null)
 #set -x HTTPS_PROXY http://localhost:9995
+set -x COMPOSE_BAKE true
 # Aliases
 alias ipython "python3 -m IPython"
 alias pip "python3 -m pip"
@@ -175,3 +181,4 @@ set -gx PATH "$PNPM_HOME" $PATH
 # pnpm end
 set -gx VOLTA_HOME "$HOME/.volta"
 set -gx PATH "$VOLTA_HOME/bin" $PATH
+eval (direnv hook fish)
