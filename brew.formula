@@ -4,7 +4,9 @@ bash
 brotli
 c-ares
 ca-certificates
+cloc
 colima
+conftest
 direnv
 docker
 docker-completion
@@ -41,6 +43,7 @@ ncurses
 neovim
 node
 openssl@3
+pandoc
 pcre2
 readline
 ripgrep
