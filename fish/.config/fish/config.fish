@@ -23,6 +23,7 @@ if functions -q fish_add_path
   fish_add_path /usr/local/go/bin
   fish_add_path /opt/homebrew/share/google-cloud-sdk/bin
   fish_add_path /Users/markshields/Library/Python/3.9/bin
+  fish_add_path /Library/Frameworks/Python.framework/Versions/3.12/bin
 end
 
 eval (/opt/homebrew/bin/brew shellenv)
