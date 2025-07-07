@@ -1,4 +1,6 @@
+auth0/auth0-cli
 cloudflare/cloudflare/cf-terraforming
+dtaniwaki/git-kustomize-diff
 espanso
 gitify
 google-cloud-sdk
@@ -10,7 +12,7 @@ libreoffice
 mqttx
 openscad
 postman
+rancher
 tailscale
 wireshark
 xquartz
-dtaniwaki/git-kustomize-diff
