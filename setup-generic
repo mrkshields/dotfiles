@@ -1,54 +1,164 @@
 #!/usr/bin/env bash
 set -euxo pipefail
+
+# Function to check if a command exists
+command_exists() {
+    command -v "$1" >/dev/null 2>&1
+}
+
+# Upgrade Python packages if installed
+echo "Upgrading Python packages..."
 python3 -m pip install --upgrade \
   powerline-status \
-  stormssh
-#gfind . -mindepth 1 -maxdepth 1 -type d ! -name '*git' | xargs basename | xargs -0 stow
+  stormssh || echo "Failed to upgrade Python packages, continuing..."
+
+# Setup Vundle for Vim if not already installed
 if ! [[ -e ~/.vim/bundle/Vundle.vim ]]; then
-	git clone https://github.com/VundleVim/Vundle.vim ~/.vim/bundle/Vundle.vim
+    echo "Installing Vundle for Vim..."
+    git clone https://github.com/VundleVim/Vundle.vim ~/.vim/bundle/Vundle.vim
+else
+    echo "Vundle for Vim already installed, skipping..."
 fi
+
+# Change shell to fish if not already set
 if ! grep -q fish <<< "$SHELL"; then
-	sudo chsh -s $(which fish) $USER
+    echo "Changing shell to fish..."
+    sudo chsh -s $(which fish) $USER
+else
+    echo "Shell already set to fish, skipping..."
 fi
-curl -fksSLO https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install | fish
-curl -sfL https://git.io/fundle-install | fish
+
+# Install oh-my-fish if not already installed
+if ! command_exists omf; then
+    echo "Installing oh-my-fish..."
+    curl -fksSLO https://raw.githubusercontent.com/oh-my-fish/oh-my-fish/master/bin/install | fish
+else
+    echo "oh-my-fish already installed, skipping..."
+fi
+
+# Install fundle if not already installed
+if ! fish -c 'functions -q fundle'; then
+    echo "Installing fundle..."
+    curl -sfL https://git.io/fundle-install | fish
+else
+    echo "fundle already installed, skipping..."
+fi
+
+# Install fish plugins
 fish -c 'fundle install'
 
+# Install krew (Kubernetes plugin manager) if not already installed
+if ! command_exists kubectl-krew; then
+    echo "Installing krew (Kubernetes plugin manager, latest stable version)..."
+    (
+        set -x; cd "$(mktemp -d)" &&
+        OS="$(uname | tr '[:upper:]' '[:lower:]')" &&
+        ARCH="$(uname -m | sed -e 's/x86_64/amd64/' -e 's/\(arm\)\(64\)\?.*/\1\2/' -e 's/aarch64$/arm64/')" &&
+        KREW="krew-${OS}_${ARCH}" &&
+        curl -fsSLO "https://github.com/kubernetes-sigs/krew/releases/latest/download/${KREW}.tar.gz" &&
+        tar zxvf "${KREW}.tar.gz" &&
+        ./"${KREW}" install krew
+    )
+else
+    echo "krew already installed, skipping..."
+fi
+
+# Install and update krew plugins
+echo "Installing and updating krew plugins..."
 (
-  set -x; cd "$(mktemp -d)" &&
-  OS="$(uname | tr '[:upper:]' '[:lower:]')" &&
-  ARCH="$(uname -m | sed -e 's/x86_64/amd64/' -e 's/\(arm\)\(64\)\?.*/\1\2/' -e 's/aarch64$/arm64/')" &&
-  KREW="krew-${OS}_${ARCH}" &&
-  curl -fsSLO "https://github.com/kubernetes-sigs/krew/releases/latest/download/${KREW}.tar.gz" &&
-  tar zxvf "${KREW}.tar.gz" &&
-  ./"${KREW}" install krew
+    $HOME/.krew/bin/kubectl-krew install ctx ns ingress-nginx minio neat konfig cert-manager sniff || echo "Failed to install some krew plugins, continuing..."
+    $HOME/.krew/bin/kubectl-krew update
+    $HOME/.krew/bin/kubectl-krew upgrade || echo "Failed to upgrade krew plugins, continuing..."
 )
-(
-  $HOME/.krew/bin/kubectl-krew install ctx ns ingress-nginx minio neat konfig cert-manager sniff
-  $HOME/.krew/bin/kubectl-krew update
-  $HOME/.krew/bin/kubectl-krew upgrade
-)
-(
-  curl -sL https://raw.githubusercontent.com/crossplane/crossplane/master/install.sh | sh
-  install -m 0755 kubectl-crossplane $HOME/.local/bin/kubectl-crossplane
-  install -m 0755 kubectl-crossplane $HOME/.local/bin/crossplane
-)
-curl https://gcpdiag.dev/gcpdiag.sh -o $HOME/.local/bin/gcpdiag
-chmod +x $HOME/.local/bin/gcpdiag
-# TODO: gcloud components install gke-gcloud-auth-plugin
-python3 -m pip install asciicast2movie
-OS=$(go env GOOS); ARCH=$(go env GOARCH); curl -sSL -o cmctl.tar.gz https://github.com/cert-manager/cert-manager/releases/download/v1.7.2/cmctl-$OS-$ARCH.tar.gz
-tar xzf cmctl.tar.gz
-mv -v cmctl $HOME/.local/bin/
-npm install --global jsonwebtokencli
-{
-  mkdir -p ~/.local/bin
-  echo -e "#!/usr/bin/env bash\nset -euxo pipefail\ngit branch --merged | grep -v '*' | xargs git branch -d || echo No merged local branches found" > ~/.local/bin/git-prune-branches
-  chmod +x ~/.local/bin/git-prune-branches
-}
-go install github.com/hashicorp/terraform-config-inspect@latest
-curl https://get.volta.sh | bash
+
+# Install Crossplane CLI if not already installed
+if ! command_exists kubectl-crossplane; then
+    echo "Installing Crossplane CLI (latest stable version)..."
+    (
+        curl -sL https://raw.githubusercontent.com/crossplane/crossplane/master/install.sh | sh
+        install -m 0755 kubectl-crossplane $HOME/.local/bin/kubectl-crossplane
+        install -m 0755 kubectl-crossplane $HOME/.local/bin/crossplane
+    )
+else
+    echo "Crossplane CLI already installed, skipping..."
+fi
+
+# Install gcpdiag if not already installed
+if ! command_exists gcpdiag; then
+    echo "Installing gcpdiag..."
+    curl https://gcpdiag.dev/gcpdiag.sh -o $HOME/.local/bin/gcpdiag
+    chmod +x $HOME/.local/bin/gcpdiag
+else
+    echo "gcpdiag already installed, skipping..."
+fi
+
+# Install asciicast2movie if not already installed
+if ! python3 -c "import asciicast2movie" 2>/dev/null; then
+    echo "Installing asciicast2movie..."
+    python3 -m pip install asciicast2movie || echo "Failed to install asciicast2movie, continuing..."
+else
+    echo "asciicast2movie already installed, skipping..."
+fi
+
+# Install cmctl (cert-manager CLI) if not already installed
+if ! command_exists cmctl; then
+    echo "Installing cmctl (cert-manager CLI, latest stable version)..."
+    OS=$(go env GOOS); ARCH=$(go env GOARCH); 
+    LATEST_CMCTL_TAG=$(curl -s https://api.github.com/repos/cert-manager/cert-manager/releases/latest | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
+    if [ -z "$LATEST_CMCTL_TAG" ]; then
+        echo "Could not find latest cmctl version, falling back to v1.7.2."
+        LATEST_CMCTL_TAG="v1.7.2"
+    fi
+    curl -sSL -o cmctl.tar.gz "https://github.com/cert-manager/cert-manager/releases/download/$LATEST_CMCTL_TAG/cmctl-$OS-$ARCH.tar.gz"
+    tar xzf cmctl.tar.gz
+    mv -v cmctl $HOME/.local/bin/
+else
+    echo "cmctl already installed, skipping..."
+fi
+
+# Install jsonwebtokencli if not already installed
+if ! command_exists jwt; then
+    echo "Installing jsonwebtokencli..."
+    npm install --global jsonwebtokencli || echo "Failed to install jsonwebtokencli, continuing..."
+else
+    echo "jsonwebtokencli already installed, skipping..."
+fi
+
+# Create git-prune-branches script if not already exists
+if ! [[ -f ~/.local/bin/git-prune-branches ]]; then
+    echo "Creating git-prune-branches script..."
+    {
+        mkdir -p ~/.local/bin
+        echo -e "#!/usr/bin/env bash\nset -euxo pipefail\ngit branch --merged | grep -v '*' | xargs git branch -d || echo No merged local branches found" > ~/.local/bin/git-prune-branches
+        chmod +x ~/.local/bin/git-prune-branches
+    }
+else
+    echo "git-prune-branches script already exists, skipping..."
+fi
+
+# Install terraform-config-inspect if not already installed
+if ! command_exists terraform-config-inspect; then
+    echo "Installing terraform-config-inspect..."
+    go install github.com/hashicorp/terraform-config-inspect@latest || echo "Failed to install terraform-config-inspect, continuing..."
+else
+    echo "terraform-config-inspect already installed, skipping..."
+fi
+
+# Install Volta if not already installed
+if ! command_exists volta; then
+    echo "Installing Volta (Node.js version manager, latest stable version)..."
+    curl https://get.volta.sh | bash
+else
+    echo "Volta already installed, skipping..."
+fi
+
+# Stow dotfiles directories
+echo "Stowing dotfiles directories..."
 for dir in fish git ipython linters powerline tmux vim
-  stow $dir
+do
+    stow $dir || echo "Failed to stow $dir, continuing..."
 done
-vim +VundleInstall
+
+# Install Vim plugins
+echo "Installing Vim plugins..."
+vim +VundleInstall +qall || echo "Failed to install some Vim plugins, continuing..."

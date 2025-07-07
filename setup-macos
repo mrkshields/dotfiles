@@ -1,52 +1,135 @@
 #!/usr/bin/env bash
-#/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-cat brew.formula | xargs arch -arm64 brew install --formula
-cat brew-arm64.formula | xargs arch -arm64 brew install --formula
-cat brew.casks | xargs brew install --cask
-brew tap homebrew/autoupdate
-brew autoupdate start
-brew tap instrumenta/instrumenta
+# Setup script for macOS systems
+# This script installs and updates tools and configurations on macOS
+
+# Function to check if a command exists
+command_exists() {
+    command -v "$1" >/dev/null 2>&1
+}
+
+# Install Homebrew if not already installed
+if ! command_exists brew; then
+    echo "Installing Homebrew..."
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+else
+    echo "Homebrew already installed, updating..."
+    brew update
+fi
+
+# Install or update formulae from brew.formula
+echo "Installing/updating formulae from brew.formula..."
+while IFS= read -r formula; do
+    if brew list --formula | grep -q "$formula"; then
+        echo "$formula is already installed, skipping..."
+    else
+        echo "Installing $formula..."
+        arch -arm64 brew install --formula "$formula" || echo "Failed to install $formula"
+    fi
+done < brew.formula
+
+# Install or update formulae from brew-arm64.formula
+echo "Installing/updating formulae from brew-arm64.formula..."
+while IFS= read -r formula; do
+    if brew list --formula | grep -q "$formula"; then
+        echo "$formula is already installed, skipping..."
+    else
+        echo "Installing $formula..."
+        arch -arm64 brew install --formula "$formula" || echo "Failed to install $formula"
+    fi
+done < brew-arm64.formula
+
+# Install or update casks from brew.casks
+echo "Installing/updating casks from brew.casks..."
+while IFS= read -r cask; do
+    if brew list --cask | grep -q "$cask"; then
+        echo "$cask is already installed, skipping..."
+    else
+        echo "Installing $cask..."
+        brew install --cask "$cask" || echo "Failed to install $cask"
+    fi
+done < brew.casks
+
+# Setup Homebrew autoupdate tap
+if ! brew tap | grep -q "homebrew/autoupdate"; then
+    echo "Tapping homebrew/autoupdate..."
+    brew tap homebrew/autoupdate
+fi
+
+# Start autoupdate if not already started
+if ! brew autoupdate status | grep -q "Autoupdate is enabled"; then
+    echo "Starting Homebrew autoupdate..."
+    brew autoupdate start
+fi
+
+# Tap instrumenta/instrumenta if not already tapped
+if ! brew tap | grep -q "instrumenta/instrumenta"; then
+    echo "Tapping instrumenta/instrumenta..."
+    brew tap instrumenta/instrumenta
+fi
+
+# Create local bin directory if it doesn't exist
 mkdir -pv $HOME/.local/bin
-{
-  set -e
-  wget https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-379.0.0-darwin-arm.tar.gz
-  tar xf google-cloud-sdk-379.0.0-darwin-arm.tar.gz
-  ./google-cloud-sdk/install.sh
-  set +e
-}
-{
-  set -e
-  curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/darwin/arm64/kubectl"
-  curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/darwin/arm64/kubectl.sha256"
-  echo "$(cat kubectl.sha256)  kubectl" | shasum -a 256 --check
-  install -m 0755 kubectl $HOME/.local/bin/kubectl
-  install -m 0755 kubectl $HOME/.local/bin/k
-  set +e
-}
-{
-  set -e
-  tmpdir="$(mktemp -d)"
-  cd $tmpdir
-  curl -LO https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-389.0.0-darwin-arm.tar.gz
-  tar xf google-cloud-cli-389.0.0-darwin-arm.tar.gz
-  cp -a ./google-cloud-sdk $HOME/.local/
-  cd $HOME/.local/google-cloud-sdk
-  ./install.sh
-  set +e
-}
-{
-  wget https://github.com/datreeio/datree/releases/download/1.6.10-rc/datree-cli_1.6.10-rc_Darwin_arm64.zip
-  unzip datree-cli_1.6.10-rc_Darwin_arm64.zip
-  install datree $HOME/.local/bin/
-}
-{
-  wget https://github.com/kvz/json2hcl/releases/download/v0.1.1/json2hcl_0.1.1_darwin_arm64.tar.gz
-  tar xf json2hcl_0.1.1_darwin_arm64.tar.gz
-  install -m 0755 json2hcl $HOME/.local/bin/json2hcl
-}
-{
-  wget https://github.com/einride/backstage-go/releases/download/v0.6.0/backstage-go_0.6.0_darwin_arm64.tar.gz
-  tar xf backstage-go_0.6.0_darwin_arm64.tar.gz
-  install -m 0755 backstage $HOME/.local/bin/backstage
-}
+
+# Install Google Cloud SDK if not already installed
+if ! command_exists gcloud; then
+    echo "Installing Google Cloud SDK (latest stable version)..."
+    {
+        set -e
+        # Fetch the latest version URL from Google Cloud SDK documentation or release page
+        LATEST_Gcloud_URL=$(curl -s https://cloud.google.com/sdk/docs/release-notes | grep -oP 'https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-[0-9.]+-darwin-arm.tar.gz' | head -1)
+        if [ -z "$LATEST_Gcloud_URL" ]; then
+            echo "Could not find latest Google Cloud SDK URL, falling back to a recent version."
+            LATEST_Gcloud_URL="https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-379.0.0-darwin-arm.tar.gz"
+        fi
+        wget "$LATEST_Gcloud_URL"
+        tar xf google-cloud-sdk-*.tar.gz
+        ./google-cloud-sdk/install.sh
+        set +e
+    }
+else
+    echo "Google Cloud SDK already installed, skipping..."
+fi
+
+# Install kubectl if not already installed
+if ! command_exists kubectl; then
+    echo "Installing kubectl (latest stable version)..."
+    {
+        set -e
+        curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/darwin/arm64/kubectl"
+        curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/darwin/arm64/kubectl.sha256"
+        echo "$(cat kubectl.sha256)  kubectl" | shasum -a 256 --check
+        install -m 0755 kubectl $HOME/.local/bin/kubectl
+        install -m 0755 kubectl $HOME/.local/bin/k
+        set +e
+    }
+else
+    echo "kubectl already installed, skipping..."
+fi
+
+# Install Google Cloud CLI (newer version) if not already installed in .local
+if [ ! -d "$HOME/.local/google-cloud-sdk" ]; then
+    echo "Installing newer Google Cloud CLI (latest stable version)..."
+    {
+        set -e
+        tmpdir="$(mktemp -d)"
+        cd $tmpdir
+        # Fetch the latest version URL for Google Cloud CLI
+        LATEST_CLI_URL=$(curl -s https://cloud.google.com/sdk/docs/release-notes | grep -oP 'https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-[0-9.]+-darwin-arm.tar.gz' | head -1)
+        if [ -z "$LATEST_CLI_URL" ]; then
+            echo "Could not find latest Google Cloud CLI URL, falling back to a recent version."
+            LATEST_CLI_URL="https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-389.0.0-darwin-arm.tar.gz"
+        fi
+        curl -LO "$LATEST_CLI_URL"
+        tar xf google-cloud-cli-*.tar.gz
+        cp -a ./google-cloud-sdk $HOME/.local/
+        cd $HOME/.local/google-cloud-sdk
+        ./install.sh
+        set +e
+    }
+else
+    echo "Newer Google Cloud CLI already installed, skipping..."
+fi
+
+# Execute generic setup script
+echo "Executing generic setup script..."
 exec ./setup-generic
