@@ -1,5 +1,6 @@
 auth0/auth0-cli
 cloudflare/cloudflare/cf-terraforming
+devpod
 dtaniwaki/git-kustomize-diff
 espanso
 gitify
