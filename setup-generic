@@ -36,16 +36,27 @@ else
     echo "oh-my-fish already installed, skipping..."
 fi
 
-# Install fundle if not already installed
-if ! fish -c 'functions -q fundle'; then
-    echo "Installing fundle..."
-    curl -sfL https://git.io/fundle-install | fish
+# Install Fisher (Fish plugin manager) if not already installed
+if ! fish -c 'functions -q fisher'; then
+    curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher
 else
-    echo "fundle already installed, skipping..."
+    echo "Fisher already installed, skipping..."
 fi
 
-# Install fish plugins
-fish -c 'fundle install'
+# Install fish plugins 
+fisher install Markcial/upto
+fisher install danhper/fish-ssh-agent
+fisher install edc/bass
+fisher install evanlucas/fish-kubectl-completions
+fisher install fisherman/spin
+fisher install halostatue/fish-direnv
+fisher install joseluisq/gitnow
+fisher install laughedelic/pisces
+fisher install oh-my-fish/plugin-bang-bang
+fisher install oh-my-fish/plugin-expand
+fisher install oh-my-fish/theme-bobthefish
+fisher install tuvistavie/fish-fastdir
+fisher install z11i/github-copilot-cli.fish
 
 # Install krew (Kubernetes plugin manager) if not already installed
 if ! command_exists kubectl-krew; then
