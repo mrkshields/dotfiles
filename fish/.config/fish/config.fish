@@ -169,9 +169,6 @@ end
 kubectl completion fish | source
 k completion fish | sed 's/kubectl/k/g' | source
 
-# The next line updates PATH for the Google Cloud SDK.
-if [ -f '/Users/markshields/.local/google-cloud-sdk/path.fish.inc' ]; . '/Users/markshields/.local/google-cloud-sdk/path.fish.inc'; end
-
 # pnpm
 set -gx PNPM_HOME "/Users/mark/Library/pnpm"
 set -gx PATH "$PNPM_HOME" $PATH
@@ -183,3 +180,6 @@ eval (direnv hook fish)
 ### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
 set --export --prepend PATH "/Users/markshields/.rd/bin"
 ### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
+
+# The next line updates PATH for the Google Cloud SDK.
+if [ -f '/Users/markshields/.dotfiles/google-cloud-sdk/path.fish.inc' ]; . '/Users/markshields/.dotfiles/google-cloud-sdk/path.fish.inc'; end
