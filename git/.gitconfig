@@ -1,0 +1,20 @@
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+[user]
+	name = Mark Shields
+  email = 4237425+mrkshields@users.noreply.github.com
+[push]
+	autoSetupRemote = true
+	default = simple
+[init]
+	defaultBranch = main
+	templateDir = /Users/markshields/.git-template
+[branch]
+	AutoSetupMerge = simple
+[rebase]
+	autosquash = true
+[pull]
+	rebase = true
