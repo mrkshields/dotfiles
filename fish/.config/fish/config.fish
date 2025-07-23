@@ -61,7 +61,7 @@ set -x USE_GKE_GCLOUD_AUTH_PLUGIN True
 #set -x XDG_DATA_HOME $HOME/Library
 set -x VAULT_ADDR (keychain-environment-variable VAULT_ADDR 2>/dev/null)
 #set -x HTTPS_PROXY http://localhost:9995
-set -x COMPOSE_BAKE true
+set -x COMPOSE_BAKE false
 # Aliases
 alias ipython "python3 -m IPython"
 alias pip "python3 -m pip"
