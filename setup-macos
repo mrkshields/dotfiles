@@ -90,22 +90,6 @@ else
     echo "Google Cloud SDK already installed, skipping..."
 fi
 
-# Install kubectl if not already installed
-if ! command_exists kubectl; then
-    echo "Installing kubectl (latest stable version)..."
-    {
-        set -e
-        curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/darwin/arm64/kubectl"
-        curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/darwin/arm64/kubectl.sha256"
-        echo "$(cat kubectl.sha256)  kubectl" | shasum -a 256 --check
-        install -m 0755 kubectl $HOME/.local/bin/kubectl
-        install -m 0755 kubectl $HOME/.local/bin/k
-        set +e
-    }
-else
-    echo "kubectl already installed, skipping..."
-fi
-
 # Install Google Cloud CLI (newer version) if not already installed in .local
 if [ ! -d "$HOME/.local/google-cloud-sdk" ]; then
     echo "Installing newer Google Cloud CLI (latest stable version)..."

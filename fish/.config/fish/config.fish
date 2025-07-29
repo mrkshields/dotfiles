@@ -178,33 +178,34 @@ set -gx PATH "$VOLTA_HOME/bin" $PATH
 eval (direnv hook fish)
 
 ### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
-set --export --prepend PATH "/Users/markshields/.rd/bin"
+# Removed .rd/bin from PATH to avoid kubectl conflicts - only want Google Cloud SDK kubectl
+# set --export --prepend PATH "/Users/markshields/.rd/bin"
 ### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
 
 # The next line updates PATH for the Google Cloud SDK.
 if [ -f '/Users/markshields/.dotfiles/google-cloud-sdk/path.fish.inc' ]; . '/Users/markshields/.dotfiles/google-cloud-sdk/path.fish.inc'; end
 
-function auto_pre_commit --on-variable PWD
-    if not command -q git; or not git rev-parse --is-inside-work-tree >/dev/null 2>&1
-        return
-    end
-    if not command -q pre-commit
-        return
-    end
-    set -l repo_root (git rev-parse --show-toplevel)
-    set -l git_dir (git rev-parse --git-dir)
-    if test -f "$repo_root/.pre-commit-config.yaml"
-        if not test -f "$git_dir/hooks/pre-commit"
-            pre-commit install --overwrite --install-hooks >/dev/null
-        end
-        pre-commit --jobs 8 autoupdate >/dev/null
-    end
-
-    # Handle global template directory for automatic hook setup in new repos (synchronous, as it's typically fast and rare)
-    set -l template_dir (git config --get init.templateDir)
-    if test -n "$template_dir" -a -d "$template_dir"
-        if not test -f "$template_dir/hooks/pre-commit"
-            pre-commit init-templatedir "$template_dir" >/dev/null
-        end
-    end
-end
+#function auto_pre_commit --on-variable PWD
+#    if not command -q git; or not git rev-parse --is-inside-work-tree >/dev/null 2>&1
+#        return
+#    end
+#    if not command -q pre-commit
+#        return
+#    end
+#    set -l repo_root (git rev-parse --show-toplevel)
+#    set -l git_dir (git rev-parse --git-dir)
+#    if test -f "$repo_root/.pre-commit-config.yaml"
+#        if not test -f "$git_dir/hooks/pre-commit"
+#            pre-commit install --overwrite --install-hooks >/dev/null
+#        end
+#        pre-commit --jobs 8 autoupdate >/dev/null
+#    end
+#
+#    # Handle global template directory for automatic hook setup in new repos (synchronous, as it's typically fast and rare)
+#    set -l template_dir (git config --get init.templateDir)
+#    if test -n "$template_dir" -a -d "$template_dir"
+#        if not test -f "$template_dir/hooks/pre-commit"
+#            pre-commit init-templatedir "$template_dir" >/dev/null
+#        end
+#    end
+#end
