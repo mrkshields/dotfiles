@@ -1,5 +1,3 @@
-auth0/auth0-cli
-cloudflare/cloudflare/cf-terraforming
 devpod
 dtaniwaki/git-kustomize-diff
 espanso
@@ -9,11 +7,5 @@ gpg-suite-pinentry
 ipfs
 keepingyouawake
 lens
-libreoffice
-mqttx
 openscad
-postman
 rancher
-tailscale
-wireshark
-xquartz

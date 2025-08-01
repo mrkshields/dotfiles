@@ -1,6 +1,5 @@
 argocd
 atlantis
-auth0
 bash
 brotli
 c-ares
@@ -46,6 +45,7 @@ ncurses
 neovim
 node
 openssl@3
+opentofu
 pandoc
 pcre2
 readline
@@ -53,8 +53,8 @@ ripgrep
 s-lang
 sqlite
 stow
-terraform
 tmux
+
 tree-sitter
 unibilium
 utf8proc
