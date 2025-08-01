@@ -178,8 +178,7 @@ set -gx PATH "$VOLTA_HOME/bin" $PATH
 eval (direnv hook fish)
 
 ### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
-# Removed .rd/bin from PATH to avoid kubectl conflicts - only want Google Cloud SDK kubectl
-# set --export --prepend PATH "/Users/markshields/.rd/bin"
+set --export --prepend PATH "/Users/markshields/.rd/bin"
 ### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
 
 # The next line updates PATH for the Google Cloud SDK.
