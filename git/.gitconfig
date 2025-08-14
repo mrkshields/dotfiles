@@ -11,7 +11,7 @@
 	default = simple
 [init]
 	defaultBranch = main
-	templateDir = /Users/markshields/.dotfiles/git/.config/git/template
+	templateDir = /Users/mark/.dotfiles/git/.config/git/template
 [branch]
 	AutoSetupMerge = simple
 [rebase]

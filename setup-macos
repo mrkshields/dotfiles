@@ -74,48 +74,6 @@ fi
 # Create local bin directory if it doesn't exist
 mkdir -pv $HOME/.local/bin
 
-# Install Google Cloud SDK if not already installed
-if ! command_exists gcloud; then
-    echo "Installing Google Cloud SDK (latest stable version)..."
-    set -e
-    # Fetch the latest version URL from Google Cloud SDK documentation or release page
-    LATEST_Gcloud_URL=$(curl -s https://cloud.google.com/sdk/docs/release-notes | grep -oP 'https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-[0-9.]+-darwin-arm.tar.gz' | head -1)
-    if [ -z "$LATEST_Gcloud_URL" ]; then
-        echo "Could not find latest Google Cloud SDK URL, falling back to a recent version."
-        LATEST_Gcloud_URL="https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-379.0.0-darwin-arm.tar.gz"
-    fi
-    wget "$LATEST_Gcloud_URL"
-    tar xf google-cloud-sdk-*.tar.gz
-    ./google-cloud-sdk/install.sh
-    set +e
-else
-    echo "Google Cloud SDK already installed, skipping..."
-fi
-
-# Install Google Cloud CLI (newer version) if not already installed in .local
-if [ ! -d "$HOME/.local/google-cloud-sdk" ]; then
-    echo "Installing newer Google Cloud CLI (latest stable version)..."
-    {
-        set -e
-        tmpdir="$(mktemp -d)"
-        cd $tmpdir
-        # Fetch the latest version URL for Google Cloud CLI
-        LATEST_CLI_URL=$(curl -s https://cloud.google.com/sdk/docs/release-notes | grep -oP 'https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-[0-9.]+-darwin-arm.tar.gz' | head -1)
-        if [ -z "$LATEST_CLI_URL" ]; then
-            echo "Could not find latest Google Cloud CLI URL, falling back to a recent version."
-            LATEST_CLI_URL="https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-cli-389.0.0-darwin-arm.tar.gz"
-        fi
-        curl -LO "$LATEST_CLI_URL"
-        tar xf google-cloud-cli-*.tar.gz
-        cp -a ./google-cloud-sdk $HOME/.local/
-        cd $HOME/.local/google-cloud-sdk
-        ./install.sh
-        set +e
-    }
-else
-    echo "Newer Google Cloud CLI already installed, skipping..."
-fi
-
 # Execute generic setup script
 echo "Executing generic setup script..."
 exec ./setup-generic

@@ -44,19 +44,19 @@ else
 fi
 
 # Install fish plugins 
-fisher install Markcial/upto
-fisher install danhper/fish-ssh-agent
-fisher install edc/bass
-fisher install evanlucas/fish-kubectl-completions
-fisher install fisherman/spin
-fisher install halostatue/fish-direnv
-fisher install joseluisq/gitnow
-fisher install laughedelic/pisces
-fisher install oh-my-fish/plugin-bang-bang
-fisher install oh-my-fish/plugin-expand
-fisher install oh-my-fish/theme-bobthefish
-fisher install tuvistavie/fish-fastdir
-fisher install z11i/github-copilot-cli.fish
+#fisher install Markcial/upto
+#fisher install danhper/fish-ssh-agent
+#fisher install edc/bass
+#fisher install evanlucas/fish-kubectl-completions
+#fisher install fisherman/spin
+#fisher install halostatue/fish-direnv
+#fisher install joseluisq/gitnow
+#fisher install laughedelic/pisces
+#fisher install oh-my-fish/plugin-bang-bang
+#fisher install oh-my-fish/plugin-expand
+#fisher install oh-my-fish/theme-bobthefish
+#fisher install tuvistavie/fish-fastdir
+#fisher install z11i/github-copilot-cli.fish
 
 # Install krew (Kubernetes plugin manager) if not already installed
 if ! command_exists kubectl-krew; then
@@ -77,22 +77,22 @@ fi
 # Install and update krew plugins
 echo "Installing and updating krew plugins..."
 (
-    $HOME/.krew/bin/kubectl-krew install ctx ns ingress-nginx minio neat konfig cert-manager sniff || echo "Failed to install some krew plugins, continuing..."
-    $HOME/.krew/bin/kubectl-krew update
-    $HOME/.krew/bin/kubectl-krew upgrade || echo "Failed to upgrade krew plugins, continuing..."
+    kubectl-krew install ctx ns ingress-nginx minio neat konfig cert-manager sniff || echo "Failed to install some krew plugins, continuing..."
+    kubectl-krew update
+    kubectl-krew upgrade || echo "Failed to upgrade krew plugins, continuing..."
 )
 
-# Install Crossplane CLI if not already installed
-if ! command_exists kubectl-crossplane; then
-    echo "Installing Crossplane CLI (latest stable version)..."
-    (
-        curl -sL https://raw.githubusercontent.com/crossplane/crossplane/master/install.sh | sh
-        install -m 0755 kubectl-crossplane $HOME/.local/bin/kubectl-crossplane
-        install -m 0755 kubectl-crossplane $HOME/.local/bin/crossplane
-    )
-else
-    echo "Crossplane CLI already installed, skipping..."
-fi
+## Install Crossplane CLI if not already installed
+#if ! command_exists kubectl-crossplane; then
+#    echo "Installing Crossplane CLI (latest stable version)..."
+#    (
+#        curl -sL https://raw.githubusercontent.com/crossplane/crossplane/master/install.sh | sh
+#        install -m 0755 kubectl-crossplane $HOME/.local/bin/kubectl-crossplane
+#        install -m 0755 kubectl-crossplane $HOME/.local/bin/crossplane
+#    )
+#else
+#    echo "Crossplane CLI already installed, skipping..."
+#fi
 
 # Install gcpdiag if not already installed
 if ! command_exists gcpdiag; then
