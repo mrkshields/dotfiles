@@ -173,3 +173,19 @@ done
 # Install Vim plugins
 echo "Installing Vim plugins..."
 vim +VundleInstall +qall || echo "Failed to install some Vim plugins, continuing..."
+
+# Install Claude CLI if not already installed
+if ! command_exists claude; then
+    echo "Installing Claude CLI..."
+    curl -fsSL claude.ai/install.sh | bash
+else
+    echo "Claude CLI already installed, skipping..."
+fi
+
+# Install Cursor if not already installed
+if ! command_exists cursor; then
+    echo "Installing Cursor..."
+    curl https://cursor.com/install -fsS | bash
+else
+    echo "Cursor already installed, skipping..."
+fi
