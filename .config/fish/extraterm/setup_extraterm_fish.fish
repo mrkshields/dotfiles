@@ -3,7 +3,7 @@
 # Copyright 2014-2019 Simon Edwards <simon@simonzone.com>
 #
 # This source code is licensed under the MIT license which is detailed in the LICENSE.txt file.
-# 
+#
 
 if test -z "$LC_EXTRATERM_COOKIE"
   exit 0
@@ -32,7 +32,7 @@ function extraterm_postexec -e fish_postexec
   echo -n -e "\000"
 end
 
-function from 
+function from
     python3 $COMMAND_DIR/exfrom.py $argv
 end
 

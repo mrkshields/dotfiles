@@ -436,7 +436,7 @@ function move -d "GitNow: Switch from current branch to another but stashing unc
         set -l remote "$v_remote_v"
         if test -n "$remote"
             echo "A specific remote is provided, using '$remote'..."
-        else 
+        else
             set remote (__gitnow_current_remote)
             echo "Using the default remote '$remote'..."
         end

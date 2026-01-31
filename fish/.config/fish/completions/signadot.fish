@@ -173,4 +173,3 @@ complete -c signadot -e
 # The call to __signadot_prepare_completions will setup __signadot_comp_results
 # which provides the program's completion choices.
 complete -c signadot -n '__signadot_prepare_completions' -f -a '$__signadot_comp_results'
-

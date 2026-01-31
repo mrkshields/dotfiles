@@ -3,7 +3,7 @@
 # Copyright 2016-2019 Simon Edwards <simon@simonzone.com>
 #
 # This source code is licensed under the MIT license which is detailed in the LICENSE.txt file.
-# 
+#
 
 if [ -z "$LC_EXTRATERM_COOKIE" ]; then
     return 0
@@ -21,7 +21,7 @@ echo "Setting up Extraterm support."
 filedir=`dirname "${(%):-%x}"`
 if [ "${filedir:0:1}" = "/" ]
 then
-    export PATH="$filedir:$PATH" 
+    export PATH="$filedir:$PATH"
 else
     export PATH="$PWD/$filedir:$PATH"
 fi
@@ -29,7 +29,7 @@ fi
 # Insert our special code to communicate to Extraterm the status of the last command.
 extraterm_install_prompt_integration () {
     local prefix
-    
+
     if [[ ! "$PS1" =~ "$LC_EXTRATERM_COOKIE" ]] ; then
         prefix=`echo -n -e "%{\0033&${LC_EXTRATERM_COOKIE};3\0007%}%?%{\0000%}"`
         export PS1="${prefix}${PS1}"

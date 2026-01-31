@@ -173,4 +173,3 @@ complete -c stern -e
 # The call to __stern_prepare_completions will setup __stern_comp_results
 # which provides the program's completion choices.
 complete -c stern -n '__stern_prepare_completions' -f -a '$__stern_comp_results'
-

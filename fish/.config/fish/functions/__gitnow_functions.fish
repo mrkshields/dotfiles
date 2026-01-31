@@ -46,7 +46,7 @@ function __gitnow_clone_repo
       end
 
       set -l repo_url git@$url:$repo.git
-      
+
       echo "📦 Remote repository: $repo_url"
       command git clone $repo_url
     else

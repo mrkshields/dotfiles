@@ -174,4 +174,3 @@ complete -c cf-terraforming -e
 # The call to __cf_terraforming_prepare_completions will setup __cf_terraforming_comp_results
 # which provides the program's completion choices.
 complete -c cf-terraforming -n '__cf_terraforming_prepare_completions' -f -a '$__cf_terraforming_comp_results'
-

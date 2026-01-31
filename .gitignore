@@ -42,4 +42,3 @@
 .config/pycodestyle
 .config/rclone/**
 .config/wireshark/**
-

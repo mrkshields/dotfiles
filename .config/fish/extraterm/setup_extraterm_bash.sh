@@ -3,7 +3,7 @@
 # Copyright 2014-2019 Simon Edwards <simon@simonzone.com>
 #
 # This source code is licensed under the MIT license which is detailed in the LICENSE.txt file.
-# 
+#
 
 # Early-out in case this has been sourced and enabled already
 # https://github.com/sedwards2009/extraterm/pull/148

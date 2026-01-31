@@ -10,4 +10,3 @@ function __fish_complete_pip
 end
 complete -fa "(__fish_complete_pip)" -c /usr/local/bin/python3 -m pip
 # pip fish completion end
-

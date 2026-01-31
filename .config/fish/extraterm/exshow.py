@@ -3,7 +3,7 @@
 # Copyright 2014-2017 Simon Edwards <simon@simonzone.com>
 #
 # This source code is licensed under the MIT license which is detailed in the LICENSE.txt file.
-# 
+#
 import argparse
 import atexit
 import base64
@@ -33,7 +33,7 @@ def SendMimeTypeDataFromStdin(mimeType, charset, filenameMeta=None, download=Fal
 
 def SendMimeTypeData(fhandle, filename, mimeType, charset, filesize=-1, download=False):
     TurnOffEcho()
-    
+
     extratermclient.startFileTransfer(mimeType, charset, filename, filesize=filesize, download=download)
     contents = fhandle.read(MAX_CHUNK_BYTES)
 
@@ -93,7 +93,7 @@ def main():
     parser.add_argument('-t', '--text', dest='text', action='store_true', default=None, help='Treat the file as plain text.')
     parser.add_argument('files', metavar='file', type=str, nargs='*', help='file name. The file data is read from stdin if no files are specified.')
     args = parser.parse_args()
- 
+
     if not extratermclient.isExtraterm():
         print("Sorry, you're not using Extraterm as your terminal.")
         return 1

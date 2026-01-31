@@ -173,4 +173,3 @@ complete -c cf -e
 # The call to __cf_prepare_completions will setup __cf_comp_results
 # which provides the program's completion choices.
 complete -c cf -n '__cf_prepare_completions' -f -a '$__cf_comp_results'
-

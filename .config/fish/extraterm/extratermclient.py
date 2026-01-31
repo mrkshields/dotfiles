@@ -2,7 +2,7 @@
 # Copyright 2014-2017 Simon Edwards <simon@simonzone.com>
 #
 # This source code is licensed under the MIT license which is detailed in the LICENSE.txt file.
-# 
+#
 
 import os
 import sys
@@ -54,7 +54,7 @@ class extratermclient:
 
     def endFileTransfer():
         print("\x00", end="")
-        
+
     def requestFrame(frameName):
         print(extratermclient.INTRO + extratermclient.cookie() + ";4\x07" + frameName + "\x00", end="", file=sys.stderr)
         sys.stderr.flush()

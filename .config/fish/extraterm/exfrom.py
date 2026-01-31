@@ -3,7 +3,7 @@
 # Copyright 2014-2018 Simon Edwards <simon@simonzone.com>
 #
 # This source code is licensed under the MIT license which is detailed in the LICENSE.txt file.
-# 
+#
 
 import argparse
 import atexit
@@ -76,7 +76,7 @@ def requestFrame(frame_name):
         termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
         sys.stderr.flush()
     atexit.register(restoreTty)
-    
+
     # Request the frame contents from the terminal.
     extratermclient.requestFrame(frame_name)
 
@@ -89,7 +89,7 @@ def requestFrame(frame_name):
     if len(line) < COMMAND_PREFIX_LENGTH + 1 + HASH_LENGTH:
         yield FrameReadError("Error while reading in metadata. Line is too short.")
         return
-        
+
     b64data = line[COMMAND_PREFIX_LENGTH:-HASH_LENGTH-1]
     lineHash = line[-HASH_LENGTH:]
 
@@ -150,7 +150,7 @@ def requestFrame(frame_name):
 
     except OSError as ex:
         print(ex.strerror, file=sys.stderr)
-        
+
         #Ignore further SIG_PIPE signals and don't throw exceptions
         signal(SIGPIPE,SIG_DFL)
 
@@ -177,7 +177,7 @@ def writeFrameToDisk(frame_name):
             filename = metadata["mimeType"].replace("/", "-")
         else:
             return rc, tmpFileName
-    
+
     counter = 0
     basename = filename
 
@@ -187,7 +187,7 @@ def writeFrameToDisk(frame_name):
         counter += 1
     os.rename(tmpFileName, filename)
 
-    return rc, filename    
+    return rc, filename
 
 def writeFrame(frame_name, frameWriter):
     rc = 0
@@ -222,7 +222,7 @@ def xargs(frame_names, command_list):
             args = command_list[:]
             for temp_file in temp_files:
                 args.append(temp_file.name)
-            
+
             os.spawnvp(os.P_WAIT, args[0], [os.path.basename(args[0])] + args[1:])
 
     finally:

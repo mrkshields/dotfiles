@@ -134,4 +134,3 @@ complete -c completion -n 'set --query __completion_comp_do_file_comp'
 # The call to __completion_prepare_completions will setup both __completion_comp_results abd __completion_comp_do_file_comp.
 # It provides the program's completion choices.
 complete -c completion -n '__completion_prepare_completions' -f -a '$__completion_comp_results'
-
