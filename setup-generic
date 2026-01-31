@@ -19,11 +19,11 @@ pipx install --include-deps stormssh || true
 pipx upgrade stormssh || true
 
 # Vim + Vundle (optional — comment out if moving to nvim or modern manager)
-# if [[ ! -d "$HOME/.vim/bundle/Vundle.vim" ]]; then
-#     echo "Installing Vundle for Vim..."
-#     git clone https://github.com/VundleVim/Vundle.vim "$HOME/.vim/bundle/Vundle.vim"
-# fi
-# vim +PluginInstall +qall || echo "Vim plugins: some issues, continuing..."
+if [[ ! -d "$HOME/.vim/bundle/Vundle.vim" ]]; then
+   echo "Installing Vundle for Vim..."
+   git clone https://github.com/VundleVim/Vundle.vim "$HOME/.vim/bundle/Vundle.vim"
+fi
+vim +PluginInstall +qall || echo "Vim plugins: some issues, continuing..."
 
 # # Change default shell to Fish (idempotent — skips if already set)
 if [[ "$SHELL" != */fish ]]; then
