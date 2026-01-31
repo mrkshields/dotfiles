@@ -42,3 +42,7 @@
 .config/pycodestyle
 .config/rclone/**
 .config/wireshark/**
+.config/gh/**
+.config/gh/hosts.yml
+.config/gh/**
+.config/gh/hosts.yml
