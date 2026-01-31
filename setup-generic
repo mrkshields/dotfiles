@@ -39,23 +39,10 @@ if command -v fish >/dev/null 2>&1; then
         if not functions -q fisher
             curl -sL https://git.io/fisher | fish
         end
-
-        fisher install jorgebucaran/fisher
-        fisher install markcial/upto
-        fisher install danhper/fish-ssh-agent
-        fisher install edc/bass
-        fisher install evanlucas/fish-kubectl-completions
-        fisher install fisherman/spin
-        fisher install halostatue/fish-direnv
-        fisher install laughedelic/pisces
-        fisher install oh-my-fish/plugin-bang-bang
-        fisher install oh-my-fish/plugin-expand
-        fisher install tuvistavie/fish-fastdir
-        fisher install z11i/github-copilot-cli.fish
-        fisher install joseluisq/gitnow
-        fisher install ilancosman/tide@v6
-
-        fisher update
+        fisher list | fisher remove
+        if test -f ~/.config/fish/fish_plugins
+          fisher update
+        end
     " || echo "Some Fisher operations had issues, continuing..."
 fi
 
