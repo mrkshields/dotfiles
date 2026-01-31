@@ -34,7 +34,7 @@ if ! brew tap | grep -q "homebrew/autoupdate"; then
     brew tap homebrew/autoupdate || true
 fi
 if ! brew autoupdate status | grep -q "Autoupdate is enabled"; then
-    brew autoupdate start
+    brew autoupdate start || true
 fi
 
 # instrumenta tap (if still needed)
