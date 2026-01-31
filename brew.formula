@@ -20,9 +20,8 @@ git-kustomize-diff
 git-lfs
 gitleaks
 gnu-sed
-go@1.23
+go
 helm
-icu4c@77
 k9s
 krew
 kubernetes-cli
@@ -52,7 +51,6 @@ s-lang
 sqlite
 stow
 tmux
-
 tree-sitter
 unibilium
 utf8proc
