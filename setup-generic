@@ -25,18 +25,11 @@ if [[ ! -d "$HOME/.vim/bundle/Vundle.vim" ]]; then
 fi
 vim +PluginInstall +qall || echo "Vim plugins: some issues, continuing..."
 
-# # Change default shell to Fish (idempotent — skips if already set)
-if [[ "$SHELL" != */fish ]]; then
-    echo "Changing default shell to Fish..."
-    FISH_PATH="$(which fish)"
-    if ! grep -q "^$FISH_PATH\$" /etc/shells; then
-        echo "Adding Fish to /etc/shells..."
-        echo "$FISH_PATH" | sudo tee -a /etc/shells
-    fi
-    sudo chsh -s "$FISH_PATH" "$USER"
-else
-    echo "Default shell is already Fish, skipping..."
+CURRENT_SHELL=$(dscl . -read /Users/$USER UserShell | awk '{print $2}')
+if [ "$CURRENT_SHELL" != "/opt/homebrew/bin/fish" ]; then
+  sudo dscl . -change /Users/$USER UserShell /opt/homebrew/bin/fish
 fi
+
 
 # Install Fisher (Fish plugin manager) — robust bash-compatible version
 if ! fish -c 'functions -q fisher' 2>/dev/null; then
