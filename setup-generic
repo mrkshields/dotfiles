@@ -1,13 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# Function to check if a command exists
-command_exists() {
-    command -v "$1" >/dev/null 2>&1
-}
-
 # Install pipx if not already available
-if ! command_exists pipx; then
+if ! command -v pipx >/dev/null 2>&1; then
     echo "Installing pipx..."
     brew install pipx
     pipx ensurepath
@@ -108,12 +103,12 @@ kubectl-krew install ctx ns minio neat konfig cert-manager sniff
 set -e PIP_BREAK_SYSTEM_PACKAGES
 
 # Volta
-if ! command_exists volta; then
+if ! command -v volta >/dev/null 2>&1; then
     curl https://get.volta.sh | bash
 fi
 
 # Claude CLI
-if ! command_exists claude; then
+if ! command_exists claude >/dev/null 2>&1; then
     curl -fsSL claude.ai/install.sh | bash || true
 fi
 
