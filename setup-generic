@@ -65,8 +65,8 @@ if test -f ~/.vimrc; then  # or check for your vim config
     echo "Installing/updating Vundle plugins..."
 
     # Temporarily unset yadm's git env vars to avoid conflicts
-    set -e GIT_DIR
-    set -e GIT_WORK_TREE
+    unset GIT_DIR
+    unset GIT_WORK_TREE
 
     # Run Vundle's install/clean in non-interactive mode
     vim +PluginInstall +PluginClean! +qall
@@ -91,8 +91,8 @@ if ! command -v kubectl-krew 2>/dev/null 2>&1; then
 fi
 
 # yadm compatibility: prevent git conflicts during index operations
-set -e GIT_DIR
-set -e GIT_WORK_TREE
+unset GIT_DIR
+unset GIT_WORK_TREE
 
 # Temporarily allow pip to break system packages
 # This suppresses the PEP 668 error from any legacy post-install scripts in plugins
