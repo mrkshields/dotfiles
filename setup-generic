@@ -11,6 +11,7 @@ if ! command_exists pipx; then
     echo "Installing pipx..."
     brew install pipx
     pipx ensurepath
+    set -gx PATH "$HOME/.local/bin" $PATH  # Add manually once, or add to fish config permanently
 fi
 
 # Upgrade/install Python CLI tools with pipx
@@ -61,7 +62,7 @@ fi
 # --- Keep your other tool installs below (unchanged/active ones) ---
 
 # --- Vundle (or legacy Vim plugins) ---
-if test -f ~/.vimrc  # or check for your vim config
+if test -f ~/.vimrc; then  # or check for your vim config
     echo "Installing/updating Vundle plugins..."
 
     # Temporarily unset yadm's git env vars to avoid conflicts
@@ -76,21 +77,36 @@ if test -f ~/.vimrc  # or check for your vim config
 end
 
 # krew
-if ! command_exists kubectl-krew; then
-    echo "Installing krew..."
+if ! command -v kubectl-krew 2>/dev/null 2>&1; then
+  echo "Installing latest krew (auto-detects arch/OS)..."
     (
-        set -x; cd "$(mktemp -d)" &&
-        OS="darwin" &&
-        ARCH="arm64" &&
-        KREW="krew-darwin_arm64" &&
-        curl -fsSLO "https://github.com/kubernetes-sigs/krew/releases/latest/download/${KREW}.tar.gz" &&
-        tar zxvf "${KREW}.tar.gz" &&
+        set -x
+        cd "$(mktemp -d)"
+        set OS (uname | tr '[:upper:]' '[:lower:]')
+        set ARCH (uname -m | sed -e 's/x86_64/amd64/' -e 's/\(arm\)\(64\)\?.*/\1\2/' -e 's/aarch64$/arm64/')
+        set KREW "krew-${OS}_${ARCH}"
+        curl -fsSLO "https://github.com/kubernetes-sigs/krew/releases/latest/download/${KREW}.tar.gz"
+        tar zxvf "${KREW}.tar.gz"
         ./"${KREW}" install krew
     )
-fi
+end
+
+# yadm compatibility: prevent git conflicts during index operations
+set -e GIT_DIR
+set -e GIT_WORK_TREE
+
+# Temporarily allow pip to break system packages
+# This suppresses the PEP 668 error from any legacy post-install scripts in plugins
+# It's safe/scoped to this bootstrap run only (no permanent change)
+set -gx PIP_BREAK_SYSTEM_PACKAGES 1
+
+# Update/upgrade krew and plugins (clean, no warnings on fresh/latest)
 kubectl-krew update
-kubectl-krew upgrade || true
-kubectl-krew install ctx ns ingress-nginx minio neat konfig cert-manager sniff || true
+kubectl-krew upgrade
+kubectl-krew install ctx ns ingress-nginx minio neat konfig cert-manager sniff
+
+# Optional: Clean up the temp override (harmless to leave, but tidy)
+set -e PIP_BREAK_SYSTEM_PACKAGES
 
 # gcpdiag
 if ! command_exists gcpdiag; then
