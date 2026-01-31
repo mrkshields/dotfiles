@@ -40,9 +40,8 @@ if command -v fish >/dev/null 2>&1; then
         if not functions -q fisher
             curl -sL https://git.io/fisher | fish
         end
-        fisher list | fisher remove
         if test -f ~/.config/fish/fish_plugins
-          fisher update
+          fisher install || fisher update
         end
     " || echo "Some Fisher operations had issues, continuing..."
 fi
