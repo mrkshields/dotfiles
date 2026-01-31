@@ -18,13 +18,6 @@ echo "Installing/upgrading Python CLI tools with pipx..."
 pipx install --include-deps stormssh || true
 pipx upgrade stormssh || true
 
-# Vim + Vundle (optional — comment out if moving to nvim or modern manager)
-if [[ ! -d "$HOME/.vim/bundle/Vundle.vim" ]]; then
-   echo "Installing Vundle for Vim..."
-   git clone https://github.com/VundleVim/Vundle.vim "$HOME/.vim/bundle/Vundle.vim"
-fi
-vim +PluginInstall +qall || echo "Vim plugins: some issues, continuing..."
-
 CURRENT_SHELL=$(dscl . -read /Users/$USER UserShell | awk '{print $2}')
 if [ "$CURRENT_SHELL" != "/opt/homebrew/bin/fish" ]; then
   sudo dscl . -change /Users/$USER UserShell /opt/homebrew/bin/fish
