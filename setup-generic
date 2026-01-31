@@ -6,9 +6,17 @@ command_exists() {
     command -v "$1" >/dev/null 2>&1
 }
 
-# Upgrade Python packages (removed powerline-status — add back if needed)
-echo "Upgrading Python packages..."
-python3 -m pip install --upgrade stormssh || echo "Failed some Python upgrades, continuing..."
+# Install pipx if not already available
+if ! command_exists pipx; then
+    echo "Installing pipx..."
+    brew install pipx || python3 -m pip install --user pipx
+    pipx ensurepath
+fi
+
+# Upgrade/install Python CLI tools with pipx
+echo "Installing/upgrading Python CLI tools with pipx..."
+pipx install --include-deps stormssh || true
+pipx upgrade stormssh || true
 
 # Vim + Vundle (optional — comment out if moving to nvim or modern manager)
 # if [[ ! -d "$HOME/.vim/bundle/Vundle.vim" ]]; then
