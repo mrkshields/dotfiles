@@ -97,7 +97,7 @@ set -e GIT_WORK_TREE
 # Temporarily allow pip to break system packages
 # This suppresses the PEP 668 error from any legacy post-install scripts in plugins
 # It's safe/scoped to this bootstrap run only (no permanent change)
-set -gx PIP_BREAK_SYSTEM_PACKAGES 1
+set -x PIP_BREAK_SYSTEM_PACKAGES 1
 
 # Update/upgrade krew and plugins (clean, no warnings on fresh/latest)
 kubectl-krew update
