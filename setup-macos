@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Setup script for macOS systems (modernized for yadm + zoxide)
+# Setup script for macOS (Apple Silicon only) — modernized for yadm + zoxide
 
 set -euo pipefail
 
@@ -17,19 +17,13 @@ else
     brew update
 fi
 
-# Properly activate Homebrew in current session and .zprofile
+# Activate Homebrew in current session and .zprofile
 echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> "$HOME/.zprofile"
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
-# Install/update formulae (universal)
+# Install/update all formulae (one file for Silicon)
 echo "Installing/updating formulae from brew.formula..."
 xargs brew install < brew.formula || true
-
-# Apple Silicon specific formulae
-if [[ "$(uname -m)" == "arm64" ]]; then
-    echo "Installing/updating arm64 formulae from brew-arm64.formula..."
-    xargs arch -arm64 brew install < brew-arm64.formula || true
-fi
 
 # Install/update casks
 echo "Installing/updating casks from brew.casks..."
@@ -43,7 +37,7 @@ if ! brew autoupdate status | grep -q "Autoupdate is enabled"; then
     brew autoupdate start
 fi
 
-# instrumenta tap (if you still need it)
+# instrumenta tap (if still needed)
 if ! brew tap | grep -q "instrumenta/instrumenta"; then
     brew tap instrumenta/instrumenta
 fi

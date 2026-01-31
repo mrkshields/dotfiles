@@ -6,17 +6,16 @@ command_exists() {
     command -v "$1" >/dev/null 2>&1
 }
 
-# Upgrade Python packages (keep only what you use)
+# Upgrade Python packages (removed powerline-status — add back if needed)
 echo "Upgrading Python packages..."
-python3 -m pip install --upgrade \
-  stormssh || echo "Failed some Python upgrades, continuing..."
+python3 -m pip install --upgrade stormssh || echo "Failed some Python upgrades, continuing..."
 
-# Vim + Vundle (keep if you still use classic Vim; comment out if moving to nvim/Cursor)
-if [[ ! -d "$HOME/.vim/bundle/Vundle.vim" ]]; then
-    echo "Installing Vundle for Vim..."
-    git clone https://github.com/VundleVim/Vundle.vim "$HOME/.vim/bundle/Vundle.vim"
-fi
-vim +PluginInstall +qall || echo "Vim plugins: some issues, continuing..."
+# Vim + Vundle (optional — comment out if moving to nvim or modern manager)
+# if [[ ! -d "$HOME/.vim/bundle/Vundle.vim" ]]; then
+#     echo "Installing Vundle for Vim..."
+#     git clone https://github.com/VundleVim/Vundle.vim "$HOME/.vim/bundle/Vundle.vim"
+# fi
+# vim +PluginInstall +qall || echo "Vim plugins: some issues, continuing..."
 
 # Change shell to Fish
 if [[ "$SHELL" != */fish ]]; then
@@ -34,28 +33,28 @@ else
     echo "Fisher already installed"
 fi
 
-# Install/update your current Fish plugins (uncomment/add your actual list)
+# Update Fisher plugins (add your current list here)
 echo "Updating Fisher plugins..."
 fish -c "fisher update" || echo "Fisher update issues, continuing..."
 
-# Example modern plugins (replace with yours):
-# fisher install IlanCosman/tide
+# Example modern plugins — replace with yours:
+# fisher install IlanCosman/tide@v6
 # fisher install jorgebucaran/nvm.fish
-# fisher install meaningful-ooo/sponge
+# fisher install patrickf1/fzf.fish
 # etc.
 
-# zoxide (if not in brew.formula already — redundant safety)
+# zoxide (safety net if not in brew.formula)
 if ! command_exists zoxide; then
-    brew install zoxide
+    brew install zoxide || true
 fi
 
-# yadm: install and clone your dotfiles repo (the big modern change)
+# yadm: install and clone/pull dotfiles
 if ! command_exists yadm; then
     echo "Installing yadm..."
-    brew install yadm
+    brew install yadm || true
 fi
 
-if [[ ! -f "$HOME/.gitconfig" ]] && [[ ! -d "$HOME/.config/fish" ]]; then  # rough check if dotfiles are present
+if [[ ! -f "$HOME/.gitconfig" ]] && [[ ! -d "$HOME/.config/fish" ]]; then
     echo "Cloning dotfiles with yadm..."
     yadm clone git@github.com:markshields/dotfiles.git
 else
@@ -63,21 +62,19 @@ else
     yadm pull
 fi
 
-# Post-clone setup
+# Post-clone: init zoxide + fisher update
 echo "Post-clone setup..."
-exec fish -c "zoxide init fish | source; fisher update || true"
+fish -c "zoxide init fish | source; fisher update || true"
 
-# Keep your other tool installs (krew, gcpdiag, cmctl, jwt, git-prune-branches, terraform-config-inspect, volta, claude, cursor)
-# ... (the rest of your original generic script is unchanged — I kept the active sections below for completeness)
-
+# --- Keep your other tool installs below (unchanged/active ones) ---
 # krew
 if ! command_exists kubectl-krew; then
     echo "Installing krew..."
     (
         set -x; cd "$(mktemp -d)" &&
-        OS="$(uname | tr '[:upper:]' '[:lower:]')" &&
-        ARCH="$(uname -m | sed -e 's/x86_64/amd64/' -e 's/\(arm\)\(64\)\?.*/\1\2/' -e 's/aarch64$/arm64/')" &&
-        KREW="krew-${OS}_${ARCH}" &&
+        OS="darwin" &&
+        ARCH="arm64" &&
+        KREW="krew-darwin_arm64" &&
         curl -fsSLO "https://github.com/kubernetes-sigs/krew/releases/latest/download/${KREW}.tar.gz" &&
         tar zxvf "${KREW}.tar.gz" &&
         ./"${KREW}" install krew
@@ -87,7 +84,57 @@ kubectl-krew update
 kubectl-krew upgrade || true
 kubectl-krew install ctx ns ingress-nginx minio neat konfig cert-manager sniff || true
 
-# gcpdiag, asciicast2movie, cmctl, jwt, git-prune-branches, terraform-config-inspect, volta, claude, cursor
-# (copy-paste your original blocks here — they look fine)
+# gcpdiag
+if ! command_exists gcpdiag; then
+    curl https://gcpdiag.dev/gcpdiag.sh -o "$HOME/.local/bin/gcpdiag"
+    chmod +x "$HOME/.local/bin/gcpdiag"
+fi
+
+# asciicast2movie
+if ! python3 -c "import asciicast2movie" 2>/dev/null; then
+    python3 -m pip install asciicast2movie || true
+fi
+
+# cmctl
+if ! command_exists cmctl; then
+    OS="darwin"; ARCH="arm64"
+    LATEST_CMCTL_TAG=$(curl -s https://api.github.com/repos/cert-manager/cert-manager/releases/latest | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
+    [ -z "$LATEST_CMCTL_TAG" ] && LATEST_CMCTL_TAG="v1.7.2"
+    curl -sSL -o cmctl.tar.gz "https://github.com/cert-manager/cert-manager/releases/download/$LATEST_CMCTL_TAG/cmctl-$OS-$ARCH.tar.gz"
+    tar xzf cmctl.tar.gz
+    mv cmctl "$HOME/.local/bin/"
+fi
+
+# jsonwebtokencli (via npm/Volta)
+if ! command_exists jwt; then
+    npm install --global jsonwebtokencli || true
+fi
+
+# git-prune-branches script
+if [[ ! -f "$HOME/.local/bin/git-prune-branches" ]]; then
+    mkdir -p "$HOME/.local/bin"
+    echo -e "#!/usr/bin/env bash\nset -euxo pipefail\ngit branch --merged | grep -v '*' | xargs git branch -d || true" > "$HOME/.local/bin/git-prune-branches"
+    chmod +x "$HOME/.local/bin/git-prune-branches"
+fi
+
+# terraform-config-inspect
+if ! command_exists terraform-config-inspect; then
+    go install github.com/hashicorp/terraform-config-inspect@latest || true
+fi
+
+# Volta
+if ! command_exists volta; then
+    curl https://get.volta.sh | bash
+fi
+
+# Claude CLI
+if ! command_exists claude; then
+    curl -fsSL claude.ai/install.sh | bash || true
+fi
+
+# Cursor
+if ! command_exists cursor; then
+    curl https://cursor.com/install -fsS | bash || true
+fi
 
 echo "Setup complete! Restart your terminal or run 'exec fish'."
