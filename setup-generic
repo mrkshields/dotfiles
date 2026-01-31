@@ -73,7 +73,7 @@ if test -f ~/.vimrc; then  # or check for your vim config
 
     # Optional: If you use Neovim, swap vim for nvim and adjust paths
     nvim +PlugInstall +qall  # for vim-plug, etc.
-end
+fi
 
 # krew
 if ! command -v kubectl-krew 2>/dev/null 2>&1; then
