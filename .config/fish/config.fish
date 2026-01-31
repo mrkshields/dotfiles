@@ -160,7 +160,9 @@ end
 
 
 kubectl completion fish | source
-k completion fish | sed 's/kubectl/k/g' | source
+if type -q kubectl
+  k completion fish | sed 's/kubectl/k/g' | source
+end
 
 # pnpm
 set -gx PNPM_HOME "/Users/mark/Library/pnpm"
@@ -168,7 +170,10 @@ set -gx PATH "$PNPM_HOME" $PATH
 # pnpm end
 set -gx VOLTA_HOME "$HOME/.volta"
 set -gx PATH "$VOLTA_HOME/bin" $PATH
-eval (direnv hook fish)
+# Direnv
+if type -q direnv
+    direnv hook fish | source
+end
 
 ### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
 set --export --prepend PATH "/Users/markshields/.rd/bin"
