@@ -41,7 +41,7 @@ if command -v fish >/dev/null 2>&1; then
             curl -sL https://git.io/fisher | fish
         end
         if test -f ~/.config/fish/fish_plugins
-          fisher install || fisher update
+          fisher update
         end
     " || echo "Some Fisher operations had issues, continuing..."
 fi
@@ -116,21 +116,6 @@ fi
 # asciicast2movie
 if ! python3 -c "import asciicast2movie" 2>/dev/null; then
     python3 -m pip install asciicast2movie || true
-fi
-
-# cmctl
-if ! command_exists cmctl; then
-    OS="darwin"; ARCH="arm64"
-    LATEST_CMCTL_TAG=$(curl -s https://api.github.com/repos/cert-manager/cert-manager/releases/latest | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
-    [ -z "$LATEST_CMCTL_TAG" ] && LATEST_CMCTL_TAG="v1.7.2"
-    curl -sSL -o cmctl.tar.gz "https://github.com/cert-manager/cert-manager/releases/download/$LATEST_CMCTL_TAG/cmctl-$OS-$ARCH.tar.gz"
-    tar xzf cmctl.tar.gz
-    mv cmctl "$HOME/.local/bin/"
-fi
-
-# jsonwebtokencli (via npm/Volta)
-if ! command_exists jwt; then
-    npm install --global jsonwebtokencli || true
 fi
 
 # git-prune-branches script
