@@ -34,13 +34,10 @@ set -g async_prompt_inherit_variables all
 
 # Secret environment variables and other values
 # Set with: set-keychain-environment-variable ENV_VAR_NAME
-if test -s $configdir/keychain-environment-variables.fish
-  source $configdir/keychain-environment-variables.fish
-  # example - set initial value with set-keychain-environment-variable ENV_VAR_NAME
-  #set -x GITHUB_TOKEN (keychain-environment-variable GITHUB_TOKEN)
-  set -x HOMEBRIDGE_NEST_SDM_AUTH_URL (keychain-environment-variable HOMEBRIDGE_NEST_SDM_AUTH_URL 2>/dev/null)
-  set -x GOPRIVATE (keychain-environment-variable GOPRIVATE 2>/dev/null)
-end
+# example - set initial value with set-keychain-environment-variable ENV_VAR_NAME
+#set -x GITHUB_TOKEN (keychain-environment-variable GITHUB_TOKEN)
+set -x HOMEBRIDGE_NEST_SDM_AUTH_URL (keychain-environment-variable HOMEBRIDGE_NEST_SDM_AUTH_URL 2>/dev/null)
+set -x GOPRIVATE (keychain-environment-variable GOPRIVATE 2>/dev/null)
 
 # Environment variables
 #set -x DOCKER_HOST ssh://mark@shannara

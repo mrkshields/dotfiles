@@ -1,0 +1,2 @@
+shell-integration = yes
+shell-integration-features = ssh-terminfo
