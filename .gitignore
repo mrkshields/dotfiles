@@ -1,6 +1,6 @@
 *.swp
+fish/.config/fish/conf.d/.gitnow
 fish/.config/fish/fish_history
-fish/.config/fish/fish_variables
 fish/.config/fish/fish_variables
 fish/.config/fish/fishd.8cae4cffc40e
 fish/.config/fish/fishd.allanon
