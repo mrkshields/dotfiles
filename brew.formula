@@ -13,7 +13,6 @@ docker-completion
 docker-compose
 docker-credential-helper
 fish
-fzf
 gettext
 gh
 git
