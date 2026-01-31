@@ -25,7 +25,6 @@ helm
 icu4c@77
 k9s
 krew
-kube-fzf
 kubernetes-cli
 kustomize
 libevent
