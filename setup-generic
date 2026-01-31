@@ -25,13 +25,10 @@ if [[ "$SHELL" != */fish ]]; then
     sudo chsh -s "$FISH_PATH" "$USER"
 fi
 
-# Install Fisher (Fish plugin manager) — robust version
+# Install Fisher (Fish plugin manager) — robust bash-compatible version
 if ! fish -c 'functions -q fisher' 2>/dev/null; then
     echo "Installing Fisher..."
-    set -l tmpfile (mktemp)
-    curl -sL https://git.io/fisher > $tmpfile
-    fish $tmpfile
-    rm $tmpfile
+    curl -sL https://git.io/fisher | fish
 else
     echo "Fisher already installed"
 fi
@@ -51,7 +48,6 @@ fish -c "
     fisher install oh-my-fish/plugin-expand
     fisher install tuvistavie/fish-fastdir
     fisher install z11i/github-copilot-cli.fish
-    fisher install jethrokuan/z
     fisher install joseluisq/gitnow
     fisher install ilancosman/tide@v6
 
