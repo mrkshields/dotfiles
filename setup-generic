@@ -47,60 +47,43 @@ else
 fi
 
 # Install and update Fisher plugins
-echo "Installing/updating Fisher plugins..."
-fish -c "
-    fisher install jorgebucaran/fisher
-    fisher install markcial/upto
-    fisher install danhper/fish-ssh-agent
-    fisher install edc/bass
-    fisher install evanlucas/fish-kubectl-completions
-    fisher install fisherman/spin
-    fisher install halostatue/fish-direnv
-    fisher install laughedelic/pisces
-    fisher install oh-my-fish/plugin-bang-bang
-    fisher install oh-my-fish/plugin-expand
-    fisher install tuvistavie/fish-fastdir
-    fisher install z11i/github-copilot-cli.fish
-    fisher install joseluisq/gitnow
-    fisher install ilancosman/tide@v6
+if command -v fish >/dev/null 2>&1; then
+    echo "Installing/updating Fisher plugins..."
+    fish -c "
+        if not functions -q fisher
+            curl -sL https://git.io/fisher | fish
+        end
 
-    fisher update
-" || echo "Some Fisher operations had issues, continuing..."
+        fisher install jorgebucaran/fisher
+        fisher install markcial/upto
+        fisher install danhper/fish-ssh-agent
+        fisher install edc/bass
+        fisher install evanlucas/fish-kubectl-completions
+        fisher install fisherman/spin
+        fisher install halostatue/fish-direnv
+        fisher install laughedelic/pisces
+        fisher install oh-my-fish/plugin-bang-bang
+        fisher install oh-my-fish/plugin-expand
+        fisher install tuvistavie/fish-fastdir
+        fisher install z11i/github-copilot-cli.fish
+        fisher install joseluisq/gitnow
+        fisher install ilancosman/tide@v6
 
-# zoxide (safety net if not in brew.formula)
-if ! command_exists zoxide; then
-    brew install zoxide || true
-fi
-
-# yadm: install and clone/pull dotfiles (robust for fresh/rerun)
-if ! command_exists yadm; then
-    echo "Installing yadm..."
-    brew install yadm || true
-fi
-
-if [ -d "$HOME/.local/share/yadm/repo.git" ]; then
-    echo "Dotfiles repo exists, pulling latest..."
-    yadm pull
-else
-    echo "Cloning dotfiles with yadm (HTTPS)..."
-    yadm clone https://github.com/markshields/dotfiles.git
+        fisher update
+    " || echo "Some Fisher operations had issues, continuing..."
 fi
 
 # Post-clone/pull setup
 echo "Post-clone/pull setup..."
-fish -c "type -q zoxide && zoxide init fish | source; fisher update || true"
-
-if [[ ! -f "$HOME/.gitconfig" ]] && [[ ! -d "$HOME/.config/fish" ]]; then
-    echo "Cloning dotfiles with yadm..."
-    yadm clone git@github.com:markshields/dotfiles.git
-else
-    echo "Dotfiles already present, pulling latest..."
-    yadm pull
+if command -v fish >/dev/null 2>&1; then
+    fish -c "if functions -q zoxide; zoxide init fish | source; end; if functions -q fisher; fisher update; end || true"
 fi
 
 # Post-clone: init zoxide + fisher update
 echo "Post-clone setup..."
-fish -c "zoxide init fish | source; fisher update || true"
+if command -v fish >/dev/null 2>&1; then
+    fish -c "zoxide init fish | source; if functions -q fisher; fisher update; end || true"
+fi
 
 # --- Keep your other tool installs below (unchanged/active ones) ---
 # krew
