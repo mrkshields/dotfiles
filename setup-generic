@@ -17,12 +17,17 @@ python3 -m pip install --upgrade stormssh || echo "Failed some Python upgrades, 
 # fi
 # vim +PluginInstall +qall || echo "Vim plugins: some issues, continuing..."
 
-# Change shell to Fish
+# # Change default shell to Fish (idempotent — skips if already set)
 if [[ "$SHELL" != */fish ]]; then
     echo "Changing default shell to Fish..."
     FISH_PATH="$(which fish)"
-    sudo grep -q "$FISH_PATH" /etc/shells || echo "$FISH_PATH" | sudo tee -a /etc/shells
+    if ! grep -q "^$FISH_PATH\$" /etc/shells; then
+        echo "Adding Fish to /etc/shells..."
+        echo "$FISH_PATH" | sudo tee -a /etc/shells
+    fi
     sudo chsh -s "$FISH_PATH" "$USER"
+else
+    echo "Default shell is already Fish, skipping..."
 fi
 
 # Install Fisher (Fish plugin manager) — robust bash-compatible version
