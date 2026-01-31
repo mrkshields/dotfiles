@@ -9,7 +9,7 @@ command_exists() {
 # Install pipx if not already available
 if ! command_exists pipx; then
     echo "Installing pipx..."
-    brew install pipx || python3 -m pip install --user pipx
+    brew install pipx
     pipx ensurepath
 fi
 
@@ -59,6 +59,22 @@ if command -v fish >/dev/null 2>&1; then
 fi
 
 # --- Keep your other tool installs below (unchanged/active ones) ---
+
+# --- Vundle (or legacy Vim plugins) ---
+if test -f ~/.vimrc  # or check for your vim config
+    echo "Installing/updating Vundle plugins..."
+
+    # Temporarily unset yadm's git env vars to avoid conflicts
+    set -e GIT_DIR
+    set -e GIT_WORK_TREE
+
+    # Run Vundle's install/clean in non-interactive mode
+    vim +PluginInstall +PluginClean! +qall
+
+    # Optional: If you use Neovim, swap vim for nvim and adjust paths
+    nvim +PlugInstall +qall  # for vim-plug, etc.
+end
+
 # krew
 if ! command_exists kubectl-krew; then
     echo "Installing krew..."
@@ -109,11 +125,6 @@ if [[ ! -f "$HOME/.local/bin/git-prune-branches" ]]; then
     chmod +x "$HOME/.local/bin/git-prune-branches"
 fi
 
-# terraform-config-inspect
-if ! command_exists terraform-config-inspect; then
-    go install github.com/hashicorp/terraform-config-inspect@latest || true
-fi
-
 # Volta
 if ! command_exists volta; then
     curl https://get.volta.sh | bash
@@ -124,9 +135,4 @@ if ! command_exists claude; then
     curl -fsSL claude.ai/install.sh | bash || true
 fi
 
-# Cursor
-if ! command_exists cursor; then
-    curl https://cursor.com/install -fsS | bash || true
-fi
-
-echo "Setup complete! Restart your terminal or run 'exec fish'."
+exec fish

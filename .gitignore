@@ -3,8 +3,6 @@
 .config/fish/fish_variables
 .config/fish/fishd.8cae4cffc40e
 .config/fish/fishd.allanon
-.config/fish/fundle
-.config/fish/fundle/*
 .config/fish/secrets.fish
 .config/tmux/plugins/tmux-logging/.git
 .config/tmux/plugins/tmux-resurrect/.git
