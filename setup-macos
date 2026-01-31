@@ -21,7 +21,7 @@ fi
 echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> "$HOME/.zprofile"
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
-# Install/update all formulae (one file for Silicon)
+# Install/update formulae
 echo "Installing/updating formulae from brew.formula..."
 xargs brew install < brew.formula || true
 
@@ -29,13 +29,12 @@ xargs brew install < brew.formula || true
 echo "Installing/updating casks from brew.casks..."
 xargs brew install --cask < brew.casks || true
 
-# Homebrew autoupdate
+# Homebrew autoupdate (force restart if stuck)
 if ! brew tap | grep -q "homebrew/autoupdate"; then
-    brew tap homebrew/autoupdate || true
+    brew tap homebrew/autoupdate
 fi
-if ! brew autoupdate status | grep -q "Autoupdate is enabled"; then
-    brew autoupdate start || true
-fi
+brew autoupdate delete 2>/dev/null || true
+brew autoupdate start
 
 # instrumenta tap (if still needed)
 if ! brew tap | grep -q "instrumenta/instrumenta"; then

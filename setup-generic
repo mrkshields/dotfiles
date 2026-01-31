@@ -72,11 +72,23 @@ if ! command_exists zoxide; then
     brew install zoxide || true
 fi
 
-# yadm: install and clone/pull dotfiles
+# yadm: install and clone/pull dotfiles (robust for fresh/rerun)
 if ! command_exists yadm; then
     echo "Installing yadm..."
     brew install yadm || true
 fi
+
+if [ -d "$HOME/.local/share/yadm/repo.git" ]; then
+    echo "Dotfiles repo exists, pulling latest..."
+    yadm pull
+else
+    echo "Cloning dotfiles with yadm (HTTPS)..."
+    yadm clone https://github.com/markshields/dotfiles.git
+fi
+
+# Post-clone/pull setup
+echo "Post-clone/pull setup..."
+fish -c "type -q zoxide && zoxide init fish | source; fisher update || true"
 
 if [[ ! -f "$HOME/.gitconfig" ]] && [[ ! -d "$HOME/.config/fish" ]]; then
     echo "Cloning dotfiles with yadm..."
