@@ -88,7 +88,7 @@ if ! command -v kubectl-krew 2>/dev/null 2>&1; then
         tar zxvf "${KREW}.tar.gz"
         ./"${KREW}" install krew
     )
-end
+fi
 
 # yadm compatibility: prevent git conflicts during index operations
 set -e GIT_DIR
