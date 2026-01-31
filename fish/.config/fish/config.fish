@@ -30,13 +30,6 @@ eval (/opt/homebrew/bin/brew shellenv)
 
  set -q KREW_ROOT; and set -gx PATH $PATH $KREW_ROOT/.krew/bin; or set -gx PATH $PATH $HOME/.krew/bin
 
-# Powerline config
-if status is-interactive
-    set fish_function_path $fish_function_path /Users/markshields/Library/Python/3.9/lib/python/site-packages/powerline/bindings/fish/powerline-setup.fish
-    source /Users/markshields/Library/Python/3.9/lib/python/site-packages/powerline/bindings/fish/powerline-setup.fish
-    powerline-setup
-end
-
 set -g async_prompt_inherit_variables all
 
 # Secret environment variables and other values
