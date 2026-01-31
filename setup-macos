@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
-# Setup script for macOS systems
-# This script installs and updates tools and configurations on macOS
+# Setup script for macOS systems (modernized for yadm + zoxide)
+
+set -euo pipefail
 
 # Function to check if a command exists
 command_exists() {
@@ -16,64 +17,40 @@ else
     brew update
 fi
 
-echo >> $HOME/.zprofile
-    echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> /Users/mark/.zprofile
-    eval "$(/opt/homebrew/bin/brew shellenv)"
+# Properly activate Homebrew in current session and .zprofile
+echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> "$HOME/.zprofile"
+eval "$(/opt/homebrew/bin/brew shellenv)"
 
-# Install or update formulae from brew.formula
+# Install/update formulae (universal)
 echo "Installing/updating formulae from brew.formula..."
-while IFS= read -r formula; do
-    if brew list --formula | grep -q "$formula"; then
-        echo "$formula is already installed, skipping..."
-    else
-        echo "Installing $formula..."
-        arch -arm64 brew install --formula "$formula" || echo "Failed to install $formula"
-    fi
-done < brew.formula
+xargs brew install < brew.formula || true
 
-# Install or update formulae from brew-arm64.formula
-echo "Installing/updating formulae from brew-arm64.formula..."
-while IFS= read -r formula; do
-    if brew list --formula | grep -q "$formula"; then
-        echo "$formula is already installed, skipping..."
-    else
-        echo "Installing $formula..."
-        arch -arm64 brew install --formula "$formula" || echo "Failed to install $formula"
-    fi
-done < brew-arm64.formula
-
-# Install or update casks from brew.casks
-echo "Installing/updating casks from brew.casks..."
-while IFS= read -r cask; do
-    if brew list --cask | grep -q "$cask"; then
-        echo "$cask is already installed, skipping..."
-    else
-        echo "Installing $cask..."
-        brew install --cask "$cask" || echo "Failed to install $cask"
-    fi
-done < brew.casks
-
-# Setup Homebrew autoupdate tap
-if ! brew tap | grep -q "homebrew/autoupdate"; then
-    echo "Tapping homebrew/autoupdate..."
-    brew tap homebrew/autoupdate
+# Apple Silicon specific formulae
+if [[ "$(uname -m)" == "arm64" ]]; then
+    echo "Installing/updating arm64 formulae from brew-arm64.formula..."
+    xargs arch -arm64 brew install < brew-arm64.formula || true
 fi
 
-# Start autoupdate if not already started
+# Install/update casks
+echo "Installing/updating casks from brew.casks..."
+xargs brew install --cask < brew.casks || true
+
+# Homebrew autoupdate
+if ! brew tap | grep -q "homebrew/autoupdate"; then
+    brew tap homebrew/autoupdate
+fi
 if ! brew autoupdate status | grep -q "Autoupdate is enabled"; then
-    echo "Starting Homebrew autoupdate..."
     brew autoupdate start
 fi
 
-# Tap instrumenta/instrumenta if not already tapped
+# instrumenta tap (if you still need it)
 if ! brew tap | grep -q "instrumenta/instrumenta"; then
-    echo "Tapping instrumenta/instrumenta..."
     brew tap instrumenta/instrumenta
 fi
 
-# Create local bin directory if it doesn't exist
-mkdir -pv $HOME/.local/bin
+# Create local bin
+mkdir -p "$HOME/.local/bin"
 
-# Execute generic setup script
+# Execute generic setup
 echo "Executing generic setup script..."
 exec ./setup-generic
