@@ -107,24 +107,6 @@ kubectl-krew install ctx ns ingress-nginx minio neat konfig cert-manager sniff
 # Optional: Clean up the temp override (harmless to leave, but tidy)
 set -e PIP_BREAK_SYSTEM_PACKAGES
 
-# gcpdiag
-if ! command_exists gcpdiag; then
-    curl https://gcpdiag.dev/gcpdiag.sh -o "$HOME/.local/bin/gcpdiag"
-    chmod +x "$HOME/.local/bin/gcpdiag"
-fi
-
-# asciicast2movie
-if ! python3 -c "import asciicast2movie" 2>/dev/null; then
-    python3 -m pip install asciicast2movie || true
-fi
-
-# git-prune-branches script
-if [[ ! -f "$HOME/.local/bin/git-prune-branches" ]]; then
-    mkdir -p "$HOME/.local/bin"
-    echo -e "#!/usr/bin/env bash\nset -euxo pipefail\ngit branch --merged | grep -v '*' | xargs git branch -d || true" > "$HOME/.local/bin/git-prune-branches"
-    chmod +x "$HOME/.local/bin/git-prune-branches"
-fi
-
 # Volta
 if ! command_exists volta; then
     curl https://get.volta.sh | bash
