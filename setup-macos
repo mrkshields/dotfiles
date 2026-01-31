@@ -31,7 +31,7 @@ xargs brew install --cask < brew.casks || true
 
 # Homebrew autoupdate
 if ! brew tap | grep -q "homebrew/autoupdate"; then
-    brew tap homebrew/autoupdate
+    brew tap homebrew/autoupdate || true
 fi
 if ! brew autoupdate status | grep -q "Autoupdate is enabled"; then
     brew autoupdate start
