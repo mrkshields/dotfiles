@@ -38,6 +38,7 @@ set -g async_prompt_inherit_variables all
 #set -x GITHUB_TOKEN (keychain-environment-variable GITHUB_TOKEN)
 set -x HOMEBRIDGE_NEST_SDM_AUTH_URL (keychain-environment-variable HOMEBRIDGE_NEST_SDM_AUTH_URL 2>/dev/null)
 set -x GOPRIVATE (keychain-environment-variable GOPRIVATE 2>/dev/null)
+set -x OPENCLAW_GATEWAY_PASSWORD (keychain-environment-variable OPENCLAW_GATEWAY_PASSWORD 2>/dev/null)
 
 # Environment variables
 #set -x DOCKER_HOST ssh://mark@shannara
@@ -402,3 +403,12 @@ if not set -q tide_left_prompt_items
     set -U tide_zig_color 000000
     set -U tide_zig_icon 
 end
+
+# OpenClaw Completion
+openclaw completion --shell fish | source
+set -gx ELEVENLABS_API_KEY "sk_c345d7b7627d85a9c0d49cb4a30f55858ef3542015509ae1"
+set -gx ELEVENLABS_VOICE_ID "XrExE9yKIg1WjnnlVkGX"
+
+# Added by OrbStack: command-line tools and integration
+# This won't be added again if you remove it.
+source ~/.orbstack/shell/init2.fish 2>/dev/null || :
