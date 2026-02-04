@@ -10,6 +10,8 @@ repos:
       - id: end-of-file-fixer
       - id: check-yaml
       - id: check-added-large-files
+      - id: check-executables-have-shebangs
+      - id: check-shebang-scripts-are-executable
   - repo: https://github.com/compilerla/conventional-pre-commit
     rev: v4.2.0
     hooks:
@@ -24,3 +26,30 @@ repos:
     rev: v8.28.0
     hooks:
       - id: gitleaks
+  - repo: https://github.com/adrienverge/yamllint
+    rev: v1.35.1
+    hooks:
+      - id: yamllint
+        args: ['-c', 'linters/.yamllint']
+  - repo: https://github.com/shellcheck-py/shellcheck-py
+    rev: v0.10.0.1
+    hooks:
+      - id: shellcheck
+        files: ^setup-.*$|\.sh$
+        args: ['--severity=warning']
+  - repo: https://github.com/fish-shop/syntax-check
+    rev: v1.6.0
+    hooks:
+      - id: syntax-check
+        files: \.fish$
+  - repo: https://github.com/PyCQA/flake8
+    rev: 7.1.1
+    hooks:
+      - id: flake8
+        args: ['--config=linters/.config/flake8']
+        files: \.py$
+  - repo: https://github.com/daveparsonsdev/pre-commit-vint
+    rev: master
+    hooks:
+      - id: vint
+        files: \.vim$|vimrc$

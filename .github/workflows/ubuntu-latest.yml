@@ -1,16 +1,17 @@
 name: validate-dotfiles
-on: [push]
+on: [push, pull_request]
+
 jobs:
-  fish-syntax-check:
+  pre-commit:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: fish-actions/install-fish@v1.1.0
-      - run: fish -n fish/.config/fish/config.fish
-  vimlint:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
-      - run: npm install vimlint --save
-      - run: ./node_modules/vimlint/bin/vimlint vim/.vimrc
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.14'
+      - name: Cache pre-commit environments
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pre-commit
+          key: pre-commit-${{ hashFiles('.pre-commit-config.yaml') }}
+      - uses: pre-commit/action@v3.0.1
