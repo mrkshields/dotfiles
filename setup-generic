@@ -6,7 +6,7 @@ if ! command -v pipx >/dev/null 2>&1; then
     echo "Installing pipx..."
     brew install pipx
     pipx ensurepath
-    set -gx PATH "$HOME/.local/bin" $PATH  # Add manually once, or add to fish config permanently
+    export PATH="$HOME/.local/bin:$PATH"  # Add manually once, or add to fish config permanently
 fi
 
 # Upgrade/install Python CLI tools with pipx
@@ -76,9 +76,9 @@ if ! command -v kubectl-krew 2>/dev/null 2>&1; then
     (
         set -x
         cd "$(mktemp -d)"
-        set OS=$(uname | tr '[:upper:]' '[:lower:]')
-        set ARCH=$(uname -m | sed -e 's/x86_64/amd64/' -e 's/\(arm\)\(64\)\?.*/\1\2/' -e 's/aarch64$/arm64/')
-        set KREW "krew-${OS}_${ARCH}"
+        OS="$(uname | tr '[:upper:]' '[:lower:]')"
+        ARCH="$(uname -m | sed -e 's/x86_64/amd64/' -e 's/\(arm\)\(64\)\?.*/\1\2/' -e 's/aarch64$/arm64/')"
+        KREW="krew-${OS}_${ARCH}"
         curl -fsSLO "https://github.com/kubernetes-sigs/krew/releases/latest/download/${KREW}.tar.gz"
         tar zxvf "${KREW}.tar.gz"
         ./"${KREW}" install krew

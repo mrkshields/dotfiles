@@ -1,8 +1,19 @@
+# Pre-commit hooks - Modernized for 2026
+# Using ruff for Python (replaces flake8, isort, black, pyupgrade, etc.)
+
 default_install_hook_types:
   - pre-commit
   - commit-msg
 
+# Global excludes for third-party/generated files
+exclude: |
+  (?x)^(
+    .*__bass\.py$|                    # bass plugin (third-party)
+    .*/ipython_config\.py$            # IPython generated config
+  )$
+
 repos:
+  # Standard pre-commit hooks
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v5.0.0
     hooks:
@@ -10,17 +21,60 @@ repos:
       - id: end-of-file-fixer
       - id: check-yaml
       - id: check-added-large-files
+      - id: check-executables-have-shebangs
+      - id: check-shebang-scripts-are-executable
+      - id: check-merge-conflict
+      - id: check-json
+      - id: check-toml
+
+  # Conventional commits
   - repo: https://github.com/compilerla/conventional-pre-commit
     rev: v4.2.0
     hooks:
       - id: conventional-pre-commit
         stages: [commit-msg]
+
+  # Markdown linting
   - repo: https://github.com/igorshubovych/markdownlint-cli
     rev: v0.45.0
     hooks:
       - id: markdownlint
         files: \.(md|markdown)$
+
+  # Secret scanning
   - repo: https://github.com/gitleaks/gitleaks
     rev: v8.28.0
     hooks:
       - id: gitleaks
+
+  # YAML linting
+  - repo: https://github.com/adrienverge/yamllint
+    rev: v1.35.1
+    hooks:
+      - id: yamllint
+        args: ['-c', 'linters/.yamllint']
+
+  # Shell script validation
+  - repo: https://github.com/shellcheck-py/shellcheck-py
+    rev: v0.10.0.1
+    hooks:
+      - id: shellcheck
+        files: ^setup-.*$|\.sh$
+        args: ['--severity=warning']
+
+  # Fish syntax checking (local hook)
+  - repo: local
+    hooks:
+      - id: fish-syntax-check
+        name: fish syntax check
+        entry: fish --no-execute
+        language: system
+        files: \.fish$
+
+  # Ruff - Modern Python linter & formatter (replaces flake8, isort, black, pyupgrade)
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.15.0
+    hooks:
+      - id: ruff
+        args: ['--fix']
+      - id: ruff-format
