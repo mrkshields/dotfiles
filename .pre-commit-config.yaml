@@ -37,10 +37,13 @@ repos:
       - id: shellcheck
         files: ^setup-.*$|\.sh$
         args: ['--severity=warning']
-  - repo: https://github.com/fish-shop/syntax-check
-    rev: v1.6.0
+  # Fish syntax checking via local hook (fish-shop/syntax-check is a GitHub Action, not pre-commit)
+  - repo: local
     hooks:
-      - id: syntax-check
+      - id: fish-syntax-check
+        name: fish syntax check
+        entry: fish --no-execute
+        language: system
         files: \.fish$
   - repo: https://github.com/PyCQA/flake8
     rev: 7.1.1
@@ -48,8 +51,12 @@ repos:
       - id: flake8
         args: ['--config=linters/.config/flake8']
         files: \.py$
-  - repo: https://github.com/daveparsonsdev/pre-commit-vint
-    rev: master
+  # Vim linting via local hook (vint needs pip install)
+  - repo: local
     hooks:
       - id: vint
+        name: vint (vim linter)
+        entry: vint
+        language: python
+        additional_dependencies: ['vim-vint']
         files: \.vim$|vimrc$
