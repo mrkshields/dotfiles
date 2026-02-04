@@ -16,12 +16,14 @@ Run `./setup-macos`
 This repository uses [pre-commit](https://pre-commit.com/) to validate changes.
 
 ### Setup
+
 ```bash
 pip install pre-commit
 pre-commit install
 ```
 
 ### Usage
+
 ```bash
 # Run all hooks on all files
 pre-commit run --all-files
@@ -31,6 +33,7 @@ pre-commit run
 ```
 
 ### Configured Hooks
+
 - Shell script validation (shellcheck)
 - Fish syntax checking
 - Python linting & formatting (ruff)
