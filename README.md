@@ -33,10 +33,10 @@ pre-commit run
 ### Configured Hooks
 - Shell script validation (shellcheck)
 - Fish syntax checking
-- Python linting (flake8)
+- Python linting & formatting (ruff)
 - YAML linting (yamllint)
-- Markdown linting
-- Vim script linting
+- Markdown linting (markdownlint)
+- JSON/TOML validation
 - Trailing whitespace/EOF fixes
 - Secret detection (gitleaks)
 - Conventional commit messages
